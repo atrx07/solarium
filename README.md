@@ -41,6 +41,17 @@ The Atrium has grown a sixth anomaly.
 
 It is a numerical wave system, not a particle effect.
 
+## 005 / REACTION
+
+The Atrium has grown a seventh anomaly.
+
+- **VII · Reaction** — two virtual chemicals diffuse and consume each other until spots, cells, worms, coral-like fronts, and other structures emerge.
+- Click to inject reagent.
+- Hold and drag to paint more chemistry.
+- Press **M** to change climate, **R** to sterilize, and **Space** to freeze evolution.
+
+The pattern is generated locally from the equations. Nothing is prerecorded.
+
 ## Run it
 
 ```bash
