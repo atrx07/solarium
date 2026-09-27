@@ -303,6 +303,11 @@ function seedBodies(): void {
 function updateBodies(dt: number): void {
   if (paused) return;
 
+  // requestAnimationFrame gives us milliseconds. The orbital velocities and
+  // accelerations below are expressed per second, so integrate in seconds.
+  // Clamp unusually long frames so returning to a backgrounded tab does not
+  // catapult the whole system into deep space.
+  const dtSeconds = Math.min(dt, 32) / 1000;
   const G = 45;
   const accelerations = bodies.map(() => ({ x: 0, y: 0 }));
 
@@ -323,10 +328,10 @@ function updateBodies(dt: number): void {
   }
 
   bodies.forEach((body, index) => {
-    body.vx += accelerations[index].x * dt;
-    body.vy += accelerations[index].y * dt;
-    body.x += body.vx * dt;
-    body.y += body.vy * dt;
+    body.vx += accelerations[index].x * dtSeconds;
+    body.vy += accelerations[index].y * dtSeconds;
+    body.x += body.vx * dtSeconds;
+    body.y += body.vy * dtSeconds;
     body.trail.push({ x: body.x, y: body.y });
     if (body.trail.length > 72) body.trail.shift();
   });
