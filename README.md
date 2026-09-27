@@ -17,6 +17,14 @@ The first release contains four spaces:
 
 Nothing leaves the browser. Resonance audio is synthesized locally. Visits are remembered only with `localStorage`.
 
+## 002 / MURMURATION
+
+The Atrium has grown a fourth anomaly.
+
+- **IV · Murmuration** — a leaderless flock of small creatures. Move gently and they treat you like a landmark. Hold and they scatter. Click and a pressure wave passes through the population.
+
+There is no score and no objective. The flock is the event.
+
 ## Run it
 
 ```bash

@@ -60,7 +60,7 @@ Do not refactor into this structure merely for aesthetics. Split when it materia
 
 The current room identity is represented by a small union:
 
-`atrium | gravitas | bloom | resonance`
+`atrium | gravitas | bloom | resonance | murmuration`
 
 The Atrium acts as the central navigation layer.
 
@@ -103,6 +103,25 @@ Vertical position affects decay.
 Audio is generated locally and is not recorded or uploaded.
 
 Browser autoplay rules mean the room must be awakened by explicit user interaction.
+
+## Murmuration
+
+Murmuration is a browser-local boid simulation.
+
+Each creature combines:
+
+- local alignment with nearby neighbors,
+- cohesion toward a local center,
+- short-range separation,
+- edge steering,
+- low-amplitude ambient drift,
+- visitor influence.
+
+Pointer movement acts as a weak landmark/attractor. Holding the pointer turns the visitor into a repulsive threat. Clicking creates an expanding shock pulse and gives nearby boids an outward impulse.
+
+There is no leader object and no scripted formation. The visible flock emerges from local rules.
+
+The simulation uses a bounded flock size and pairwise neighbor checks. Keep counts conservative enough for mobile devices before considering spatial partitioning.
 
 ## Deployment
 

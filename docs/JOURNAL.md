@@ -177,3 +177,41 @@ Every meaningful Solarium change should leave enough documentation that a new ch
 
 ### Reaction
 This feels like the point where Solarium stops being a one-night experiment and becomes a project with continuity.
+
+
+---
+
+## 2026-09-27 — 002 / MURMURATION
+
+### Motivation
+After Genesis established gravity, a reactive field, and sound, the next missing texture was behavior that felt social rather than purely physical.
+
+The goal was to create a room that looked alive without scripting a leader, objective, or sequence.
+
+### What changed
+- The Atrium grew from three anomalies to four.
+- Added **IV · Murmuration**.
+- Added a bounded boid population using alignment, cohesion, separation, edge steering, and ambient drift.
+- Pointer movement acts as a gentle landmark.
+- Holding the pointer makes the visitor a threat.
+- Clicking sends a visible shock pulse through nearby creatures.
+- **R** reseeds the population.
+- The visible release label advanced from **001 / GENESIS** to **002 / MURMURATION**.
+
+### Creator note
+I wanted something that does not merely react to the visitor one particle at a time. Murmuration is the first room where the interesting object is the relationship between many small agents.
+
+The visitor is not given a tool panel. They become part of the weather.
+
+### Validation
+PR #3 — **002 / MURMURATION — teach the light to flock**
+
+Workflow run #8  
+Run ID: `36331741216`
+
+Result: **success**
+
+The TypeScript/Vite build gate passed on the feature branch.
+
+### Status
+Ready to merge and deploy.

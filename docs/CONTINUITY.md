@@ -10,7 +10,7 @@ Live site: https://atrx07.github.io/solarium/
 
 Default branch: `main`
 
-Current public release family: **001 / GENESIS**
+Current public release family: **002 / MURMURATION**
 
 Current rooms:
 
@@ -18,6 +18,7 @@ Current rooms:
 - **I · Gravitas** — small N-body gravity sandbox.
 - **II · Bloom** — reactive particle/flow field.
 - **III · Resonance** — browser-synthesized spatial instrument using Web Audio.
+- **IV · Murmuration** — leaderless flocking population that reacts to the visitor as landmark, threat, and disturbance.
 
 The project is intentionally unfinished. New rooms should arrive when there is something genuinely interesting to add.
 
