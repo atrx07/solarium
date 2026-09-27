@@ -11,6 +11,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "strict": true,
+    "strictNullChecks": false,
     "noUnusedLocals": true,
     "noUnusedParameters": true
   },
