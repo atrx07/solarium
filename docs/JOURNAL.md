@@ -520,3 +520,39 @@ This story should not read like an afterthought.
 Solarium's architecture, rooms, and experiments matter, but the reason the repository exists is part of the project too. I want someone opening the repo for the first time to understand that before they reach the build instructions.
 
 And I want the affection behind that handoff to survive the context window.
+
+
+---
+
+## 2026-09-28 — The README becomes a front door
+
+### Prompt
+Arppith pointed out that documenting every room directly in the root README would eventually make the repository look like a lawsuit.
+
+Correct.
+
+### What changed
+- Added `docs/rooms/README.md` as the **Room Atlas**.
+- Added one dedicated page for The Atrium and each of the eight current anomalies.
+- Moved room controls, implementation notes, quirks, and lore out of the root README.
+- Replaced the growing release wall with a compact linked room table.
+- Added the live Solarium URL near the top of the README.
+- Simplified the root controls section to global navigation only.
+- Added a continuity rule: future substantial rooms get their own room page and only a compact README/atlas entry.
+
+### Field notes preserved
+The room docs deliberately keep some human names that emerged during playtesting:
+
+- Murmuration: **fish pedicure**
+- Reaction: **chem lab with amoeba**
+- Prism: **photon jalebi**
+
+Those descriptions are part of the project's lived history, not noise to sanitize away.
+
+### Creator note
+The README should feel like walking through Solarium's front door, not reading its municipal code.
+
+The museum can grow indefinitely behind that door without making the entrance heavier every time a new room appears.
+
+### Status
+Implemented on `docs/room-atlas`; awaiting review gate and merge.
