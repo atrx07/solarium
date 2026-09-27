@@ -241,7 +241,7 @@ export const murmurationRoom: RoomModule = {
     drawMurmuration(stage, dt);
   },
 
-  click({ stage }, x, y): void {
+  click(_env, x, y): void {
     addShock(x, y);
   },
 
