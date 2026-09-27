@@ -60,7 +60,7 @@ Do not refactor into this structure merely for aesthetics. Split when it materia
 
 The current room identity is represented by a small union:
 
-`atrium | gravitas | bloom | resonance | murmuration | mycelium`
+`atrium | gravitas | bloom | resonance | murmuration | mycelium | tides`
 
 The Atrium acts as the central navigation layer.
 
@@ -143,9 +143,26 @@ Segments are capped to keep rendering bounded. Active tips are also capped. If e
 
 The visual system intentionally draws many faint generations rather than a few thick branches so the colony reads more like veins, roots, or fungal hyphae than a tree.
 
-## Structural note
+## Tides
 
-`src/main.ts` now contains five rooms plus the Atrium and is approaching the point where room extraction will materially improve maintainability. The next substantial architectural pass should separate room implementations without changing their behavior. Do not perform that refactor casually during a visual hotfix.
+Tides is the first room implemented as its own module: `src/rooms/tides.ts`.
+
+It uses a bounded two-buffer wave simulation with a fixed 60 Hz integration step. Each cell is updated from its four direct neighbors and the previous field state, producing propagating waves that naturally interfere.
+
+Visitor input maps to disturbances:
+- click: stronger localized impulse,
+- hold/drag: repeated lighter impulses,
+- **R**: reset the field.
+
+The field renders through a low-resolution offscreen canvas that is scaled to the viewport. This keeps the numerical grid reasonably small while producing a continuous surface.
+
+## Structural direction
+
+Solarium has crossed the point where adding every room to `src/main.ts` is healthy.
+
+Starting with Tides, substantial new rooms should prefer isolated modules under `src/rooms/`.
+
+Existing Genesis-era rooms do not need to be migrated immediately. Extract them when doing so materially improves the work at hand, and avoid mixing broad refactors into urgent visual or physics fixes.
 
 ## Deployment
 

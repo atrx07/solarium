@@ -1,6 +1,14 @@
 import "./style.css";
+import { TideField } from "./rooms/tides";
 
-type Room = "atrium" | "gravitas" | "bloom" | "resonance" | "murmuration" | "mycelium";
+type Room =
+  | "atrium"
+  | "gravitas"
+  | "bloom"
+  | "resonance"
+  | "murmuration"
+  | "mycelium"
+  | "tides";
 
 type Point = {
   x: number;
@@ -68,13 +76,13 @@ if (!app) throw new Error("Solarium could not find its mount point.");
 app.innerHTML = `
   <canvas id="stage" aria-label="Interactive Solarium canvas"></canvas>
   <div class="shell">
-    <div class="brand"><strong>SOLARIUM</strong><span>003 / MYCELIUM</span></div>
+    <div class="brand"><strong>SOLARIUM</strong><span>004 / TIDES</span></div>
     <section class="room-meta" aria-live="polite">
       <h1 id="room-title">The Atrium</h1>
-      <p id="room-copy">Five quiet anomalies are orbiting the light. Pick one.</p>
+      <p id="room-copy">Six quiet anomalies are orbiting the light. Pick one.</p>
     </section>
     <button class="back" id="back" type="button" hidden>← Atrium</button>
-    <div class="hint" id="hint">move slowly · click an orbiting anomaly · keys 1 2 3 4 5</div>
+    <div class="hint" id="hint">move slowly · click an orbiting anomaly · keys 1 2 3 4 5 6</div>
     <div class="status" id="status">local / awake</div>
   </div>
 `;
@@ -111,6 +119,7 @@ let hyphaTips: HyphaTip[] = [];
 let resonanceUnlocked = false;
 let audioContext: AudioContext | null = null;
 let masterGain: GainNode | null = null;
+const tides = new TideField();
 
 const visited = new Set<Room>(
   ((localStorage.getItem("solarium.visited") ?? "")
@@ -121,8 +130,8 @@ const visited = new Set<Room>(
 const roomInfo: Record<Room, { title: string; copy: string; hint: string }> = {
   atrium: {
     title: "The Atrium",
-    copy: "Five quiet anomalies are orbiting the light. Pick one.",
-    hint: "move slowly · click an orbiting anomaly · keys 1 2 3 4 5",
+    copy: "Six quiet anomalies are orbiting the light. Pick one.",
+    hint: "move slowly · click an orbiting anomaly · keys 1 2 3 4 5 6",
   },
   gravitas: {
     title: "I · Gravitas",
@@ -148,6 +157,11 @@ const roomInfo: Record<Room, { title: string; copy: string; hint: string }> = {
     title: "V · Mycelium",
     copy: "A colony that grows without asking. Hover and it notices. Hold and you become food.",
     hint: "move to bend growth · hold to feed · click plants a spore · R regrows",
+  },
+  tides: {
+    title: "VI · Tides",
+    copy: "Every disturbance survives just long enough to meet the others.",
+    hint: "click drops a stone · hold and drag makes rain · R stills the field",
   },
 };
 
@@ -194,6 +208,7 @@ function resize(): void {
   if (bodies.length === 0) seedBodies();
   if (flock.length === 0) seedFlock();
   if (hyphaTips.length === 0 && hyphae.length === 0) seedMycelium();
+  tides.resize(width, height);
 }
 
 function clear(color = "#050509"): void {
@@ -234,7 +249,14 @@ function orbitNodes(): Array<{ room: Exclude<Room, "atrium">; x: number; y: numb
   const cy = height / 2;
   const orbit = Math.min(width, height) * 0.28;
   const angle = time * 0.00012;
-  const rooms: Array<Exclude<Room, "atrium">> = ["gravitas", "bloom", "resonance", "murmuration", "mycelium"];
+  const rooms: Array<Exclude<Room, "atrium">> = [
+    "gravitas",
+    "bloom",
+    "resonance",
+    "murmuration",
+    "mycelium",
+    "tides",
+  ];
 
   return rooms.map((target, index) => {
     const a = angle + index * (TAU / rooms.length) - Math.PI / 2;
@@ -1078,6 +1100,7 @@ function handleCanvasClick(x: number, y: number): void {
   if (room === "resonance") playTone(x, y);
   if (room === "murmuration") addShock(x, y);
   if (room === "mycelium") plantSpore(x, y);
+  if (room === "tides") tides.disturb(x, y, 2.6, 4);
 }
 
 function pointFromEvent(event: PointerEvent): Point {
@@ -1127,6 +1150,7 @@ window.addEventListener("keydown", (event) => {
     if (event.key === "3") enterRoom("resonance");
     if (event.key === "4") enterRoom("murmuration");
     if (event.key === "5") enterRoom("mycelium");
+    if (event.key === "6") enterRoom("tides");
   }
 
   if (room === "gravitas") {
@@ -1156,6 +1180,11 @@ window.addEventListener("keydown", (event) => {
     seedMycelium();
     setStatus("colony / regrown");
   }
+
+  if (room === "tides" && event.key.toLowerCase() === "r") {
+    tides.reset();
+    setStatus("field / still");
+  }
 });
 
 window.addEventListener("resize", resize);
@@ -1172,6 +1201,7 @@ function frame(now: number): void {
   if (room === "resonance") drawResonance(dt);
   if (room === "murmuration") drawMurmuration(dt);
   if (room === "mycelium") drawMycelium(dt);
+  if (room === "tides") tides.draw(ctx, pointer, time, dt);
 
   requestAnimationFrame(frame);
 }

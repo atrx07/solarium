@@ -27,11 +27,19 @@ There is no score and no objective. The flock is the event.
 
 ## 003 / MYCELIUM
 
-The Atrium has grown a fifth anomaly.
+The Atrium grew a fifth anomaly.
 
 - **V · Mycelium** — a branching colony that never waits for instructions. Hover and it bends toward you. Hold and you become food. Click and you plant a new colony.
 
 The network keeps growing even when you do nothing.
+
+## 004 / TIDES
+
+The Atrium has grown a sixth anomaly.
+
+- **VI · Tides** — a local wave field. Click to drop a stone. Hold and drag to make rain. Disturbances spread, overlap, cancel, and amplify.
+
+It is a numerical wave system, not a particle effect.
 
 ## Run it
 
