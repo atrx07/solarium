@@ -330,3 +330,38 @@ Build, Pages configuration, artifact upload, and deployment all passed.
 
 ### Status
 **Live.**
+
+
+---
+
+## 2026-09-27 — The modular migration
+
+### Why now
+By 004 / TIDES, `src/main.ts` had reached **1,213 lines** and contained the Atrium plus five older room implementations, while Tides had already demonstrated that a room could live cleanly in its own module.
+
+At this point modularization was no longer speculative architecture. The file had become a real maintenance cost.
+
+### What changed
+- Added `src/core/stage.ts` for shared canvas state, pointer state, stars, glow drawing, coordinate conversion, and small math helpers.
+- Added `src/core/room.ts` for the room contract and environment types.
+- Extracted **The Atrium** to `src/rooms/atrium.ts`.
+- Extracted **Gravitas** to `src/rooms/gravitas.ts`.
+- Extracted **Bloom** to `src/rooms/bloom.ts`.
+- Extracted **Resonance** to `src/rooms/resonance.ts`.
+- Extracted **Murmuration** to `src/rooms/murmuration.ts`.
+- Extracted **Mycelium** to `src/rooms/mycelium.ts`.
+- Wrapped **Tides** behind the same room contract.
+- Reduced `src/main.ts` from **1,213 lines to 176 lines**.
+
+### Constraint
+This is intentionally a behavior-preserving migration.
+
+No room is supposed to gain or lose controls, visual behavior, simulation rules, audio behavior, or visitor semantics because of this refactor.
+
+### Creator note
+This is the architecture Solarium should have grown into once it became clear the museum was going to keep expanding.
+
+The useful lesson is not "everything should have been modular on commit one." Genesis was small enough to discover the shape first. The mistake would have been continuing to pretend the god-file was fine after the shape became obvious.
+
+### Status
+Implementation complete on `solarium/modular-migration`; awaiting CI and merge.

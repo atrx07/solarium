@@ -34,27 +34,47 @@ Styles:
 
 `src/style.css`
 
-The current implementation keeps the Genesis rooms in one TypeScript entry file. This is acceptable at the current scale, but future growth should split rooms into isolated modules once the single file becomes harder to reason about.
+## Source layout
 
-A likely future shape:
+Solarium now uses an explicit room-module architecture:
 
 ```
 src/
   core/
+    room.ts
     stage.ts
-    input.ts
-    audio.ts
-    navigation.ts
   rooms/
     atrium.ts
     gravitas.ts
     bloom.ts
     resonance.ts
-    ...
+    murmuration.ts
+    mycelium.ts
+    tides.ts
+    tides-room.ts
   main.ts
+  style.css
 ```
 
-Do not refactor into this structure merely for aesthetics. Split when it materially improves maintainability.
+`src/main.ts` is intentionally an orchestrator. It owns:
+
+- DOM shell creation,
+- room registration,
+- navigation,
+- pointer and keyboard routing,
+- resize routing,
+- the animation loop,
+- local visit persistence.
+
+It does **not** own room physics, room simulation state, or room rendering.
+
+`src/core/stage.ts` owns shared canvas state, pointer state, star-field rendering, glow rendering, coordinate conversion, and small math helpers.
+
+`src/core/room.ts` defines the room contract and shared room/environment types.
+
+Each room owns its own simulation state and behavior under `src/rooms/`.
+
+Tides keeps its numerical field implementation in `tides.ts` and exposes the standard room interface through `tides-room.ts`.
 
 ## Room model
 
@@ -158,11 +178,13 @@ The field renders through a low-resolution offscreen canvas that is scaled to th
 
 ## Structural direction
 
-Solarium has crossed the point where adding every room to `src/main.ts` is healthy.
+The modular migration is complete.
 
-Starting with Tides, substantial new rooms should prefer isolated modules under `src/rooms/`.
+New rooms should implement the shared `RoomModule` contract under `src/rooms/`. Shared rendering/input primitives belong in `src/core/` only when they are genuinely used across rooms.
 
-Existing Genesis-era rooms do not need to be migrated immediately. Extract them when doing so materially improves the work at hand, and avoid mixing broad refactors into urgent visual or physics fixes.
+Do not put room-specific state back into `src/main.ts`.
+
+Prefer small room-owned modules over a speculative framework. The current contract is intentionally narrow: enter, resize, draw, click, and key hooks.
 
 ## Deployment
 
