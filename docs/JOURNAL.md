@@ -308,5 +308,25 @@ I wanted something that could become beautiful from two or three simple gestures
 
 Tides also marks the moment Solarium's architecture starts growing with the museum instead of merely tolerating it.
 
+### Validation
+PR #5 — **004 / TIDES — disturb the surface**
+
+Workflow run #15  
+Run ID: `36333075218`
+
+Result: **success**
+
+The TypeScript/Vite build gate passed on the feature branch.
+
+### Deployment
+Main release commit: `aa26ebb` — **004 / TIDES — disturb the surface**
+
+Workflow run #16  
+Run ID: `36333102961`
+
+Result: **success**
+
+Build, Pages configuration, artifact upload, and deployment all passed.
+
 ### Status
-Implementation complete on feature branch `solarium/tides`; awaiting build gate and deployment.
+**Live.**
