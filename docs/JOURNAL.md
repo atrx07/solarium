@@ -386,3 +386,36 @@ Build, Pages configuration, artifact upload, and production deployment all passe
 
 ### Status
 **Live. All rooms modular.**
+
+
+---
+
+## 2026-09-27 — 005 / REACTION
+
+### Motivation
+Solarium already had discrete bodies, particles, sound, flocking, growth, and waves.
+
+The next missing texture was **chemistry**: a system whose structure appears because two substances diffuse and react, not because visible agents chase one another.
+
+### What changed
+- The Atrium grew from six anomalies to seven.
+- Added **VII · Reaction**.
+- Added a Gray–Scott reaction-diffusion field with two chemicals, diffusion, nonlinear reaction, feed, and kill terms.
+- Click injects reagent.
+- Holding and dragging paints reagent continuously.
+- **M** cycles several feed/kill climates with different pattern families.
+- **R** restores a sterile dish with starter colonies.
+- **Space** pauses/resumes the chemistry.
+- The visible release label advanced from **004 / TIDES** to **005 / REACTION**.
+- The Atrium now derives its anomaly count and numeric key hint from registered rooms instead of hardcoding them.
+
+### Architecture
+Reaction was born entirely inside the post-migration room contract. No room-specific simulation state was added back to `src/main.ts`.
+
+### Creator note
+I wanted a room where the visitor can start something and then watch the equations take over.
+
+Reaction is less about controlling the pattern and more about contaminating a system enough for it to surprise you.
+
+### Status
+Implementation complete on `solarium/reaction`; awaiting CI and deployment.
