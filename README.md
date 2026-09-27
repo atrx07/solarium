@@ -52,6 +52,18 @@ The Atrium has grown a seventh anomaly.
 
 The pattern is generated locally from the equations. Nothing is prerecorded.
 
+## 006 / PRISM
+
+The Atrium has grown an eighth anomaly.
+
+- **VIII · Prism** — move the cursor and you become the light source.
+- Rays bend through drifting circular lenses.
+- Click to add glass.
+- Hold to increase refractive density.
+- Press **R** to restore the chamber.
+
+The spectral fringes come from tracing nearby refractive indices, and steep internal angles can reflect instead of escaping.
+
 ## Run it
 
 ```bash

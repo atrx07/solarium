@@ -52,6 +52,8 @@ src/
     mycelium.ts
     tides.ts
     tides-room.ts
+    reaction.ts
+    prism.ts
   main.ts
   style.css
 ```
@@ -80,7 +82,7 @@ Tides keeps its numerical field implementation in `tides.ts` and exposes the sta
 
 The current room identity is represented by a small union:
 
-`atrium | gravitas | bloom | resonance | murmuration | mycelium | tides | reaction`
+`atrium | gravitas | bloom | resonance | murmuration | mycelium | tides | reaction | prism`
 
 The Atrium acts as the central navigation layer.
 
@@ -200,6 +202,24 @@ The visitor injects chemical B into the field:
 - **Space**: pause/resume evolution.
 
 The room renders through an offscreen canvas and scales to the viewport. Different climate presets produce materially different pattern families without changing the underlying equations.
+
+## Prism
+
+Prism is a modular 2D ray-optics room.
+
+The visitor becomes the light source. A fan of rays is traced through a set of circular glass bodies. Each intersection applies a Snell-style refraction step using the current and target refractive indices.
+
+The room also traces three nearby refractive indices per ray so dispersion appears as subtle spectral separation rather than a painted rainbow.
+
+Behavior:
+- pointer movement relocates the emitter,
+- click adds another drifting glass body,
+- hold raises refractive density across the chamber,
+- **R** restores the initial lens arrangement.
+
+When a ray exits sufficiently dense glass beyond the critical angle, the refractor falls back to reflection, producing total internal reflection.
+
+Lens count and bounce count are bounded so the room stays inexpensive enough for browser rendering.
 
 ## Deployment
 

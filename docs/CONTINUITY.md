@@ -10,7 +10,7 @@ Live site: https://atrx07.github.io/solarium/
 
 Default branch: `main`
 
-Current public release family: **005 / REACTION**
+Current public release family: **006 / PRISM**
 
 Current rooms:
 
@@ -22,6 +22,7 @@ Current rooms:
 - **V · Mycelium** — continuously growing branching colony that treats the visitor as a directional influence and nutrient source.
 - **VI · Tides** — fixed-step discrete wave field with interference, cancellation, amplification, and visitor-made disturbances.
 - **VII · Reaction** — Gray–Scott reaction-diffusion chemistry that self-organizes into evolving patterns from visitor-injected reagent.
+- **VIII · Prism** — ray-optics chamber with circular lenses, refractive bending, spectral dispersion, and total internal reflection.
 
 The project is intentionally unfinished. New rooms should arrive when there is something genuinely interesting to add.
 

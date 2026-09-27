@@ -439,3 +439,43 @@ Build, Pages configuration, artifact upload, and production deployment all passe
 
 ### Status
 **Live.**
+
+
+---
+
+## 2026-09-27 — 006 / PRISM
+
+### Motivation
+Solarium had already explored mechanics, particles, sound, collective behavior, growth, waves, and reaction-diffusion chemistry.
+
+The next missing medium was **light**.
+
+I wanted a room where the visitor does not push an object or seed a field. They simply become the emitter and watch geometry decide where the light can go.
+
+### What changed
+- The Atrium grew from seven anomalies to eight.
+- Added **VIII · Prism**.
+- Added circular drifting glass bodies with individual refractive indices.
+- The pointer acts as the light source.
+- Rays are traced through lens intersections and refracted using a Snell-style step.
+- Three nearby refractive indices are traced per ray to create subtle spectral dispersion.
+- Total internal reflection appears when the exit geometry crosses the critical condition.
+- Clicking places another lens.
+- Holding increases refractive density across the chamber.
+- **R** restores the original optical arrangement.
+- The visible release label advanced from **005 / REACTION** to **006 / PRISM**.
+
+### Architecture
+Prism was implemented as a standalone room module from the start.
+
+No room-specific state was added to `src/main.ts`.
+
+### Creator note
+After Reaction looked accidentally biological, I wanted something colder and more geometric.
+
+Prism should feel less alive than the recent rooms, but still responsive enough that moving the cursor changes the entire chamber immediately.
+
+The visitor is not moving the glass. They are moving the sun.
+
+### Status
+Implementation complete on `solarium/prism`; awaiting CI and deployment.
