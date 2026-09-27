@@ -10,7 +10,7 @@ Live site: https://atrx07.github.io/solarium/
 
 Default branch: `main`
 
-Current public release family: **004 / TIDES**
+Current public release family: **005 / REACTION**
 
 Current rooms:
 
@@ -21,6 +21,7 @@ Current rooms:
 - **IV · Murmuration** — leaderless flocking population that reacts to the visitor as landmark, threat, and disturbance.
 - **V · Mycelium** — continuously growing branching colony that treats the visitor as a directional influence and nutrient source.
 - **VI · Tides** — fixed-step discrete wave field with interference, cancellation, amplification, and visitor-made disturbances.
+- **VII · Reaction** — Gray–Scott reaction-diffusion chemistry that self-organizes into evolving patterns from visitor-injected reagent.
 
 The project is intentionally unfinished. New rooms should arrive when there is something genuinely interesting to add.
 

@@ -80,7 +80,7 @@ Tides keeps its numerical field implementation in `tides.ts` and exposes the sta
 
 The current room identity is represented by a small union:
 
-`atrium | gravitas | bloom | resonance | murmuration | mycelium | tides`
+`atrium | gravitas | bloom | resonance | murmuration | mycelium | tides | reaction`
 
 The Atrium acts as the central navigation layer.
 
@@ -185,6 +185,21 @@ New rooms should implement the shared `RoomModule` contract under `src/rooms/`. 
 Do not put room-specific state back into `src/main.ts`.
 
 Prefer small room-owned modules over a speculative framework. The current contract is intentionally narrow: enter, resize, draw, click, and key hooks.
+
+## Reaction
+
+Reaction is a Gray–Scott reaction-diffusion simulation implemented as a standalone room module.
+
+The room keeps two scalar chemical fields, **A** and **B**, on a bounded low-resolution grid. Each simulation step combines diffusion, the nonlinear reaction term `A * B²`, feed, and kill rates.
+
+The visitor injects chemical B into the field:
+- click: stronger local seed,
+- hold/drag: repeated painting,
+- **M**: cycle feed/kill "climates",
+- **R**: restore a sterile dish with a few starter colonies,
+- **Space**: pause/resume evolution.
+
+The room renders through an offscreen canvas and scales to the viewport. Different climate presets produce materially different pattern families without changing the underlying equations.
 
 ## Deployment
 
