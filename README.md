@@ -54,6 +54,19 @@ TypeScript, Vite, Canvas 2D, Web Audio, CSS, and GitHub Pages.
 
 No runtime framework. No runtime dependencies.
 
+## Project memory
+
+Solarium keeps its own continuity notes in the repository so a future chat or agent can recover the project's intent without relying on conversation history.
+
+Start with:
+
+- [AGENTS.md](./AGENTS.md)
+- [Continuity guide](./docs/CONTINUITY.md)
+- [Creative charter](./docs/CHARTER.md)
+- [Origin](./docs/ORIGIN.md)
+- [Architecture](./docs/ARCHITECTURE.md)
+- [Project journal](./docs/JOURNAL.md)
+
 ---
 
 Solarium started because Arppith handed an empty repository to Sol and said, essentially, *go feral.*
