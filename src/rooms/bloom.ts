@@ -117,7 +117,7 @@ export const bloomRoom: RoomModule = {
     drawBloom(stage, dt);
   },
 
-  click({ stage }, x, y): void {
+  click(_env, x, y): void {
     burst(x, y);
   },
 
