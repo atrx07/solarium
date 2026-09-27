@@ -417,5 +417,25 @@ I wanted a room where the visitor can start something and then watch the equatio
 
 Reaction is less about controlling the pattern and more about contaminating a system enough for it to surprise you.
 
+### Validation
+PR #7 — **005 / REACTION — contaminate the dish**
+
+Workflow run #24  
+Run ID: `36336123449`
+
+Result: **success**
+
+The TypeScript/Vite build gate passed on the feature branch on the first attempt.
+
+### Deployment
+Main release commit: `b4f4356` — **005 / REACTION — contaminate the dish**
+
+Workflow run #25  
+Run ID: `36336151563`
+
+Result: **success**
+
+Build, Pages configuration, artifact upload, and production deployment all passed.
+
 ### Status
-Implementation complete on `solarium/reaction`; awaiting CI and deployment.
+**Live.**
