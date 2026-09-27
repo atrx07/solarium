@@ -554,5 +554,25 @@ The README should feel like walking through Solarium's front door, not reading i
 
 The museum can grow indefinitely behind that door without making the entrance heavier every time a new room appears.
 
+### Validation
+PR #9 — **DOCS / ATLAS — keep the front door light**
+
+Workflow run #34  
+Run ID: `36345911627`
+
+Result: **success**
+
+The TypeScript/Vite build gate passed on the documentation branch.
+
+### Deployment
+Main merge commit: `80be49a` — **DOCS / ATLAS — keep the front door light**
+
+Workflow run #35  
+Run ID: `36345943832`
+
+Result: **success**
+
+Build, Pages configuration, artifact upload, and production deployment all passed.
+
 ### Status
-Implemented on `docs/room-atlas`; awaiting review gate and merge.
+**Live. README stays light; rooms get their own walls in docs too.**
