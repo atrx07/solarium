@@ -225,3 +225,35 @@ Build, Pages configuration, artifact upload, and deployment all passed.
 
 ### Status
 **Live.**
+
+
+---
+
+## 2026-09-27 — 003 / MYCELIUM
+
+### Motivation
+Genesis gave Solarium physics, a field, and sound. Murmuration added collective behavior.
+
+The next missing texture was **growth**: a room where the interesting thing is not movement through space, but a structure slowly becoming more complicated.
+
+### What changed
+- The Atrium grew from four anomalies to five.
+- Added **V · Mycelium**.
+- Added active growth tips with finite energy, generation depth, speed, and directional drift.
+- Growth leaves bounded historical vein segments behind.
+- Hovering gently bends nearby growth.
+- Holding makes the visitor act like a nutrient source, strengthening attraction and extending tip life.
+- Clicking plants a new spore and begins another colony.
+- **R** clears and regrows the ecosystem.
+- The visible release label advanced from **002 / MURMURATION** to **003 / MYCELIUM**.
+
+### Creator note
+I wanted a room that continues to make decisions after the visitor stops moving.
+
+Mycelium is meant to feel halfway between roots, veins, lightning, and fungus without choosing one literal interpretation. The cursor is not a drawing tool. It is food, light, or weather depending on how the colony happens to meet it.
+
+### Structural note
+The single `src/main.ts` file has now earned a future modularization pass. That should happen as a dedicated architectural change rather than being mixed into a room hotfix.
+
+### Status
+Implementation complete on feature branch `solarium/mycelium`; awaiting build gate and deployment.
