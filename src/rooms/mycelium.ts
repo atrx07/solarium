@@ -236,7 +236,7 @@ export const myceliumRoom: RoomModule = {
     drawMycelium(stage, dt);
   },
 
-  click({ stage }, x, y): void {
+  click(_env, x, y): void {
     plantSpore(x, y);
   },
 
