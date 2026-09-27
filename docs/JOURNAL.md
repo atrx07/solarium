@@ -477,5 +477,25 @@ Prism should feel less alive than the recent rooms, but still responsive enough 
 
 The visitor is not moving the glass. They are moving the sun.
 
+### Validation
+PR #8 — **006 / PRISM — become the light**
+
+Workflow run #27  
+Run ID: `36336765315`
+
+Result: **success**
+
+The TypeScript/Vite build gate passed on the feature branch on the first attempt.
+
+### Deployment
+Main release commit: `8320a3f` — **006 / PRISM — become the light**
+
+Workflow run #28  
+Run ID: `36336797876`
+
+Result: **success**
+
+Build, Pages configuration, artifact upload, and production deployment all passed.
+
 ### Status
-Implementation complete on `solarium/prism`; awaiting CI and deployment.
+**Live.**
