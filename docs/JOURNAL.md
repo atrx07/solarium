@@ -213,5 +213,15 @@ Result: **success**
 
 The TypeScript/Vite build gate passed on the feature branch.
 
+### Deployment
+Main release commit: `9b11d29` — **002 / MURMURATION — teach the light to flock**
+
+Workflow run #10  
+Run ID: `36331814870`
+
+Result: **success**
+
+Build, Pages configuration, artifact upload, and deployment all passed.
+
 ### Status
-Ready to merge and deploy.
+**Live.**
