@@ -363,5 +363,26 @@ This is the architecture Solarium should have grown into once it became clear th
 
 The useful lesson is not "everything should have been modular on commit one." Genesis was small enough to discover the shape first. The mistake would have been continuing to pretend the god-file was fine after the shape became obvious.
 
+### Validation
+PR #6 — **ARCH / MODULAR — give every room its own walls**
+
+The first two CI passes failed on TypeScript's unused-parameter checks. The extraction had carried a `stage` dependency into a few actions that did not actually use it, first inside the action functions and then in their room wrappers.
+
+Those fake dependencies were removed rather than silencing the compiler.
+
+- Workflow run #18 — `36335778220` — **failure**
+- Workflow run #20 — `36335829102` — **failure**
+- Workflow run #21 — `36335874697` — **success**
+
+### Deployment
+Main migration commit: `633d3c1` — **ARCH / MODULAR — give every room its own walls**
+
+Workflow run #22  
+Run ID: `36335903776`
+
+Result: **success**
+
+Build, Pages configuration, artifact upload, and production deployment all passed.
+
 ### Status
-Implementation complete on `solarium/modular-migration`; awaiting CI and merge.
+**Live. All rooms modular.**
