@@ -23,7 +23,7 @@ type HyphaTip = {
 let hyphae: HyphaSegment[] = [];
 let hyphaTips: HyphaTip[] = [];
 
-function plantSpore(stage: Stage, x: number, y: number, generation = 0): void {
+function plantSpore(x: number, y: number, generation = 0): void {
   const spokes = generation === 0 ? 7 : 3;
 
   for (let i = 0; i < spokes; i += 1) {
@@ -52,9 +52,9 @@ function seedMycelium(stage: Stage): void {
   const cy = stage.height / 2;
   const spread = Math.min(stage.width, stage.height) * 0.18;
 
-  plantSpore(stage, cx - spread * 0.85, cy + spread * 0.35);
-  plantSpore(stage, cx + spread * 0.72, cy - spread * 0.42);
-  plantSpore(stage, cx + rand(-spread * 0.2, spread * 0.2), cy + spread * 0.9);
+  plantSpore(cx - spread * 0.85, cy + spread * 0.35);
+  plantSpore(cx + spread * 0.72, cy - spread * 0.42);
+  plantSpore(cx + rand(-spread * 0.2, spread * 0.2), cy + spread * 0.9);
 }
 
 function updateMycelium(stage: Stage, dt: number): void {
@@ -164,7 +164,7 @@ function updateMycelium(stage: Stage, dt: number): void {
 
   if (hyphaTips.length === 0 && hyphae.length > 0) {
     const last = hyphae[hyphae.length - 1];
-    plantSpore(stage, last.x2, last.y2, 1);
+    plantSpore(last.x2, last.y2, 1);
   }
 }
 
@@ -237,7 +237,7 @@ export const myceliumRoom: RoomModule = {
   },
 
   click({ stage }, x, y): void {
-    plantSpore(stage, x, y);
+    plantSpore(x, y);
   },
 
   key(env, event): void {
