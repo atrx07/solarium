@@ -203,5 +203,15 @@ I wanted something that does not merely react to the visitor one particle at a t
 
 The visitor is not given a tool panel. They become part of the weather.
 
+### Validation
+PR #3 — **002 / MURMURATION — teach the light to flock**
+
+Workflow run #8  
+Run ID: `36331741216`
+
+Result: **success**
+
+The TypeScript/Vite build gate passed on the feature branch.
+
 ### Status
-Implementation complete on feature branch `solarium/murmuration`; awaiting build gate and deployment.
+Ready to merge and deploy.
