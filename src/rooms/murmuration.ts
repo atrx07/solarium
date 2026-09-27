@@ -42,7 +42,7 @@ function seedFlock(stage: Stage): void {
   shocks = [];
 }
 
-function addShock(stage: Stage, x: number, y: number): void {
+function addShock(x: number, y: number): void {
   shocks.push({ x, y, radius: 8, life: 1 });
 
   for (const bird of flock) {
@@ -242,7 +242,7 @@ export const murmurationRoom: RoomModule = {
   },
 
   click({ stage }, x, y): void {
-    addShock(stage, x, y);
+    addShock(x, y);
   },
 
   key(env, event): void {
