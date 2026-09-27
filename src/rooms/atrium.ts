@@ -10,6 +10,10 @@ type OrbitNode = {
 };
 
 export function createAtriumRoom(targets: RoomModule[]): RoomModule {
+  const countWords = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"];
+  const rawCount = countWords[targets.length] ?? String(targets.length);
+  const countLabel = rawCount.charAt(0).toUpperCase() + rawCount.slice(1);
+  const keyHint = targets.map((_, index) => index + 1).join(" ");
   function orbitNodes(env: RoomEnvironment): OrbitNode[] {
     const { stage } = env;
     const cx = stage.width / 2;
@@ -32,8 +36,8 @@ export function createAtriumRoom(targets: RoomModule[]): RoomModule {
   return {
     id: "atrium",
     title: "The Atrium",
-    copy: "Six quiet anomalies are orbiting the light. Pick one.",
-    hint: "move slowly · click an orbiting anomaly · keys 1 2 3 4 5 6",
+    copy: `${countLabel} quiet anomalies are orbiting the light. Pick one.`,
+    hint: `move slowly · click an orbiting anomaly · keys ${keyHint}`,
 
     draw(env): void {
       const { stage, visited } = env;
