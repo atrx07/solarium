@@ -7,6 +7,7 @@ import { bloomRoom } from "./rooms/bloom";
 import { gravitasRoom } from "./rooms/gravitas";
 import { murmurationRoom } from "./rooms/murmuration";
 import { myceliumRoom } from "./rooms/mycelium";
+import { reactionRoom } from "./rooms/reaction";
 import { resonanceRoom } from "./rooms/resonance";
 import { tidesRoom } from "./rooms/tides-room";
 
@@ -20,6 +21,7 @@ const targetRooms: RoomModule[] = [
   murmurationRoom,
   myceliumRoom,
   tidesRoom,
+  reactionRoom,
 ];
 
 const atriumRoom = createAtriumRoom(targetRooms);
@@ -31,7 +33,7 @@ const roomById = new Map<RoomId, RoomModule>(
 app.innerHTML = `
   <canvas id="stage" aria-label="Interactive Solarium canvas"></canvas>
   <div class="shell">
-    <div class="brand"><strong>SOLARIUM</strong><span>004 / TIDES</span></div>
+    <div class="brand"><strong>SOLARIUM</strong><span>005 / REACTION</span></div>
     <section class="room-meta" aria-live="polite">
       <h1 id="room-title">${atriumRoom.title}</h1>
       <p id="room-copy">${atriumRoom.copy}</p>
