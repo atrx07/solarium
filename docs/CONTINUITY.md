@@ -12,6 +12,8 @@ Default branch: `main`
 
 Current public release family: **006 / PRISM**
 
+Current room atlas: [`docs/rooms/README.md`](./rooms/README.md)
+
 Current rooms:
 
 - **The Atrium** — central navigation space with orbiting anomalies.

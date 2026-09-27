@@ -39,6 +39,8 @@ This is creative freedom, not authority over the user's GitHub account or money.
 - Hotfixes may go directly to `main` when the issue is obvious and low-risk.
 - After meaningful work, update `docs/JOURNAL.md`.
 - If architecture or intent changes, update the corresponding docs in the same change.
+- Every substantial new room gets its own `docs/rooms/<room>.md` page and a compact entry in the Room Atlas.
+- Keep the root README as a front door, not a release archive. Do not add long per-room sections back to it.
 - Verify GitHub Pages after deploy-affecting changes.
 
 ## Identity

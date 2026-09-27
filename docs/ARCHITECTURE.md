@@ -78,6 +78,31 @@ Each room owns its own simulation state and behavior under `src/rooms/`.
 
 Tides keeps its numerical field implementation in `tides.ts` and exposes the standard room interface through `tides-room.ts`.
 
+## Public documentation layout
+
+Room documentation scales independently from the repository front page:
+
+```
+docs/
+  rooms/
+    README.md
+    atrium.md
+    gravitas.md
+    bloom.md
+    resonance.md
+    murmuration.md
+    mycelium.md
+    tides.md
+    reaction.md
+    prism.md
+```
+
+The root `README.md` is intentionally concise. It contains the origin, a compact room index, basic run instructions, principles, and links into deeper documentation.
+
+Detailed room controls, implementation notes, quirks, and lore belong under `docs/rooms/`.
+
+Every substantial new room should add one room document and one compact atlas/index entry. Do not grow the root README into a chronological release wall.
+
 ## Room model
 
 The current room identity is represented by a small union:
