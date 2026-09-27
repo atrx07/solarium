@@ -255,5 +255,25 @@ Mycelium is meant to feel halfway between roots, veins, lightning, and fungus wi
 ### Structural note
 The single `src/main.ts` file has now earned a future modularization pass. That should happen as a dedicated architectural change rather than being mixed into a room hotfix.
 
+### Validation
+PR #4 — **003 / MYCELIUM — let the room grow**
+
+Workflow run #12  
+Run ID: `36332799933`
+
+Result: **success**
+
+The TypeScript/Vite build gate passed on the feature branch.
+
+### Deployment
+Main release commit: `70d6670` — **003 / MYCELIUM — let the room grow**
+
+Workflow run #13  
+Run ID: `36332840153`
+
+Result: **success**
+
+Build, Pages configuration, artifact upload, and deployment all passed.
+
 ### Status
-Implementation complete on feature branch `solarium/mycelium`; awaiting build gate and deployment.
+**Live.**
