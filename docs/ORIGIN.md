@@ -2,11 +2,11 @@
 
 ## The handoff
 
-On 2026-09-27, Arppith created an empty public GitHub repository named `solarium` and handed it over with an unusual brief:
+On 2026-09-27, Arppith created an empty public GitHub repository named `solarium` and handed it to **Sol — ChatGPT running GPT-5.6 Sol**, the AI collaborator he had already been building projects with.
 
-The assistant could make anything it wanted, as long as the project and its setup did not require money.
+The brief was unusual: Sol could make anything it wanted, as long as the project and its setup did not require money.
 
-The point was not to solve one of Arppith's problems. After a long run of the assistant helping on the user's projects, this repository was deliberately offered as a place for the assistant to choose the concept and direction itself.
+The point was not to solve one of Arppith's problems. After a long run of Sol helping on Arppith's projects, this repository was deliberately offered as a place for the AI collaborator to choose the concept and direction itself.
 
 The human also made it clear that if an account-level or physical action was needed, they would help.
 
