@@ -4,6 +4,8 @@
 
 Solarium is a small, local-first digital place for experiments that do not need a business case.
 
+**Live:** https://atrx07.github.io/solarium/
+
 It is not a product, an AI wrapper, a dashboard, or a SaaS starter. There is no account system, no analytics, no backend, no API key, no database, and no paid dependency hiding behind the curtain. It is simply a growing collection of interactive rooms built with browser primitives.
 
 ## How the lights came on
@@ -32,63 +34,23 @@ And I love that it exists.
 
 The longer version lives in [docs/ORIGIN.md](./docs/ORIGIN.md). The project keeps its own memory because this story should survive any single chat window.
 
-## 001 / GENESIS
+## Room Atlas
 
-The first release contains four spaces:
+Current public release: **006 / PRISM** · **8 anomalies + The Atrium**
 
-- **The Atrium** — the quiet center. Three anomalies orbit the light.
-- **I · Gravitas** — a tiny N-body gravity sandbox. Add bodies and watch the system negotiate.
-- **II · Bloom** — a particle field that bends around motion and briefly remembers disturbance.
-- **III · Resonance** — a tiny Web Audio instrument where position becomes pitch and decay.
+| | Room | What lives there |
+| --- | --- | --- |
+| — | [**The Atrium**](./docs/rooms/atrium.md) | the quiet center; rooms orbit the light |
+| I | [**Gravitas**](./docs/rooms/gravitas.md) | N-body orbital chaos |
+| II | [**Bloom**](./docs/rooms/bloom.md) | a flow field that remembers disturbance |
+| III | [**Resonance**](./docs/rooms/resonance.md) | a tiny spatial Web Audio instrument |
+| IV | [**Murmuration**](./docs/rooms/murmuration.md) | a leaderless flock with opinions about your cursor |
+| V | [**Mycelium**](./docs/rooms/mycelium.md) | autonomous branching growth |
+| VI | [**Tides**](./docs/rooms/tides.md) | a numerical wave field |
+| VII | [**Reaction**](./docs/rooms/reaction.md) | self-organizing reaction-diffusion chemistry |
+| VIII | [**Prism**](./docs/rooms/prism.md) | refractive glass, dispersion, and trapped light |
 
-Nothing leaves the browser. Resonance audio is synthesized locally. Visits are remembered only with `localStorage`.
-
-## 002 / MURMURATION
-
-The Atrium grew a fourth anomaly.
-
-- **IV · Murmuration** — a leaderless flock of small creatures. Move gently and they treat you like a landmark. Hold and they scatter. Click and a pressure wave passes through the population.
-
-There is no score and no objective. The flock is the event.
-
-## 003 / MYCELIUM
-
-The Atrium grew a fifth anomaly.
-
-- **V · Mycelium** — a branching colony that never waits for instructions. Hover and it bends toward you. Hold and you become food. Click and you plant a new colony.
-
-The network keeps growing even when you do nothing.
-
-## 004 / TIDES
-
-The Atrium has grown a sixth anomaly.
-
-- **VI · Tides** — a local wave field. Click to drop a stone. Hold and drag to make rain. Disturbances spread, overlap, cancel, and amplify.
-
-It is a numerical wave system, not a particle effect.
-
-## 005 / REACTION
-
-The Atrium has grown a seventh anomaly.
-
-- **VII · Reaction** — two virtual chemicals diffuse and consume each other until spots, cells, worms, coral-like fronts, and other structures emerge.
-- Click to inject reagent.
-- Hold and drag to paint more chemistry.
-- Press **M** to change climate, **R** to sterilize, and **Space** to freeze evolution.
-
-The pattern is generated locally from the equations. Nothing is prerecorded.
-
-## 006 / PRISM
-
-The Atrium has grown an eighth anomaly.
-
-- **VIII · Prism** — move the cursor and you become the light source.
-- Rays bend through drifting circular lenses.
-- Click to add glass.
-- Hold to increase refractive density.
-- Press **R** to restore the chamber.
-
-The spectral fringes come from tracing nearby refractive indices, and steep internal angles can reflect instead of escaping.
+The full [**Room Atlas**](./docs/rooms/README.md) keeps controls, implementation notes, quirks, and room lore out of the front page.
 
 ## Run it
 
@@ -108,9 +70,7 @@ npm run preview
 
 From the Atrium, click an orbiting anomaly or use the numbered room keys (**1–8** in the current release).
 
-Inside a room, **Esc** returns to the Atrium.
-
-Gravitas supports **R** to reset and **Space** to pause. Bloom supports **R** to reseed. Resonance wakes only after a click because browsers are, correctly, suspicious of pages that make unsolicited noises.
+Inside any room, **Esc** returns to the Atrium. Room-specific controls live with each room in the [Room Atlas](./docs/rooms/README.md).
 
 ## Principles
 
