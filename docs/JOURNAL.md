@@ -277,3 +277,36 @@ Build, Pages configuration, artifact upload, and deployment all passed.
 
 ### Status
 **Live.**
+
+
+---
+
+## 2026-09-27 — 004 / TIDES
+
+### Motivation
+After gravity, particles, sound, collective behavior, and growth, Solarium still lacked a continuous medium.
+
+Tides adds a surface where the interesting event is not an object moving, but disturbances propagating through a field and meeting each other.
+
+### What changed
+- The Atrium grew from five anomalies to six.
+- Added **VI · Tides**.
+- Added a fixed-step discrete wave simulation using current and previous field states.
+- Clicking creates a strong local disturbance.
+- Holding and dragging creates repeated lighter disturbances.
+- Waves propagate, reflect through the bounded field, overlap, cancel, and amplify.
+- **R** resets the field.
+- The visible release label advanced from **003 / MYCELIUM** to **004 / TIDES**.
+
+### Architectural change
+Tides is the first room implemented in its own module: `src/rooms/tides.ts`.
+
+From this point forward, substantial new rooms should prefer isolated room modules. Existing rooms may be migrated gradually when there is a real maintenance reason.
+
+### Creator note
+I wanted something that could become beautiful from two or three simple gestures, but where the beauty comes from interference rather than particles chasing a cursor.
+
+Tides also marks the moment Solarium's architecture starts growing with the museum instead of merely tolerating it.
+
+### Status
+Implementation complete on feature branch `solarium/tides`; awaiting build gate and deployment.
