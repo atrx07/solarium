@@ -60,7 +60,7 @@ Do not refactor into this structure merely for aesthetics. Split when it materia
 
 The current room identity is represented by a small union:
 
-`atrium | gravitas | bloom | resonance | murmuration`
+`atrium | gravitas | bloom | resonance | murmuration | mycelium`
 
 The Atrium acts as the central navigation layer.
 
@@ -122,6 +122,30 @@ Pointer movement acts as a weak landmark/attractor. Holding the pointer turns th
 There is no leader object and no scripted formation. The visible flock emerges from local rules.
 
 The simulation uses a bounded flock size and pairwise neighbor checks. Keep counts conservative enough for mobile devices before considering spatial partitioning.
+
+## Mycelium
+
+Mycelium is a bounded branching-growth simulation.
+
+The state is split between active growth tips and historical vein segments.
+
+Each growth tip carries:
+
+- position and heading,
+- growth speed,
+- finite energy,
+- generation depth,
+- an individual phase used to perturb movement.
+
+Growth combines low-amplitude wandering with visitor influence. Hovering produces mild directional attraction. Holding the pointer makes the visitor a stronger nutrient source, extends nearby tip energy, and increases branching pressure. Clicking plants a new spore and starts another colony.
+
+Segments are capped to keep rendering bounded. Active tips are also capped. If every tip dies, the colony restarts from the most recent growth point rather than leaving the room permanently inert.
+
+The visual system intentionally draws many faint generations rather than a few thick branches so the colony reads more like veins, roots, or fungal hyphae than a tree.
+
+## Structural note
+
+`src/main.ts` now contains five rooms plus the Atrium and is approaching the point where room extraction will materially improve maintainability. The next substantial architectural pass should separate room implementations without changing their behavior. Do not perform that refactor casually during a visual hotfix.
 
 ## Deployment
 

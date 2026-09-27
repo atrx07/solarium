@@ -19,11 +19,19 @@ Nothing leaves the browser. Resonance audio is synthesized locally. Visits are r
 
 ## 002 / MURMURATION
 
-The Atrium has grown a fourth anomaly.
+The Atrium grew a fourth anomaly.
 
 - **IV · Murmuration** — a leaderless flock of small creatures. Move gently and they treat you like a landmark. Hold and they scatter. Click and a pressure wave passes through the population.
 
 There is no score and no objective. The flock is the event.
+
+## 003 / MYCELIUM
+
+The Atrium has grown a fifth anomaly.
+
+- **V · Mycelium** — a branching colony that never waits for instructions. Hover and it bends toward you. Hold and you become food. Click and you plant a new colony.
+
+The network keeps growing even when you do nothing.
 
 ## Run it
 

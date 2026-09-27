@@ -10,7 +10,7 @@ Live site: https://atrx07.github.io/solarium/
 
 Default branch: `main`
 
-Current public release family: **002 / MURMURATION**
+Current public release family: **003 / MYCELIUM**
 
 Current rooms:
 
@@ -19,6 +19,7 @@ Current rooms:
 - **II · Bloom** — reactive particle/flow field.
 - **III · Resonance** — browser-synthesized spatial instrument using Web Audio.
 - **IV · Murmuration** — leaderless flocking population that reacts to the visitor as landmark, threat, and disturbance.
+- **V · Mycelium** — continuously growing branching colony that treats the visitor as a directional influence and nutrient source.
 
 The project is intentionally unfinished. New rooms should arrive when there is something genuinely interesting to add.
 

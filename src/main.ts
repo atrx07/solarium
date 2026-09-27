@@ -1,6 +1,6 @@
 import "./style.css";
 
-type Room = "atrium" | "gravitas" | "bloom" | "resonance" | "murmuration";
+type Room = "atrium" | "gravitas" | "bloom" | "resonance" | "murmuration" | "mycelium";
 
 type Point = {
   x: number;
@@ -45,19 +45,36 @@ type Shock = Point & {
   life: number;
 };
 
+type HyphaSegment = {
+  x1: number;
+  y1: number;
+  x2: number;
+  y2: number;
+  generation: number;
+  age: number;
+};
+
+type HyphaTip = Point & {
+  angle: number;
+  speed: number;
+  energy: number;
+  generation: number;
+  phase: number;
+};
+
 const app = document.querySelector<HTMLDivElement>("#app");
 if (!app) throw new Error("Solarium could not find its mount point.");
 
 app.innerHTML = `
   <canvas id="stage" aria-label="Interactive Solarium canvas"></canvas>
   <div class="shell">
-    <div class="brand"><strong>SOLARIUM</strong><span>002 / MURMURATION</span></div>
+    <div class="brand"><strong>SOLARIUM</strong><span>003 / MYCELIUM</span></div>
     <section class="room-meta" aria-live="polite">
       <h1 id="room-title">The Atrium</h1>
-      <p id="room-copy">Four quiet anomalies are orbiting the light. Pick one.</p>
+      <p id="room-copy">Five quiet anomalies are orbiting the light. Pick one.</p>
     </section>
     <button class="back" id="back" type="button" hidden>← Atrium</button>
-    <div class="hint" id="hint">move slowly · click an orbiting anomaly · keys 1 2 3 4</div>
+    <div class="hint" id="hint">move slowly · click an orbiting anomaly · keys 1 2 3 4 5</div>
     <div class="status" id="status">local / awake</div>
   </div>
 `;
@@ -89,6 +106,8 @@ let dust: Dust[] = [];
 let rings: Ring[] = [];
 let flock: Boid[] = [];
 let shocks: Shock[] = [];
+let hyphae: HyphaSegment[] = [];
+let hyphaTips: HyphaTip[] = [];
 let resonanceUnlocked = false;
 let audioContext: AudioContext | null = null;
 let masterGain: GainNode | null = null;
@@ -102,8 +121,8 @@ const visited = new Set<Room>(
 const roomInfo: Record<Room, { title: string; copy: string; hint: string }> = {
   atrium: {
     title: "The Atrium",
-    copy: "Four quiet anomalies are orbiting the light. Pick one.",
-    hint: "move slowly · click an orbiting anomaly · keys 1 2 3 4",
+    copy: "Five quiet anomalies are orbiting the light. Pick one.",
+    hint: "move slowly · click an orbiting anomaly · keys 1 2 3 4 5",
   },
   gravitas: {
     title: "I · Gravitas",
@@ -124,6 +143,11 @@ const roomInfo: Record<Room, { title: string; copy: string; hint: string }> = {
     title: "IV · Murmuration",
     copy: "A small population with no leader. Move gently and they notice. Press in and they remember fear.",
     hint: "move to become a landmark · hold to scatter · click sends a pulse · R reseeds",
+  },
+  mycelium: {
+    title: "V · Mycelium",
+    copy: "A colony that grows without asking. Hover and it notices. Hold and you become food.",
+    hint: "move to bend growth · hold to feed · click plants a spore · R regrows",
   },
 };
 
@@ -169,6 +193,7 @@ function resize(): void {
   if (dust.length === 0) seedDust();
   if (bodies.length === 0) seedBodies();
   if (flock.length === 0) seedFlock();
+  if (hyphaTips.length === 0 && hyphae.length === 0) seedMycelium();
 }
 
 function clear(color = "#050509"): void {
@@ -209,7 +234,7 @@ function orbitNodes(): Array<{ room: Exclude<Room, "atrium">; x: number; y: numb
   const cy = height / 2;
   const orbit = Math.min(width, height) * 0.28;
   const angle = time * 0.00012;
-  const rooms: Array<Exclude<Room, "atrium">> = ["gravitas", "bloom", "resonance", "murmuration"];
+  const rooms: Array<Exclude<Room, "atrium">> = ["gravitas", "bloom", "resonance", "murmuration", "mycelium"];
 
   return rooms.map((target, index) => {
     const a = angle + index * (TAU / rooms.length) - Math.PI / 2;
@@ -818,6 +843,201 @@ function drawMurmuration(dt: number): void {
   ctx.fillText(`${flock.length} / NO LEADER`, 28, height - 74);
 }
 
+function plantSpore(x: number, y: number, generation = 0): void {
+  const spokes = generation === 0 ? 7 : 3;
+
+  for (let i = 0; i < spokes; i += 1) {
+    const angle = (i / spokes) * TAU + rand(-0.32, 0.32);
+    hyphaTips.push({
+      x,
+      y,
+      angle,
+      speed: rand(18, 34),
+      energy: rand(5.8, 10.5),
+      generation,
+      phase: rand(0, TAU),
+    });
+  }
+
+  if (hyphaTips.length > 150) {
+    hyphaTips.splice(0, hyphaTips.length - 150);
+  }
+}
+
+function seedMycelium(): void {
+  hyphae = [];
+  hyphaTips = [];
+
+  const cx = width / 2;
+  const cy = height / 2;
+  const spread = Math.min(width, height) * 0.18;
+
+  plantSpore(cx - spread * 0.85, cy + spread * 0.35);
+  plantSpore(cx + spread * 0.72, cy - spread * 0.42);
+  plantSpore(cx + rand(-spread * 0.2, spread * 0.2), cy + spread * 0.9);
+}
+
+function updateMycelium(dt: number): void {
+  const dtSeconds = Math.min(dt, 32) / 1000;
+  const newTips: HyphaTip[] = [];
+
+  for (const tip of hyphaTips) {
+    tip.energy -= dtSeconds;
+    if (tip.energy <= 0) continue;
+
+    const wander =
+      Math.sin(tip.x * 0.011 + tip.phase + time * 0.00032) +
+      Math.cos(tip.y * 0.009 - tip.phase * 0.7 - time * 0.00027);
+
+    tip.angle += wander * 0.21 * dtSeconds;
+
+    if (pointer.active) {
+      const dx = pointer.x - tip.x;
+      const dy = pointer.y - tip.y;
+      const distance = Math.max(Math.hypot(dx, dy), 8);
+      const influence = Math.min(width, height) * (pointer.down ? 0.52 : 0.28);
+
+      if (distance < influence) {
+        const targetAngle = Math.atan2(dy, dx);
+        let delta = targetAngle - tip.angle;
+        while (delta > Math.PI) delta -= TAU;
+        while (delta < -Math.PI) delta += TAU;
+
+        const proximity = 1 - distance / influence;
+        const pull = pointer.down ? 2.7 : 0.55;
+        tip.angle += delta * proximity * pull * dtSeconds;
+
+        if (pointer.down) {
+          tip.energy = Math.min(tip.energy + proximity * 0.55 * dtSeconds, 12);
+        }
+      }
+    }
+
+    const margin = Math.min(72, Math.min(width, height) * 0.09);
+    let edgeTurn = 0;
+    if (tip.x < margin) edgeTurn += 1.4;
+    if (tip.x > width - margin) edgeTurn -= 1.4;
+    if (tip.y < margin) edgeTurn += Math.PI / 2;
+    if (tip.y > height - margin) edgeTurn -= Math.PI / 2;
+    if (edgeTurn !== 0) {
+      const target = Math.atan2(height / 2 - tip.y, width / 2 - tip.x);
+      let delta = target - tip.angle;
+      while (delta > Math.PI) delta -= TAU;
+      while (delta < -Math.PI) delta += TAU;
+      tip.angle += delta * 1.8 * dtSeconds;
+    }
+
+    const oldX = tip.x;
+    const oldY = tip.y;
+    const speed = tip.speed * (pointer.down ? 1.08 : 1);
+    tip.x += Math.cos(tip.angle) * speed * dtSeconds;
+    tip.y += Math.sin(tip.angle) * speed * dtSeconds;
+
+    if (
+      tip.x < -24 ||
+      tip.x > width + 24 ||
+      tip.y < -24 ||
+      tip.y > height + 24
+    ) {
+      continue;
+    }
+
+    hyphae.push({
+      x1: oldX,
+      y1: oldY,
+      x2: tip.x,
+      y2: tip.y,
+      generation: tip.generation,
+      age: 0,
+    });
+
+    const branchRate = pointer.down ? 0.34 : 0.18;
+    if (
+      hyphaTips.length + newTips.length < 150 &&
+      tip.generation < 7 &&
+      Math.random() < branchRate * dtSeconds
+    ) {
+      const side = Math.random() < 0.5 ? -1 : 1;
+      newTips.push({
+        x: tip.x,
+        y: tip.y,
+        angle: tip.angle + side * rand(0.42, 0.95),
+        speed: tip.speed * rand(0.86, 1.08),
+        energy: tip.energy * rand(0.48, 0.72),
+        generation: tip.generation + 1,
+        phase: rand(0, TAU),
+      });
+      tip.energy *= 0.82;
+    }
+  }
+
+  hyphaTips = hyphaTips.filter((tip) => tip.energy > 0);
+  hyphaTips.push(...newTips);
+
+  for (const segment of hyphae) {
+    segment.age += dtSeconds;
+  }
+
+  if (hyphae.length > 5200) {
+    hyphae.splice(0, hyphae.length - 5200);
+  }
+
+  if (hyphaTips.length === 0 && hyphae.length > 0) {
+    const last = hyphae[hyphae.length - 1];
+    plantSpore(last.x2, last.y2, 1);
+  }
+}
+
+function drawMycelium(dt: number): void {
+  clear("#04050a");
+  drawStars(0.14);
+  updateMycelium(dt);
+
+  for (const segment of hyphae) {
+    const generationFade = clamp(1 - segment.generation * 0.08, 0.38, 1);
+    const ageFade = clamp(1 - segment.age * 0.008, 0.34, 1);
+    ctx.globalAlpha = 0.18 * generationFade * ageFade;
+    ctx.strokeStyle = "#c9d6ff";
+    ctx.lineWidth = clamp(1.7 - segment.generation * 0.1, 0.55, 1.7);
+    ctx.beginPath();
+    ctx.moveTo(segment.x1, segment.y1);
+    ctx.lineTo(segment.x2, segment.y2);
+    ctx.stroke();
+  }
+
+  ctx.globalAlpha = 1;
+
+  for (const tip of hyphaTips) {
+    const pulse = 1 + Math.sin(time * 0.003 + tip.phase) * 0.24;
+    glow(
+      tip.x,
+      tip.y,
+      11 * pulse,
+      "rgba(220,232,255,0.16)",
+      "rgba(130,150,255,0)",
+    );
+    ctx.fillStyle = "rgba(238,243,255,0.78)";
+    ctx.beginPath();
+    ctx.arc(tip.x, tip.y, 1.15, 0, TAU);
+    ctx.fill();
+  }
+
+  if (pointer.active) {
+    glow(
+      pointer.x,
+      pointer.y,
+      pointer.down ? 92 : 42,
+      pointer.down ? "rgba(205,255,226,0.11)" : "rgba(208,224,255,0.06)",
+      "rgba(110,160,145,0)",
+    );
+  }
+
+  ctx.font = "10px ui-monospace, SFMono-Regular, Menlo, monospace";
+  ctx.textAlign = "left";
+  ctx.fillStyle = "rgba(255,255,255,0.24)";
+  ctx.fillText(`${hyphaTips.length} TIPS / ${hyphae.length} VEINS`, 28, height - 74);
+}
+
 function setStatus(text: string): void {
   statusEl.textContent = text;
   statusEl.classList.remove("flash");
@@ -843,6 +1063,7 @@ function enterRoom(target: Room): void {
   if (target === "gravitas" && bodies.length < 2) seedBodies();
   if (target === "bloom" && dust.length < 50) seedDust();
   if (target === "murmuration" && flock.length < 20) seedFlock();
+  if (target === "mycelium" && hyphaTips.length === 0 && hyphae.length === 0) seedMycelium();
 }
 
 function handleCanvasClick(x: number, y: number): void {
@@ -856,6 +1077,7 @@ function handleCanvasClick(x: number, y: number): void {
   if (room === "bloom") burst(x, y);
   if (room === "resonance") playTone(x, y);
   if (room === "murmuration") addShock(x, y);
+  if (room === "mycelium") plantSpore(x, y);
 }
 
 function pointFromEvent(event: PointerEvent): Point {
@@ -904,6 +1126,7 @@ window.addEventListener("keydown", (event) => {
     if (event.key === "2") enterRoom("bloom");
     if (event.key === "3") enterRoom("resonance");
     if (event.key === "4") enterRoom("murmuration");
+    if (event.key === "5") enterRoom("mycelium");
   }
 
   if (room === "gravitas") {
@@ -928,6 +1151,11 @@ window.addEventListener("keydown", (event) => {
     seedFlock();
     setStatus("flock / reborn");
   }
+
+  if (room === "mycelium" && event.key.toLowerCase() === "r") {
+    seedMycelium();
+    setStatus("colony / regrown");
+  }
 });
 
 window.addEventListener("resize", resize);
@@ -943,6 +1171,7 @@ function frame(now: number): void {
   if (room === "bloom") drawBloom(dt);
   if (room === "resonance") drawResonance(dt);
   if (room === "murmuration") drawMurmuration(dt);
+  if (room === "mycelium") drawMycelium(dt);
 
   requestAnimationFrame(frame);
 }
