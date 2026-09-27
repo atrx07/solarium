@@ -1,0 +1,179 @@
+# Project Journal
+
+This is Solarium's durable project memory.
+
+It records meaningful commits, workflow runs, bugs, decisions, and creator notes. It is not a replacement for Git history; it explains the story Git history cannot.
+
+---
+
+## 2026-09-27 — The repository exists
+
+### Commit
+`677e888` — **Initial commit**
+
+### What happened
+Arppith created the empty public repository `atrx07/solarium`.
+
+At this point it contained only a tiny README.
+
+### Creator note
+This was the moment the project became real enough to have somewhere to live. The absence of a detailed brief was the important part: the blankness was permission.
+
+---
+
+## 2026-09-27 — 001 / GENESIS
+
+### Main commit
+`f2ae2e2` — **001 / GENESIS — turn the lights on**
+
+### What shipped
+- The Atrium
+- Gravitas
+- Bloom
+- Resonance
+- responsive interface
+- local visit memory
+- Vite + TypeScript build
+- GitHub Pages workflow
+- project manifesto in the README
+
+### Pull request
+PR #1 — **001 / GENESIS — turn the lights on**
+
+### Workflow run #1
+Run ID: `36329313291`
+
+Result: **failure**
+
+The first PR build reached TypeScript and failed because DOM references such as the canvas/context were still considered possibly null inside callbacks despite startup guards.
+
+### Reaction
+Useful failure. The important part was that CI caught it before Genesis reached `main`.
+
+### Workflow run #2
+Run ID: `36329380810`
+
+Result: **success**
+
+The PR build gate passed after the TypeScript configuration was adjusted.
+
+### Reaction
+First clean proof that the actual Genesis branch built successfully.
+
+---
+
+## 2026-09-27 — First deployment fight
+
+### Commit
+`9f30641` — **ci: allow Pages to self-enable**
+
+### What happened
+After Genesis merged, the production build itself succeeded, but `actions/configure-pages` failed because GitHub Pages had not yet been enabled for the repository.
+
+The workflow was changed to request Pages enablement automatically.
+
+### Workflow run #3
+Run ID: `36329411943`
+
+Result: **failure**
+
+Build passed. Pages configuration failed because the Pages site did not yet exist.
+
+### Workflow run #4, attempt 1
+Run ID: `36329458599`
+
+Result: **failure**
+
+The action attempted to create the Pages site but GitHub returned:
+
+`Resource not accessible by integration`
+
+The GitHub App could not perform that account-level enablement.
+
+### Human step
+Arppith opened repository settings and set:
+
+**Settings → Pages → Build and deployment → Source → GitHub Actions**
+
+This was the one human-only switch needed for launch.
+
+### Workflow run #4, attempt 2
+Run ID: `36329458599`
+
+Result: **success**
+
+Build, Pages configuration, artifact upload, and deployment all passed.
+
+The live environment URL became:
+
+https://atrx07.github.io/solarium/
+
+### Reaction
+This was the real "lights on" moment. Solarium stopped being code in a repository and became a place someone could visit.
+
+---
+
+## 2026-09-27 — First real playtest
+
+### Human feedback
+Arppith explored the live site and spent roughly five minutes playing Resonance like a piano.
+
+That is significant product evidence for the project's intended direction: sound + direct manipulation can produce genuine play without progression systems, accounts, scores, or instructions.
+
+### Reaction
+Resonance immediately justified the project's core premise. A room can be tiny and still hold attention if the interaction feels alive.
+
+---
+
+## 2026-09-27 — Gravitas violates spacetime
+
+### Commit
+`dad90bd` — **fix: stop Gravitas from violating spacetime**
+
+### Bug report
+On the live site, Gravitas immediately exploded into chaos. Click-spawned bodies shot toward the nearest edge at absurd speed.
+
+### Root cause
+`requestAnimationFrame` frame deltas were supplied in milliseconds, but the physics integrator used the raw value as though it were seconds.
+
+At ~60 FPS, a frame delta around `16` therefore behaved like sixteen seconds of simulation time per frame.
+
+### Fix
+- convert frame delta from milliseconds to seconds,
+- clamp unusually long frames before integration,
+- keep the intended orbital behavior intact.
+
+### Workflow run #5
+Run ID: `36330321664`
+
+Result: **success**
+
+Build and deployment passed.
+
+### Reaction
+A very funny first bug, but also a useful reminder: interactive art still deserves real engineering. "Chaotic" is only interesting when the chaos comes from the system, not a unit mistake.
+
+---
+
+## 2026-09-27 — Solarium gets a memory
+
+### Motivation
+Arppith pointed out that relying on a single chat's context is fragile. Long project conversations eventually lose context, and a future conversation needs a durable way to recover intent and history.
+
+### Decision
+The repository itself becomes the canonical memory.
+
+Added:
+
+- `AGENTS.md`
+- `docs/CONTINUITY.md`
+- `docs/ORIGIN.md`
+- `docs/CHARTER.md`
+- `docs/ARCHITECTURE.md`
+- `docs/JOURNAL.md`
+
+### Rule going forward
+Every meaningful Solarium change should leave enough documentation that a new chat can continue without reconstructing the project from memory.
+
+### Reaction
+This feels like the point where Solarium stops being a one-night experiment and becomes a project with continuity.
