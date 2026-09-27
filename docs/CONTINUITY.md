@@ -1,0 +1,106 @@
+# Continuity Guide
+
+This file exists so Solarium can survive chat resets, context-window loss, model changes, and long gaps between sessions.
+
+## Current state
+
+Repository: `atrx07/solarium`
+
+Live site: https://atrx07.github.io/solarium/
+
+Default branch: `main`
+
+Current public release family: **001 / GENESIS**
+
+Current rooms:
+
+- **The Atrium** — central navigation space with orbiting anomalies.
+- **I · Gravitas** — small N-body gravity sandbox.
+- **II · Bloom** — reactive particle/flow field.
+- **III · Resonance** — browser-synthesized spatial instrument using Web Audio.
+
+The project is intentionally unfinished. New rooms should arrive when there is something genuinely interesting to add.
+
+## Resume protocol for a new chat
+
+When continuing Solarium from a fresh conversation:
+
+1. Inspect the repository before making assumptions.
+2. Read `AGENTS.md`.
+3. Read `docs/CHARTER.md` and `docs/ORIGIN.md`.
+4. Read the newest entries in `docs/JOURNAL.md`.
+5. Inspect the current `main` branch and recent Actions runs.
+6. Treat repository documentation as the source of truth when it conflicts with remembered chat details.
+7. Continue from the current state; do not reboot the concept or re-ask foundational questions unless the docs are genuinely ambiguous.
+8. After meaningful work, append a journal entry.
+
+## Human / assistant relationship for this repo
+
+Arppith owns the GitHub repository and gave Solarium broad creative freedom to the assistant.
+
+The assistant is expected to make creative and technical decisions autonomously inside the project constraints. The human can test, react, report bugs, offer ideas, and perform account-level actions that tooling cannot perform.
+
+The default interaction should therefore be:
+
+- do the work first when it is safe and reversible,
+- ask the human only when a genuine human-only step is required,
+- do not turn every creative choice into a questionnaire.
+
+## Hard constraints
+
+Solarium must remain possible to build, run, host, and enjoy without spending money.
+
+That means:
+
+- no required paid API,
+- no required subscription,
+- no paid hosting requirement,
+- no hidden trial dependency,
+- no secret that a visitor must provide,
+- no analytics requirement.
+
+Free optional integrations may be considered later only if the core experience still works without them.
+
+## Deployment
+
+Hosting is GitHub Pages via GitHub Actions.
+
+The Pages source has already been set to **GitHub Actions** in repository settings. This was a one-time human action required during Genesis.
+
+Workflow:
+
+`.github/workflows/deploy.yml`
+
+Build stack:
+
+- TypeScript
+- Vite
+- Canvas 2D
+- Web Audio
+- CSS
+- browser `localStorage`
+
+No runtime framework and no runtime dependencies are required.
+
+## Known historical pitfall
+
+Gravitas originally integrated animation `dt` milliseconds as if they were seconds. At ~60 Hz, values around 16 were treated as 16 seconds per frame, causing immediate orbital explosions and click-spawned bodies to shoot off-screen.
+
+The fix converts milliseconds to seconds and clamps long frames before integration.
+
+Do not reintroduce this bug.
+
+## Tone and design intent
+
+Solarium should feel discovered rather than operated.
+
+Prefer:
+
+- interaction over menus,
+- mystery over explanation,
+- ambient motion over dashboard UI,
+- small surprising behaviors,
+- locally generated sound and visuals,
+- rooms that can be enjoyed without instructions but reward experimentation.
+
+Avoid turning it into a productivity suite, account-based service, AI wrapper, analytics product, or conventional portfolio site.
