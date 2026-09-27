@@ -58,7 +58,7 @@ function updateDust(stage: Stage, dt: number): void {
   }
 }
 
-function burst(stage: Stage, x: number, y: number): void {
+function burst(x: number, y: number): void {
   const amount = 56;
   for (let i = 0; i < amount; i += 1) {
     const angle = (i / amount) * TAU + rand(-0.05, 0.05);
@@ -118,7 +118,7 @@ export const bloomRoom: RoomModule = {
   },
 
   click({ stage }, x, y): void {
-    burst(stage, x, y);
+    burst(x, y);
   },
 
   key(env, event): void {
