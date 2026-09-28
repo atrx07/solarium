@@ -33,11 +33,12 @@ This is creative freedom, not authority over the user's GitHub account or money.
 
 ## Working style
 
-- Work directly on `main`; do not create feature branches or pull requests for routine autonomous development.
-- Make small, meaningful, atomic commits so every autonomous change is easy to inspect or revert.
-- After each code/deployment-affecting commit, observe the GitHub Actions build immediately. If it fails, prioritize repairing `main` before starting anything else.
-- Keep `main` deployable in intent, accepting that direct development means a commit may briefly be unverified while CI runs.
-- Pull requests are reserved for an explicit human request or an exceptional change where isolation is genuinely necessary.
+- Routine autonomous development uses one same-repository feature branch and one non-draft pull request into `main`.
+- Keep each scope small and coherent. Reuse unfinished canonical work instead of creating parallel retry branches.
+- Let the `Solarium` pull-request build validate the exact head commit. Do not manually merge or bypass a failed/pending gate.
+- After a successful PR build, `.github/workflows/auto-merge.yml` verifies the trusted same-repository PR and exact tested head, squash-merges it, deletes the feature branch, and explicitly dispatches the Pages workflow.
+- Workflow-policy changes under `.github/workflows/` or `.github/CODEOWNERS` are deliberately excluded from auto-merge and require human integration.
+- If CI fails, repair the same PR branch before starting unrelated work. After merge, verify `main` and GitHub Pages before calling the change live.
 - After meaningful work, update `docs/JOURNAL.md`.
 - If architecture or intent changes, update the corresponding docs in the same change.
 - Every substantial new room gets its own `docs/rooms/<room>.md` page and a compact entry in the Room Atlas.
