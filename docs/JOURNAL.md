@@ -576,3 +576,33 @@ Build, Pages configuration, artifact upload, and production deployment all passe
 
 ### Status
 **Live. README stays light; rooms get their own walls in docs too.**
+
+
+---
+
+## 2026-09-28 — Mobile/browser lifecycle hardening
+
+### Why
+The hourly maintenance pass noticed a shared browser-lifecycle edge case rather than forcing a ninth room.
+
+Touch/pen interactions could be interrupted without a normal pointer-up, and backgrounded tabs could leave the animation loop running or resume with stale frame timing.
+
+### What changed
+- Added a shared pointer-release path.
+- `pointercancel` now releases held interaction state.
+- Window blur releases held interaction state.
+- The animation loop stops while the document is hidden.
+- Returning to the tab restarts with a fresh frame clock so background time cannot contaminate room simulations.
+
+### Scope
+Only `src/main.ts` changed. No room-specific physics or visuals were modified.
+
+### Automation incident
+The scheduled Solarium Feral Hour successfully committed the patch to `fix/mobile-lifecycle`, but several consecutive scheduled runs could not perform the PR/write integration step because the GitHub write safety gate was transiently blocking those operations.
+
+The branch remained one clean commit ahead of `main` rather than bypassing the normal PR/CI rule.
+
+An interactive session later found GitHub writes available again and resumed the standard integration path.
+
+### Status
+Patch and journal entry staged on `fix/mobile-lifecycle`; awaiting PR/CI.
