@@ -136,10 +136,14 @@ canvas.addEventListener("pointerup", (event) => {
   }
 });
 
-canvas.addEventListener("pointerleave", () => {
+function releasePointer(): void {
   stage.pointer.active = false;
   stage.pointer.down = false;
-});
+}
+
+canvas.addEventListener("pointerleave", releasePointer);
+canvas.addEventListener("pointercancel", releasePointer);
+window.addEventListener("blur", releasePointer);
 
 backEl.addEventListener("click", () => enterRoom("atrium"));
 
@@ -163,6 +167,7 @@ window.addEventListener("keydown", (event) => {
 window.addEventListener("resize", resize);
 
 let previous = performance.now();
+let frameHandle = 0;
 
 function frame(now: number): void {
   const dt = Math.min(now - previous, 32);
@@ -170,10 +175,28 @@ function frame(now: number): void {
   stage.time = now;
 
   roomById.get(currentRoom)?.draw(env, dt);
-  requestAnimationFrame(frame);
+  frameHandle = requestAnimationFrame(frame);
 }
+
+function startAnimation(): void {
+  if (frameHandle) return;
+  previous = performance.now();
+  frameHandle = requestAnimationFrame(frame);
+}
+
+function stopAnimation(): void {
+  if (!frameHandle) return;
+  cancelAnimationFrame(frameHandle);
+  frameHandle = 0;
+  releasePointer();
+}
+
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) stopAnimation();
+  else startAnimation();
+});
 
 resize();
 stage.clear("#050509");
 enterRoom("atrium");
-requestAnimationFrame(frame);
+startAnimation();
