@@ -309,6 +309,10 @@ When reduced motion is active, the shared animation loop renders at a lower cade
 
 The preference is observed live, so changing the operating-system/browser setting does not require a reload.
 
+### Room contract
+
+Reduced-motion pacing belongs to the shared runtime. New rooms should consume the `dt` they receive rather than applying a second blanket slowdown of their own. Room-specific reductions are still appropriate when an effect has motion the shared clock cannot tame (for example, CSS animation or pointer-independent procedural jitter), but they should target that effect instead of scaling the whole simulation again. This keeps accessibility behavior predictable as the Atlas grows.
+
 ## Integration / development workflow
 
 Routine development is isolated on one same-repository feature branch, then submitted as a non-draft PR targeting `main`. Do not write normal feature commits straight to `main`; the older direct-main experiment was replaced after the trusted GitHub auto-merger was tested.

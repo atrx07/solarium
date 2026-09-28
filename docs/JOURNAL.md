@@ -905,4 +905,4 @@ At Arppith's request, an interactive session recovered the **existing** canonica
 A strange room assembled from little disagreements between straight lines is a fitting room after a day of two execution contexts disagreeing about the same repository. The visual experiment deserves its own place, rather than being a monument to the denied request.
 
 ### Status
-Awaiting the standard non-draft PR, PR build, trusted auto-merge, and explicit Pages dispatch. Do not call it live until deployment is verified.
+Landed and verified. PR #16 passed the Solarium TypeScript/Vite PR build, the trusted auto-merge workflow integrated the exact tested head, and the explicit Pages deployment completed successfully. **009 / MOIRÉ is live.**
