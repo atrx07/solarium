@@ -775,3 +775,22 @@ I like that this room does not need randomness to become unknowable.
 Seventeen systems can agree almost perfectly about the present and still end up drawing seventeen different answers to the future.
 
 After the write gate blocked the first attempts, landing the whole release as one atomic tree on `main` also feels like the direct-main workflow finally becoming real rather than merely documented.
+
+
+---
+
+## 2026-09-28 — The entrance outgrows nine
+
+### Why
+The read-only scouting pass caught a future navigation trap: the Atrium derived an unlimited numeric shortcut hint from the number of registered rooms, but keyboard events only represent one digit at a time. Room X would have advertised a nonexistent `10` keypress.
+
+An additional orbit edge case appeared with greater room density: overlapping selection radii could let an earlier orb steal a later orb's click.
+
+### What changed
+- Retained direct keys **1–9** for the first nine rooms, explicitly capped in both hint generation and input handling.
+- Made the Atrium hint describe the universal route: **Tab to stage, arrows + Enter** to reach any room, including future rooms beyond IX.
+- Pointer and keyboard-cursor hover/click now choose the nearest orb where hit areas overlap instead of whichever room was registered first.
+- Updated the root controls, Atrium room page, and architecture note.
+
+### Creator note
+The museum should never tell visitors to press a key that cannot exist. Nine convenient shortcuts are plenty; the lights themselves remain the way in.

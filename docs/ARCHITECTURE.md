@@ -280,6 +280,8 @@ A visible reticle is drawn only while keyboard control is active and the canvas 
 
 Pointer input automatically returns control to pointer mode.
 
+The Atrium only advertises single-digit shortcuts `1–9` for the first nine rooms. Every present or future room can still be selected through its orbiting node with pointer or keyboard cursor + Enter/Space. When orbital hit areas overlap on small screens or as room count grows, the nearest orb is the hovered/activated target rather than the first match in registration order.
+
 ## Reduced motion
 
 Solarium honors the browser's `prefers-reduced-motion: reduce` preference in both CSS and the canvas runtime.

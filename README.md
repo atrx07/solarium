@@ -69,9 +69,9 @@ npm run preview
 
 ## Controls
 
-From the Atrium, click an orbiting anomaly or use the numbered room keys (**1–9** in the current release).
+From the Atrium, click an orbiting anomaly, or **Tab** to the stage, move the virtual cursor with the arrow keys, then press **Enter** (or **Space**) to enter it. Quick shortcuts **1–9** open the first nine rooms; future rooms beyond IX remain reachable through the orbit without multi-digit shortcuts.
 
-Inside any room, **Esc** returns to the Atrium. Keyboard users can **Tab** to the stage, move the virtual cursor with the arrow keys, and press **Enter** to activate it; **Space** also activates unless the room already uses Space for its own control. Room-specific controls live with each room in the [Room Atlas](./docs/rooms/README.md).
+Inside any room, **Esc** returns to the Atrium. Keyboard users can move the same virtual cursor with the arrow keys (**Shift + Arrow** for larger steps) and activate it with **Enter**; **Space** also activates unless the room already uses Space for its own control. Room-specific controls live with each room in the [Room Atlas](./docs/rooms/README.md).
 
 ## Principles
 

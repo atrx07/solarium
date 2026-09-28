@@ -194,9 +194,18 @@ window.addEventListener("keydown", (event) => {
     return;
   }
 
-  if (currentRoom === "atrium") {
+  // 1–9 are quick shortcuts, not an implied multi-digit numbering scheme.
+  // Every room remains reachable through the stage's shared cursor/click path.
+  if (
+    currentRoom === "atrium" &&
+    !event.altKey &&
+    !event.ctrlKey &&
+    !event.metaKey &&
+    /^[1-9]$/.test(event.key)
+  ) {
     const index = Number(event.key) - 1;
-    if (Number.isInteger(index) && index >= 0 && index < targetRooms.length) {
+    if (index < Math.min(targetRooms.length, 9)) {
+      event.preventDefault();
       enterRoom(targetRooms[index].id);
       return;
     }

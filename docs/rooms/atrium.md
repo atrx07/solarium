@@ -15,10 +15,11 @@ It is intentionally not a dashboard. Rooms are discovered as objects in space ra
 - Move the pointer to create subtle parallax and a line back to the central light.
 - Hover an anomaly to reveal its name.
 - Click an anomaly to enter it.
-- Number keys enter rooms directly.
+- **Tab** to focus the stage, move the virtual cursor with **Arrow** keys (**Shift + Arrow** for larger steps), and press **Enter** or **Space** to enter the nearby anomaly.
+- **1–9** jump directly to the first nine rooms, where available. A future tenth room will not require a fictional multi-digit keypress: every room is accessible through its orbiting light.
 - **Esc** returns here from any room.
 
-The room count and numeric key hint are generated from the registered rooms, so the Atrium can grow without hand-editing its navigation copy.
+The room count is generated from registered rooms; the number-key hint stops at nine. If hit areas overlap as the orbit grows, the closest anomaly to the pointer or virtual cursor wins, so activation and hover agree.
 
 ## Intent
 

@@ -13,7 +13,15 @@ export function createAtriumRoom(targets: RoomModule[]): RoomModule {
   const countWords = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"];
   const rawCount = countWords[targets.length] ?? String(targets.length);
   const countLabel = rawCount.charAt(0).toUpperCase() + rawCount.slice(1);
-  const keyHint = targets.map((_, index) => index + 1).join(" ");
+  // A keydown event carries one digit, never a multi-digit room number.
+  const shortcutCount = Math.min(targets.length, 9);
+  const shortcutHint =
+    shortcutCount === 0
+      ? ""
+      : shortcutCount === 1
+        ? " · key 1"
+        : ` · keys 1–${shortcutCount}`;
+
   function orbitNodes(env: RoomEnvironment): OrbitNode[] {
     const { stage } = env;
     const cx = stage.width / 2;
@@ -33,11 +41,30 @@ export function createAtriumRoom(targets: RoomModule[]): RoomModule {
     });
   }
 
+  function nearestOrbitNode(
+    nodes: OrbitNode[],
+    x: number,
+    y: number,
+  ): OrbitNode | undefined {
+    let nearest: OrbitNode | undefined;
+    let nearestDistance = 38;
+
+    // Overlapping hit areas must select the closest orb, not the first room.
+    for (const node of nodes) {
+      const distance = dist({ x, y }, node);
+      if (distance < nearestDistance) {
+        nearest = node;
+        nearestDistance = distance;
+      }
+    }
+    return nearest;
+  }
+
   return {
     id: "atrium",
     title: "The Atrium",
     copy: `${countLabel} quiet anomalies are orbiting the light. Pick one.`,
-    hint: `move slowly · click an orbiting anomaly · keys ${keyHint}`,
+    hint: `click an anomaly · Tab to stage, arrows + Enter for any room${shortcutHint}`,
 
     draw(env): void {
       const { stage, visited } = env;
@@ -87,9 +114,13 @@ export function createAtriumRoom(targets: RoomModule[]): RoomModule {
         stage.ctx.stroke();
       }
 
-      for (const [index, node] of orbitNodes(env).entries()) {
-        const hovered =
-          stage.pointer.active && dist(stage.pointer, node) < 34;
+      const nodes = orbitNodes(env);
+      const hoveredNode = stage.pointer.active
+        ? nearestOrbitNode(nodes, stage.pointer.x, stage.pointer.y)
+        : undefined;
+
+      for (const [index, node] of nodes.entries()) {
+        const hovered = hoveredNode?.room === node.room;
         const pulse = 1 + Math.sin(stage.time * 0.002 + index * 1.7) * 0.12;
         const visitedBoost = visited.has(node.room) ? 1 : 0.72;
 
@@ -147,8 +178,7 @@ export function createAtriumRoom(targets: RoomModule[]): RoomModule {
     },
 
     click(env, x, y): RoomId | void {
-      const hit = orbitNodes(env).find((node) => dist({ x, y }, node) < 38);
-      return hit?.room;
+      return nearestOrbitNode(orbitNodes(env), x, y)?.room;
     },
   };
 }
