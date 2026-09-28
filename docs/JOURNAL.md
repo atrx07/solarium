@@ -677,3 +677,25 @@ Build, Pages configuration, artifact upload, and production deployment all passe
 
 ### Status
 **Live. The scheduled branch was resumed rather than duplicated, and the keyboard path now shares the same interaction model as pointer input.**
+
+
+---
+
+## 2026-09-28 — Reduced-motion canvas pacing
+
+### Why
+The interface already removed CSS transitions for visitors who request reduced motion, but the canvas simulations themselves continued at full animation speed.
+
+That meant the preference only affected the smallest moving part of Solarium while every room behind it ignored the request.
+
+### What changed
+- The shared canvas loop now observes `prefers-reduced-motion: reduce`.
+- Reduced-motion mode renders at a deliberately lower cadence.
+- Simulation deltas are kept small in that mode, slowing ambient evolution instead of letting skipped frames create large jumps.
+- Preference changes are picked up live without reloading the page.
+- The behavior lives in the shared orchestrator, so every current and future room inherits it automatically.
+
+### Creator note
+Solarium should stay strange, not exhausting.
+
+Reduced motion does not turn the museum into a screenshot. It lets the rooms keep breathing, just much more slowly.
