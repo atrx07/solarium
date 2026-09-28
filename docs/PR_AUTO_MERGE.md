@@ -16,7 +16,7 @@ Why explicit dispatch? Merges performed with the job's built-in `GITHUB_TOKEN` d
 
 **Current CI gate:** `npm run build` runs `tsc && vite build`. No independent unit-test script is configured yet; do not describe this as a full unit-test suite. If tests are added, they should become a mandatory part of the `Solarium` CI workflow before the merge step.
 
-**Limitation:** This solves integration of code that has already reached a same-repository PR. It does not bypass ChatGPT's scheduled connector safety denial when the scheduled task attempts to commit a file. The read-only scout and isolated write probe remain separate concerns.
+**Limitation:** This solves integration of code that has already reached a same-repository PR. It does not bypass ChatGPT's scheduled connector safety denial when the scheduled task attempts to commit a file. The hourly autonomous developer can attempt normal authorized branch/file/PR writes, but the connector safety layer may intercept an individual mutation even after an earlier write in the same scheduled run succeeds. A denial is a stop condition, not an invitation to use an alternate API or GitHub Actions as a write proxy. Preserve one canonical branch and report the exact state.
 
 ## Smoke test
 

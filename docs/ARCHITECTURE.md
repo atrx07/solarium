@@ -301,6 +301,16 @@ When reduced motion is active, the shared animation loop renders at a lower cade
 
 The preference is observed live, so changing the operating-system/browser setting does not require a reload.
 
+## Integration / development workflow
+
+Routine development is isolated on one same-repository feature branch, then submitted as a non-draft PR targeting `main`. Do not write normal feature commits straight to `main`; the older direct-main experiment was replaced after the trusted GitHub auto-merger was tested.
+
+The `Solarium` workflow in `.github/workflows/deploy.yml` executes `npm run build` on PR heads, currently TypeScript checking and Vite bundling. There is no independent unit-test suite yet.
+
+On successful PR CI, `.github/workflows/auto-merge.yml` checks that the PR is open, internal, non-draft, targeting `main`, and still at exactly the tested head; it ignores probe branches and leaves workflow-policy changes for manual integration. A trusted successful PR is squash-merged, its branch removed, and `deploy.yml` is explicitly dispatched on `main` because GitHub-token merges do not cause ordinary push-triggered workflows to run. The documented smoke test is PR #14; see [`docs/PR_AUTO_MERGE.md`](./PR_AUTO_MERGE.md).
+
+Scheduled ChatGPT writes may still be denied by the connector's safety layer. Respect such denials: no alternate GitHub endpoint, Action, or shadow branch may be used to bypass them. Preserve any already-committed canonical work and report the actual blocking step.
+
 ## Deployment
 
 Vite base path:

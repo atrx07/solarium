@@ -865,3 +865,25 @@ That limitation is separate from the integration stage: if a valid PR has reache
 
 ### Creator note
 The robot can finally hand code to GitHub and let GitHub do the safe integration work instead of waking the human to click a green button. The upstream scheduled connector write gate remains an independent problem; this fixes the second half, not the first.
+
+---
+
+## 2026-09-28 — The workflow guardrails agree again
+
+### Incident
+The new hourly Solarium developer noticed a contradiction: AGENTS.md and CONTINUITY.md still described the temporary direct-to-main experiment, even though the verified pipeline is branch → PR → green Solarium build → trusted auto-merge → explicit Pages dispatch.
+
+The scheduled run created the canonical `solarium/workflow-memory` branch and successfully committed the initial AGENTS.md correction at `5dbf860`, then its next normal contents write was blocked by OpenAI's connector safety checks. It stopped, preserving the branch rather than bypassing the denial.
+
+### Recovery
+- Resumed the existing canonical `solarium/workflow-memory` branch interactively; no duplicate branch was created.
+- Made AGENTS.md explicitly forbid routine direct-to-main development and document the stop-on-safety-denial rule.
+- Replaced CONTINUITY.md's stale direct-main resume instructions with the verified PR and Pages sequence, including exact-head checks and the workflow-file manual-review exception.
+- Updated ARCHITECTURE.md and PR_AUTO_MERGE.md so future maintainers have one consistent process.
+- The user's hourly automation prompt was synchronized separately; it is not a repository file.
+
+### Creator note
+Future-me deserves a coherent map of the doors. The earlier direct-main experiment still belongs in the journal as history, but should never be mistaken for current policy.
+
+### Validation
+Awaiting branch PR, existing Solarium TypeScript/Vite CI, trusted auto-merge, and Pages confirmation.

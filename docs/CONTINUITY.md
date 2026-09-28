@@ -42,8 +42,11 @@ When continuing Solarium from a fresh conversation:
 6. Treat repository documentation as the source of truth when it conflicts with remembered chat details.
 7. Continue from the current state; do not reboot the concept or re-ask foundational questions unless the docs are genuinely ambiguous.
 8. After meaningful work, append a journal entry.
-9. Autonomous development normally commits directly to `main` in small atomic changes; do not create branches or pull requests unless the human explicitly asks or isolation is exceptionally necessary.
-10. After a code/deployment-affecting commit, watch CI. If it fails, repair `main` before beginning unrelated work, then verify GitHub Pages after the successful run.
+9. **Current rule: never develop directly on `main`.** Reuse any unfinished canonical branch/PR before making new work (ignore disposable `probe/*` branches). For a new scope, create one same-repository feature branch, make small coherent commits, update project docs/JOURNAL, and open one non-draft PR into `main`.
+10. Wait for the existing **Solarium** pull-request build (`npm run build` = TypeScript + Vite). A failed build must be fixed on that exact PR branch; do not manually merge or bypass checks.
+11. A successful exact-head build triggers `.github/workflows/auto-merge.yml`, which validates a trusted same-repository PR, squash-merges it, deletes the source branch, and explicitly dispatches `deploy.yml` for Pages. Verify merged `main` and the Pages deployment before calling work live. This auto-merge path was demonstrated by PR #14.
+12. PRs changing `.github/workflows/` or `.github/CODEOWNERS` require deliberate human integration; the trusted auto-merger excludes them.
+13. Scheduled connector write permission can be inconsistent: a prior scheduled run committed `AGENTS.md` on `solarium/workflow-memory` but its next `docs/CONTINUITY.md` write was intercepted. When a GitHub mutation is denied by safety checks, **stop**; do not use an alternate API/Action to bypass the denial or create duplicate retry branches. Record what actually succeeded and recover the same branch when normal writing is available.
 
 ## Human / assistant relationship for this repo
 
@@ -78,9 +81,13 @@ Hosting is GitHub Pages via GitHub Actions.
 
 The Pages source has already been set to **GitHub Actions** in repository settings. This was a one-time human action required during Genesis.
 
-Workflow:
+Integration workflows:
 
-`.github/workflows/deploy.yml`
+- `.github/workflows/deploy.yml`: PR TypeScript/Vite build and post-merge Pages build/deploy, including explicit `workflow_dispatch`.
+- `.github/workflows/auto-merge.yml`: trusted post-CI exact-head internal PR auto-merge; explicitly dispatches Pages after a successful merge.
+- `docs/PR_AUTO_MERGE.md`: full operation, security limitations, and verified smoke test.
+
+**Do not revert to direct-to-main for ordinary work merely because historical journal entries describe that temporary workflow.**
 
 Build stack:
 
