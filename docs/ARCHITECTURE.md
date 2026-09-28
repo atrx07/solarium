@@ -246,6 +246,22 @@ When a ray exits sufficiently dense glass beyond the critical angle, the refract
 
 Lens count and bounce count are bounded so the room stays inexpensive enough for browser rendering.
 
+## Keyboard and focus interaction
+
+The canvas is keyboard-focusable.
+
+When the stage has focus:
+- arrow keys move a virtual cursor,
+- **Shift + Arrow** moves it in larger steps,
+- **Enter** invokes the same room action as a click at the cursor position,
+- **Space** does the same unless the current room already consumes Space for its own control.
+
+The virtual cursor uses the same stage pointer coordinates that room interactions already understand, so rooms do not need separate keyboard-only simulation logic.
+
+A visible reticle is drawn only while keyboard control is active and the canvas owns focus.
+
+Pointer input automatically returns control to pointer mode.
+
 ## Deployment
 
 Vite base path:

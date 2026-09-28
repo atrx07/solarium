@@ -70,7 +70,7 @@ npm run preview
 
 From the Atrium, click an orbiting anomaly or use the numbered room keys (**1–8** in the current release).
 
-Inside any room, **Esc** returns to the Atrium. Room-specific controls live with each room in the [Room Atlas](./docs/rooms/README.md).
+Inside any room, **Esc** returns to the Atrium. Keyboard users can **Tab** to the stage, move the virtual cursor with the arrow keys, and press **Enter** to activate it; **Space** also activates unless the room already uses Space for its own control. Room-specific controls live with each room in the [Room Atlas](./docs/rooms/README.md).
 
 ## Principles
 

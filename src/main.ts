@@ -33,7 +33,16 @@ const roomById = new Map<RoomId, RoomModule>(
 );
 
 app.innerHTML = `
-  <canvas id="stage" aria-label="Interactive Solarium canvas"></canvas>
+  <canvas
+    id="stage"
+    tabindex="0"
+    aria-label="Interactive Solarium canvas"
+    aria-describedby="stage-help"
+  ></canvas>
+  <p class="sr-only" id="stage-help">
+    Focus the stage, use arrow keys to move the virtual cursor, and press Enter to activate the current point.
+    Space also activates unless the current room already uses Space for its own control.
+  </p>
   <div class="shell">
     <div class="brand"><strong>SOLARIUM</strong><span>006 / PRISM</span></div>
     <section class="room-meta" aria-live="polite">
@@ -59,6 +68,7 @@ if (!canvas || !titleEl || !copyEl || !hintEl || !statusEl || !backEl) {
 
 const stage = new Stage(canvas);
 let currentRoom: RoomId = "atrium";
+let keyboardControl = false;
 
 const visited = new Set<RoomId>(
   ((localStorage.getItem("solarium.visited") ?? "")
@@ -111,6 +121,7 @@ function handleCanvasClick(x: number, y: number): void {
 }
 
 canvas.addEventListener("pointermove", (event) => {
+  keyboardControl = false;
   const point = stage.pointFromEvent(event);
   stage.pointer.x = point.x;
   stage.pointer.y = point.y;
@@ -118,6 +129,7 @@ canvas.addEventListener("pointermove", (event) => {
 });
 
 canvas.addEventListener("pointerdown", (event) => {
+  keyboardControl = false;
   const point = stage.pointFromEvent(event);
   stage.pointer.x = point.x;
   stage.pointer.y = point.y;
@@ -137,8 +149,27 @@ canvas.addEventListener("pointerup", (event) => {
 });
 
 function releasePointer(): void {
+  keyboardControl = false;
   stage.pointer.active = false;
   stage.pointer.down = false;
+}
+
+function engageKeyboardControl(): void {
+  if (!keyboardControl || !stage.pointer.active) {
+    stage.pointer.x = stage.width / 2;
+    stage.pointer.y = stage.height / 2;
+    stage.pointer.active = true;
+    stage.pointer.down = false;
+    setStatus("keyboard / arrows move · enter activates");
+  }
+
+  keyboardControl = true;
+}
+
+function moveKeyboardCursor(dx: number, dy: number): void {
+  engageKeyboardControl();
+  stage.pointer.x = Math.max(12, Math.min(stage.width - 12, stage.pointer.x + dx));
+  stage.pointer.y = Math.max(12, Math.min(stage.height - 12, stage.pointer.y + dy));
 }
 
 canvas.addEventListener("pointerleave", releasePointer);
@@ -161,7 +192,42 @@ window.addEventListener("keydown", (event) => {
     }
   }
 
-  roomById.get(currentRoom)?.key?.(env, event);
+  const activeRoom = roomById.get(currentRoom);
+  activeRoom?.key?.(env, event);
+
+  if (event.defaultPrevented || document.activeElement !== canvas) return;
+
+  const step = event.shiftKey ? 64 : 26;
+
+  if (event.key === "ArrowLeft") {
+    event.preventDefault();
+    moveKeyboardCursor(-step, 0);
+    return;
+  }
+
+  if (event.key === "ArrowRight") {
+    event.preventDefault();
+    moveKeyboardCursor(step, 0);
+    return;
+  }
+
+  if (event.key === "ArrowUp") {
+    event.preventDefault();
+    moveKeyboardCursor(0, -step);
+    return;
+  }
+
+  if (event.key === "ArrowDown") {
+    event.preventDefault();
+    moveKeyboardCursor(0, step);
+    return;
+  }
+
+  if (event.key === "Enter" || event.code === "Space") {
+    event.preventDefault();
+    engageKeyboardControl();
+    handleCanvasClick(stage.pointer.x, stage.pointer.y);
+  }
 });
 
 window.addEventListener("resize", resize);
@@ -175,6 +241,11 @@ function frame(now: number): void {
   stage.time = now;
 
   roomById.get(currentRoom)?.draw(env, dt);
+
+  if (keyboardControl && document.activeElement === canvas) {
+    stage.drawKeyboardReticle();
+  }
+
   frameHandle = requestAnimationFrame(frame);
 }
 

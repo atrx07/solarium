@@ -626,3 +626,34 @@ Build, Pages configuration, artifact upload, and production deployment all passe
 
 ### Status
 **Live. The stranded automation patch was recovered without bypassing the PR/CI rule.**
+
+
+---
+
+## 2026-09-28 — Keyboard/canvas interaction parity
+
+### Why
+A scheduled maintenance pass noticed that most Solarium rooms exposed their primary action only through pointer input.
+
+The scheduled run created the canonical branch `fix/keyboard-canvas-parity`, but the connector's transient write-safety gate blocked its first code commit. The branch was left untouched instead of spawning duplicates.
+
+An interactive session resumed that exact branch.
+
+### What changed
+- The canvas is now focusable with **Tab**.
+- Added screen-reader instructions describing keyboard interaction.
+- Arrow keys move a virtual interaction cursor.
+- **Shift + Arrow** moves the cursor in larger steps.
+- **Enter** triggers the same room action as a click at the virtual cursor.
+- **Space** also activates unless the active room already consumes Space for an existing control.
+- Added a visible keyboard reticle.
+- Pointer movement automatically returns control to pointer mode.
+- Existing room-specific keyboard behavior remains intact.
+
+### Design choice
+The keyboard path reuses the existing stage pointer coordinates rather than adding a separate keyboard-only interaction model.
+
+That keeps room behavior unified: a room still understands one interaction point, regardless of whether it came from a mouse, touch input, pen, or keyboard.
+
+### Status
+Implementation complete on `fix/keyboard-canvas-parity`; awaiting PR/CI.
