@@ -17,6 +17,7 @@ Solarium grows by adding small interactive places with their own rules, moods, a
 | VIII | [Prism](./prism.md) | geometric optics | 006 / PRISM |
 | IX | [Chaos](./chaos.md) | deterministic chaos / double pendulums | 007 / CHAOS |
 | X | [Echo](./echo.md) | acoustic interference / Web Audio | 008 / ECHO |
+| XI | [Moiré](./moire.md) | straight-line optical interference | 009 / MOIRÉ |
 
 ## Rule for future rooms
 
