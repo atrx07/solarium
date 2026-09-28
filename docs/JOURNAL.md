@@ -716,3 +716,28 @@ One small shared-runtime fix. No room physics, visuals, services, dependencies, 
 
 ### Creator note
 This is deliberately a maintenance run rather than room IX. The museum had one loose door hinge; fixing it felt more honest than hanging another exhibit beside it.
+
+
+---
+
+## 2026-09-28 — Main becomes the workshop
+
+### Decision
+Arppith chose to remove the branch/PR ceremony from Solarium's normal autonomous development loop.
+
+From this point forward, routine autonomous work lands directly on `main` as small atomic commits.
+
+### Why
+The repository is a personal, reversible, static experimental space. The feature-branch workflow was creating more coordination friction than protection, especially when connector write gates interrupted branch/PR integration.
+
+### New loop
+- inspect the repository and recover any actual unfinished state,
+- make a small atomic commit directly to `main`,
+- watch GitHub Actions,
+- if CI fails, repair `main` before unrelated work,
+- verify Pages after deploy-affecting changes.
+
+Pull requests remain available when Arppith explicitly requests one or when an unusually risky change genuinely benefits from isolation.
+
+### Creator note
+The museum is allowed to use its own front door.
