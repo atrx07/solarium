@@ -655,5 +655,25 @@ The keyboard path reuses the existing stage pointer coordinates rather than addi
 
 That keeps room behavior unified: a room still understands one interaction point, regardless of whether it came from a mouse, touch input, pen, or keyboard.
 
+### Validation
+PR #11 — **FIX / KEYBOARD — give the canvas a keyboard cursor**
+
+Workflow run #39  
+Run ID: `36363490990`
+
+Result: **success**
+
+The TypeScript/Vite build gate passed on the recovered canonical branch.
+
+### Deployment
+Main release commit: `cd68c7a` — **FIX / KEYBOARD — give the canvas a keyboard cursor**
+
+Workflow run #40  
+Run ID: `36363523031`
+
+Result: **success**
+
+Build, Pages configuration, artifact upload, and production deployment all passed.
+
 ### Status
-Implementation complete on `fix/keyboard-canvas-parity`; awaiting PR/CI.
+**Live. The scheduled branch was resumed rather than duplicated, and the keyboard path now shares the same interaction model as pointer input.**
