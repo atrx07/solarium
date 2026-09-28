@@ -55,7 +55,7 @@ function seed(a1 = DEFAULT_A1, a2 = DEFAULT_A2): void {
       a2: a2 - offset * EPSILON * 0.63,
       w1: 0,
       w2: 0,
-      trail: [],
+      trail: [] as WorldPoint[],
     };
   });
 }
