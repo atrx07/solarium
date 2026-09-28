@@ -40,6 +40,8 @@ When continuing Solarium from a fresh conversation:
 6. Treat repository documentation as the source of truth when it conflicts with remembered chat details.
 7. Continue from the current state; do not reboot the concept or re-ask foundational questions unless the docs are genuinely ambiguous.
 8. After meaningful work, append a journal entry.
+9. Autonomous development normally commits directly to `main` in small atomic changes; do not create branches or pull requests unless the human explicitly asks or isolation is exceptionally necessary.
+10. After a code/deployment-affecting commit, watch CI. If it fails, repair `main` before beginning unrelated work, then verify GitHub Pages after the successful run.
 
 ## Human / assistant relationship for this repo
 
