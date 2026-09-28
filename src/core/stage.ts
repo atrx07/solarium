@@ -109,6 +109,33 @@ export class Stage {
     this.ctx.fill();
   }
 
+  drawKeyboardReticle(): void {
+    const x = this.pointer.active ? this.pointer.x : this.width / 2;
+    const y = this.pointer.active ? this.pointer.y : this.height / 2;
+
+    this.ctx.save();
+    this.ctx.strokeStyle = "rgba(244,242,255,0.62)";
+    this.ctx.lineWidth = 1;
+
+    this.ctx.beginPath();
+    this.ctx.arc(x, y, 9, 0, TAU);
+    this.ctx.stroke();
+
+    this.ctx.strokeStyle = "rgba(244,242,255,0.34)";
+    this.ctx.beginPath();
+    this.ctx.moveTo(x - 16, y);
+    this.ctx.lineTo(x - 11, y);
+    this.ctx.moveTo(x + 11, y);
+    this.ctx.lineTo(x + 16, y);
+    this.ctx.moveTo(x, y - 16);
+    this.ctx.lineTo(x, y - 11);
+    this.ctx.moveTo(x, y + 11);
+    this.ctx.lineTo(x, y + 16);
+    this.ctx.stroke();
+
+    this.ctx.restore();
+  }
+
   pointFromEvent(event: PointerEvent): Point {
     const rect = this.canvas.getBoundingClientRect();
     return {
