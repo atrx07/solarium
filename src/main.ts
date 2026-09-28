@@ -76,11 +76,17 @@ const stage = new Stage(canvas);
 let currentRoom: RoomId = "atrium";
 let keyboardControl = false;
 
-const visited = new Set<RoomId>(
-  ((localStorage.getItem("solarium.visited") ?? "")
-    .split(",")
-    .filter(Boolean) as RoomId[]),
-);
+function readVisitedRooms(): RoomId[] {
+  try {
+    return (localStorage.getItem("solarium.visited") ?? "")
+      .split(",")
+      .filter(Boolean) as RoomId[];
+  } catch {
+    return [];
+  }
+}
+
+const visited = new Set<RoomId>(readVisitedRooms());
 
 function setStatus(text: string): void {
   statusEl.textContent = text;
@@ -97,7 +103,12 @@ const env: RoomEnvironment = {
 
 function persistVisit(target: RoomId): void {
   visited.add(target);
-  localStorage.setItem("solarium.visited", [...visited].join(","));
+
+  try {
+    localStorage.setItem("solarium.visited", [...visited].join(","));
+  } catch {
+    // The in-memory visit trail still works when browser storage is unavailable.
+  }
 }
 
 function enterRoom(target: RoomId): void {
