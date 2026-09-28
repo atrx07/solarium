@@ -234,10 +234,18 @@ window.addEventListener("resize", resize);
 
 let previous = performance.now();
 let frameHandle = 0;
+let lastReducedMotionFrame = 0;
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 function frame(now: number): void {
-  const dt = Math.min(now - previous, 32);
+  if (reducedMotion.matches && now - lastReducedMotionFrame < 100) {
+    frameHandle = requestAnimationFrame(frame);
+    return;
+  }
+
+  const dt = reducedMotion.matches ? Math.min(now - previous, 16) : Math.min(now - previous, 32);
   previous = now;
+  lastReducedMotionFrame = now;
   stage.time = now;
 
   roomById.get(currentRoom)?.draw(env, dt);
@@ -265,6 +273,11 @@ function stopAnimation(): void {
 document.addEventListener("visibilitychange", () => {
   if (document.hidden) stopAnimation();
   else startAnimation();
+});
+
+reducedMotion.addEventListener("change", () => {
+  previous = performance.now();
+  lastReducedMotionFrame = 0;
 });
 
 resize();
