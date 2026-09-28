@@ -148,10 +148,14 @@ canvas.addEventListener("pointerup", (event) => {
   }
 });
 
-function releasePointer(): void {
+function releasePointer(event?: PointerEvent): void {
   keyboardControl = false;
   stage.pointer.active = false;
   stage.pointer.down = false;
+
+  if (event && canvas.hasPointerCapture(event.pointerId)) {
+    canvas.releasePointerCapture(event.pointerId);
+  }
 }
 
 function engageKeyboardControl(): void {
