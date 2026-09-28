@@ -154,6 +154,14 @@ function releasePointer(): void {
   stage.pointer.down = false;
 }
 
+function cancelPointer(event: PointerEvent): void {
+  releasePointer();
+
+  if (canvas.hasPointerCapture(event.pointerId)) {
+    canvas.releasePointerCapture(event.pointerId);
+  }
+}
+
 function engageKeyboardControl(): void {
   if (!keyboardControl || !stage.pointer.active) {
     stage.pointer.x = stage.width / 2;
@@ -173,7 +181,7 @@ function moveKeyboardCursor(dx: number, dy: number): void {
 }
 
 canvas.addEventListener("pointerleave", releasePointer);
-canvas.addEventListener("pointercancel", releasePointer);
+canvas.addEventListener("pointercancel", cancelPointer);
 window.addEventListener("blur", releasePointer);
 
 backEl.addEventListener("click", () => enterRoom("atrium"));

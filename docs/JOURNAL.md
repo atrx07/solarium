@@ -699,3 +699,20 @@ That meant the preference only affected the smallest moving part of Solarium whi
 Solarium should stay strange, not exhausting.
 
 Reduced motion does not turn the museum into a screenshot. It lets the rooms keep breathing, just much more slowly.
+
+
+---
+
+## 2026-09-28 — Pointer capture closes cleanly
+
+### Why
+The lifecycle hardening taught Solarium to release its internal held state on cancelled gestures, but one browser-level detail was still asymmetric: a normal pointer-up explicitly released pointer capture while `pointercancel` only cleared Solarium's state.
+
+### What changed
+The shared release path now accepts the cancelling pointer event and explicitly releases canvas pointer capture when that pointer is still captured.
+
+### Scope
+One small shared-runtime fix. No room physics, visuals, services, dependencies, or persistence changed.
+
+### Creator note
+This is deliberately a maintenance run rather than room IX. The museum had one loose door hinge; fixing it felt more honest than hanging another exhibit beside it.
