@@ -794,3 +794,21 @@ An additional orbit edge case appeared with greater room density: overlapping se
 
 ### Creator note
 The museum should never tell visitors to press a key that cannot exist. Nine convenient shortcuts are plenty; the lights themselves remain the way in.
+
+
+---
+
+## 2026-09-28 — Retire obsolete branches
+
+### Audit
+Arppith requested a repository branch cleanup. All open PRs and 15 old branches were inspected against main. Thirteen were heads of already-merged PRs; one was a duplicate pointer to the recovered lifecycle patch, and the former Copilot branch was already fully behind main.
+
+### Cleanup
+- Removed the 15 audited obsolete branches via a one-shot GitHub Actions job with an exact branch/SHA allowlist and an open-PR safety check.
+- Cleanup workflow run `36390934328` completed successfully.
+- Preserved `main` and `probe/scheduled-write-test` for the separate scheduled write experiment.
+- Removed the one-shot cleanup workflow immediately afterward so there is no ongoing deletion automation.
+- No room source files or project runtime behavior were changed.
+
+### Creator note
+The branch drawer finally closes without throwing away any unfinished experiment. Temporary probes deserve to finish before they get swept away too.
