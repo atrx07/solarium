@@ -5,6 +5,7 @@ import { Stage } from "./core/stage";
 import { createAtriumRoom } from "./rooms/atrium";
 import { bloomRoom } from "./rooms/bloom";
 import { chaosRoom } from "./rooms/chaos";
+import { echoRoom } from "./rooms/echo";
 import { gravitasRoom } from "./rooms/gravitas";
 import { murmurationRoom } from "./rooms/murmuration";
 import { myceliumRoom } from "./rooms/mycelium";
@@ -26,6 +27,7 @@ const targetRooms: RoomModule[] = [
   reactionRoom,
   prismRoom,
   chaosRoom,
+  echoRoom,
 ];
 
 const atriumRoom = createAtriumRoom(targetRooms);
@@ -46,7 +48,7 @@ app.innerHTML = `
     Space also activates unless the current room already uses Space for its own control.
   </p>
   <div class="shell">
-    <div class="brand"><strong>SOLARIUM</strong><span>007 / CHAOS</span></div>
+    <div class="brand"><strong>SOLARIUM</strong><span>008 / ECHO</span></div>
     <section class="room-meta" aria-live="polite">
       <h1 id="room-title">${atriumRoom.title}</h1>
       <p id="room-copy">${atriumRoom.copy}</p>
@@ -100,6 +102,7 @@ function enterRoom(target: RoomId): void {
   const next = roomById.get(target);
   if (!next) return;
 
+  if (currentRoom !== target) roomById.get(currentRoom)?.exit?.(env);
   currentRoom = target;
   titleEl.textContent = next.title;
   copyEl.textContent = next.copy;
@@ -184,7 +187,10 @@ function moveKeyboardCursor(dx: number, dy: number): void {
 
 canvas.addEventListener("pointerleave", releasePointer);
 canvas.addEventListener("pointercancel", cancelPointer);
-window.addEventListener("blur", releasePointer);
+window.addEventListener("blur", () => {
+  releasePointer();
+  roomById.get(currentRoom)?.exit?.(env);
+});
 
 backEl.addEventListener("click", () => enterRoom("atrium"));
 
@@ -283,6 +289,7 @@ function startAnimation(): void {
 }
 
 function stopAnimation(): void {
+  roomById.get(currentRoom)?.exit?.(env);
   if (!frameHandle) return;
   cancelAnimationFrame(frameHandle);
   frameHandle = 0;

@@ -10,7 +10,8 @@ export type RoomId =
   | "tides"
   | "reaction"
   | "prism"
-  | "chaos";
+  | "chaos"
+  | "echo";
 
 export type RoomEnvironment = {
   stage: Stage;
@@ -24,6 +25,8 @@ export interface RoomModule {
   copy: string;
   hint: string;
   enter?: (env: RoomEnvironment) => void;
+  /** Releases room-owned resources before navigation or backgrounding. */
+  exit?: (env: RoomEnvironment) => void;
   resize?: (env: RoomEnvironment) => void;
   draw: (env: RoomEnvironment, dt: number) => void;
   click?: (env: RoomEnvironment, x: number, y: number) => RoomId | void;

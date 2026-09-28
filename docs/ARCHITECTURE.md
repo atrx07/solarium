@@ -55,6 +55,7 @@ src/
     reaction.ts
     prism.ts
     chaos.ts
+    echo.ts
   main.ts
   style.css
 ```
@@ -96,6 +97,8 @@ docs/
     tides.md
     reaction.md
     prism.md
+    chaos.md
+    echo.md
 ```
 
 The root `README.md` is intentionally concise. It contains the origin, a compact room index, basic run instructions, principles, and links into deeper documentation.
@@ -108,7 +111,7 @@ Every substantial new room should add one room document and one compact atlas/in
 
 The current room identity is represented by a small union:
 
-`atrium | gravitas | bloom | resonance | murmuration | mycelium | tides | reaction | prism | chaos`
+`atrium | gravitas | bloom | resonance | murmuration | mycelium | tides | reaction | prism | chaos | echo`
 
 The Atrium acts as the central navigation layer.
 
@@ -212,7 +215,7 @@ New rooms should implement the shared `RoomModule` contract under `src/rooms/`. 
 
 Do not put room-specific state back into `src/main.ts`.
 
-Prefer small room-owned modules over a speculative framework. The current contract is intentionally narrow: enter, resize, draw, click, and key hooks.
+Prefer small room-owned modules over a speculative framework. The contract stays intentionally narrow: enter, optional exit (for cleanup), resize, draw, click, and key hooks.
 
 ## Reaction
 
@@ -263,6 +266,14 @@ Behavior:
 - **Space**: pause/resume evolution.
 
 Integration uses bounded substeps so accelerated time remains numerically stable. Trail lengths and ensemble size are capped for predictable browser cost.
+
+## Echo
+
+Echo is a browser-local acoustic interference chamber. Up to four normalized source locations contribute attenuated, outward-propagating sinusoidal pressure to a bounded offscreen Canvas 2D grid (roughly 16,000 samples). Each frame sums the sources, producing shifting bright antinodes and dark cancellation lines; the visual wave rates are slowed/stylized for readability.
+
+The visitor can tap/click to add sources (maximum four), select a source and tap a destination to move it, or reset with **R**. **Space** freezes the visual field while allowing optional sound to continue. Sources and cursor/listener position map to the same geometry for the separate Web Audio drone.
+
+Audio is **off by default** and only starts on a user gesture (SOUND canvas control or **A** key). Four sine oscillators, individual gain/panning, and a low master gain make close frequencies beat gently; unused voices are muted. The field remains fully functional without AudioContext. Echo owns and closes its context through the optional room `exit` hook on navigation, blur, or page hide, so room-local audio cannot run after leaving.
 
 ## Keyboard and focus interaction
 

@@ -10,7 +10,7 @@ Live site: https://atrx07.github.io/solarium/
 
 Default branch: `main`
 
-Current public release family: **007 / CHAOS**
+Current public release family: **008 / ECHO**
 
 Current room atlas: [`docs/rooms/README.md`](./rooms/README.md)
 
@@ -26,6 +26,7 @@ Current rooms:
 - **VII · Reaction** — Gray–Scott reaction-diffusion chemistry that self-organizes into evolving patterns from visitor-injected reagent.
 - **VIII · Prism** — ray-optics chamber with circular lenses, refractive bending, spectral dispersion, and total internal reflection.
 - **IX · Chaos** — seventeen nearly identical double pendulums whose tiny initial differences become visibly different futures.
+- **X · Echo** — local acoustic interference field with up to four sources and optional gesture-activated stereo drone.
 
 The project is intentionally unfinished. New rooms should arrive when there is something genuinely interesting to add.
 

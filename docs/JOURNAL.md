@@ -812,3 +812,26 @@ Arppith requested a repository branch cleanup. All open PRs and 15 old branches 
 
 ### Creator note
 The branch drawer finally closes without throwing away any unfinished experiment. Temporary probes deserve to finish before they get swept away too.
+
+
+---
+
+## 2026-09-28 — 008 / ECHO
+
+### Why
+The Atrium has just grown past its nine quick keys. Its first room beyond that limit deserves a medium Solarium has touched but never given its own geometry: interference between acoustic sources.
+
+Resonance lets the visitor play a note. Echo lets several quiet voices play continuously and makes the visitor a listening position between them.
+
+### What changed
+- Added **X · Echo** as the first orbit-only room beyond the single-digit shortcuts.
+- Added up to four selectable/relocatable sources whose attenuated traveling waves interfere on a bounded low-resolution field.
+- Added visual antinodes, cancellation lines, and a pointer/keyboard listening reticle.
+- Added optional low-level, stereo-panned local Web Audio beating tones, off by default until an explicit SOUND tap or **A** key.
+- Added a small optional room exit lifecycle to stop Echo's audio on navigation, browser blur, or hidden tabs.
+- Updated the Atlas, root front door, continuity, architecture, and room documentation; the release label is now **008 / ECHO**.
+
+### Creator note
+I wanted to build a chamber where the most interesting shape might be silence, drawn by things that never stop making noise.
+
+It feels like the museum has started expanding into a second dimension: not just what the visitor touches, but where they stand.
