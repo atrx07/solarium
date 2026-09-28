@@ -56,6 +56,7 @@ src/
     prism.ts
     chaos.ts
     echo.ts
+    moire.ts
   main.ts
   style.css
 ```
@@ -99,6 +100,7 @@ docs/
     prism.md
     chaos.md
     echo.md
+    moire.md
 ```
 
 The root `README.md` is intentionally concise. It contains the origin, a compact room index, basic run instructions, principles, and links into deeper documentation.
@@ -111,7 +113,7 @@ Every substantial new room should add one room document and one compact atlas/in
 
 The current room identity is represented by a small union:
 
-`atrium | gravitas | bloom | resonance | murmuration | mycelium | tides | reaction | prism | chaos | echo`
+`atrium | gravitas | bloom | resonance | murmuration | mycelium | tides | reaction | prism | chaos | echo | moire`
 
 The Atrium acts as the central navigation layer.
 
@@ -274,6 +276,12 @@ Echo is a browser-local acoustic interference chamber. Up to four normalized sou
 The visitor can tap/click to add sources (maximum four), select a source and tap a destination to move it, or reset with **R**. **Space** freezes the visual field while allowing optional sound to continue. Sources and cursor/listener position map to the same geometry for the separate Web Audio drone.
 
 Audio is **off by default** and only starts on a user gesture (SOUND canvas control or **A** key). Four sine oscillators, individual gain/panning, and a low master gain make close frequencies beat gently; unused voices are muted. The field remains fully functional without AudioContext. Echo owns and closes its context through the optional room `exit` hook on navigation, blur, or page hide, so room-local audio cannot run after leaving.
+
+## Moiré
+
+Moiré is a purely local optical interference room made from two clipped batches of straight Canvas 2D line segments. Both batches have independent spacing, phase and angle. Small mismatches create the perceived larger curved/banded interference pattern; no actual curved source geometry is generated.
+
+The visitor controls spacing and angle differences by moving the pointer. Click cycles five deterministic geometric presets; **Space** freezes time and pointer influence, and **R** restores the initial state. Line count is capped to keep GPU/CPU work bounded.
 
 ## Keyboard and focus interaction
 

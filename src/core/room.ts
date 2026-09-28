@@ -11,7 +11,8 @@ export type RoomId =
   | "reaction"
   | "prism"
   | "chaos"
-  | "echo";
+  | "echo"
+  | "moire";
 
 export type RoomEnvironment = {
   stage: Stage;

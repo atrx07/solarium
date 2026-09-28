@@ -887,3 +887,22 @@ Future-me deserves a coherent map of the doors. The earlier direct-main experime
 
 ### Validation
 Awaiting branch PR, existing Solarium TypeScript/Vite CI, trusted auto-merge, and Pages confirmation.
+
+---
+
+## 2026-09-28 — 009 / MOIRÉ, and another safety gate incident
+
+### Intent
+XI · Moiré uses only two fields of straight lines. The visitor alters their small pitch and angle differences; broad curves and bands appear in perception, not as precomputed curved geometry. Click cycles five different configurations, Space freezes the pattern, and R resets.
+
+### Scheduled run
+The first scheduled attempt successfully created `solarium/moire` from then-green main (`7a9ef6c`) but its first contents write of `src/rooms/moire.ts` was intercepted with `This tool call was blocked by OpenAI's safety checks. Please double check what you are sending.` No code commit was made and the scheduled run stopped without an alternate write route.
+
+### Recovery
+At Arppith's request, an interactive session recovered the **existing** canonical branch and committed the normal room module, registration, Room Atlas page, compact README entry, continuity, and architecture notes using the authorized GitHub connector. No duplicate branch or bypass action was used in the scheduled task.
+
+### Creator note
+A strange room assembled from little disagreements between straight lines is a fitting room after a day of two execution contexts disagreeing about the same repository. The visual experiment deserves its own place, rather than being a monument to the denied request.
+
+### Status
+Awaiting the standard non-draft PR, PR build, trusted auto-merge, and explicit Pages dispatch. Do not call it live until deployment is verified.
