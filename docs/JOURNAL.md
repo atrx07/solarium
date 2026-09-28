@@ -604,5 +604,25 @@ The branch remained one clean commit ahead of `main` rather than bypassing the n
 
 An interactive session later found GitHub writes available again and resumed the standard integration path.
 
+### Validation
+PR #10 — **FIX / LIFECYCLE — stop background time leaking into rooms**
+
+Workflow run #37  
+Run ID: `36362951309`
+
+Result: **success**
+
+The TypeScript/Vite build gate passed on the recovered feature branch.
+
+### Deployment
+Main release commit: `e6c290c` — **FIX / LIFECYCLE — stop background time leaking into rooms**
+
+Workflow run #38  
+Run ID: `36362976786`
+
+Result: **success**
+
+Build, Pages configuration, artifact upload, and production deployment all passed.
+
 ### Status
-Patch and journal entry staged on `fix/mobile-lifecycle`; awaiting PR/CI.
+**Live. The stranded automation patch was recovered without bypassing the PR/CI rule.**
