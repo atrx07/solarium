@@ -262,6 +262,14 @@ A visible reticle is drawn only while keyboard control is active and the canvas 
 
 Pointer input automatically returns control to pointer mode.
 
+## Reduced motion
+
+Solarium honors the browser's `prefers-reduced-motion: reduce` preference in both CSS and the canvas runtime.
+
+When reduced motion is active, the shared animation loop renders at a lower cadence and advances simulation time in smaller steps. This deliberately slows ambient motion across every room without requiring room-specific accessibility forks or disabling interaction.
+
+The preference is observed live, so changing the operating-system/browser setting does not require a reload.
+
 ## Deployment
 
 Vite base path:
