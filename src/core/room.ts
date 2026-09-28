@@ -9,7 +9,8 @@ export type RoomId =
   | "mycelium"
   | "tides"
   | "reaction"
-  | "prism";
+  | "prism"
+  | "chaos";
 
 export type RoomEnvironment = {
   stage: Stage;

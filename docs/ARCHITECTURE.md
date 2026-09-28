@@ -54,6 +54,7 @@ src/
     tides-room.ts
     reaction.ts
     prism.ts
+    chaos.ts
   main.ts
   style.css
 ```
@@ -107,7 +108,7 @@ Every substantial new room should add one room document and one compact atlas/in
 
 The current room identity is represented by a small union:
 
-`atrium | gravitas | bloom | resonance | murmuration | mycelium | tides | reaction | prism`
+`atrium | gravitas | bloom | resonance | murmuration | mycelium | tides | reaction | prism | chaos`
 
 The Atrium acts as the central navigation layer.
 
@@ -245,6 +246,23 @@ Behavior:
 When a ray exits sufficiently dense glass beyond the critical angle, the refractor falls back to reflection, producing total internal reflection.
 
 Lens count and bounce count are bounded so the room stays inexpensive enough for browser rendering.
+
+
+## Chaos
+
+Chaos is a deterministic ensemble of seventeen double pendulums.
+
+Every member begins with the same physical parameters and only a microscopic angular offset from its neighbors. The room integrates the standard coupled double-pendulum equations locally and draws the second bob's recent trajectory for each member.
+
+The point is sensitivity to initial conditions rather than randomness: the equations remain the same while nearby beginnings become visibly different futures.
+
+Behavior:
+- click: choose a new pair of starting angles from the clicked position,
+- **F**: toggle accelerated 4× simulation time,
+- **R**: restore the canonical initial condition,
+- **Space**: pause/resume evolution.
+
+Integration uses bounded substeps so accelerated time remains numerically stable. Trail lengths and ensemble size are capped for predictable browser cost.
 
 ## Keyboard and focus interaction
 

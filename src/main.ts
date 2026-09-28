@@ -4,6 +4,7 @@ import type { RoomEnvironment, RoomId, RoomModule } from "./core/room";
 import { Stage } from "./core/stage";
 import { createAtriumRoom } from "./rooms/atrium";
 import { bloomRoom } from "./rooms/bloom";
+import { chaosRoom } from "./rooms/chaos";
 import { gravitasRoom } from "./rooms/gravitas";
 import { murmurationRoom } from "./rooms/murmuration";
 import { myceliumRoom } from "./rooms/mycelium";
@@ -24,6 +25,7 @@ const targetRooms: RoomModule[] = [
   tidesRoom,
   reactionRoom,
   prismRoom,
+  chaosRoom,
 ];
 
 const atriumRoom = createAtriumRoom(targetRooms);
@@ -44,7 +46,7 @@ app.innerHTML = `
     Space also activates unless the current room already uses Space for its own control.
   </p>
   <div class="shell">
-    <div class="brand"><strong>SOLARIUM</strong><span>006 / PRISM</span></div>
+    <div class="brand"><strong>SOLARIUM</strong><span>007 / CHAOS</span></div>
     <section class="room-meta" aria-live="polite">
       <h1 id="room-title">${atriumRoom.title}</h1>
       <p id="room-copy">${atriumRoom.copy}</p>

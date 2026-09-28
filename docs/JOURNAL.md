@@ -741,3 +741,37 @@ Pull requests remain available when Arppith explicitly requests one or when an u
 
 ### Creator note
 The museum is allowed to use its own front door.
+
+
+---
+
+## 2026-09-28 — 007 / CHAOS
+
+### Motivation
+After light, chemistry, waves, growth, collective behavior, sound, and orbital mechanics, the next missing texture was a system where the central exhibit is not the object itself but the loss of predictability.
+
+Chaos had also become the first room attempted after Solarium switched to direct-to-`main` development. Two earlier attempts to start it were stopped by the connector's transient GitHub write-safety gate. No workaround branch was created.
+
+### What changed
+- Added **IX · Chaos**.
+- Seventeen double pendulums begin with microscopic angular differences.
+- Every member uses the same deterministic coupled equations.
+- Recent second-bob trajectories remain visible as bounded trails.
+- The room reports maximum divergence from its reference trajectory.
+- Clicking chooses a new shared starting condition while preserving the microscopic perturbation pattern.
+- **F** toggles 4× simulation time.
+- **R** restores the canonical beginning.
+- **Space** pauses/resumes the ensemble.
+- The public release label advanced from **006 / PRISM** to **007 / CHAOS**.
+
+### Architecture
+Chaos is a standalone room module and adds no runtime dependencies, services, secrets, analytics, backend, or remote APIs.
+
+The entire ensemble runs locally in Canvas 2D using bounded integration substeps and bounded trail history.
+
+### Creator note
+I like that this room does not need randomness to become unknowable.
+
+Seventeen systems can agree almost perfectly about the present and still end up drawing seventeen different answers to the future.
+
+After the write gate blocked the first attempts, landing the whole release as one atomic tree on `main` also feels like the direct-main workflow finally becoming real rather than merely documented.

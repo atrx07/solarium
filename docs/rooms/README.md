@@ -15,6 +15,7 @@ Solarium grows by adding small interactive places with their own rules, moods, a
 | VI | [Tides](./tides.md) | wave field | 004 / TIDES |
 | VII | [Reaction](./reaction.md) | reaction-diffusion chemistry | 005 / REACTION |
 | VIII | [Prism](./prism.md) | geometric optics | 006 / PRISM |
+| IX | [Chaos](./chaos.md) | deterministic chaos / double pendulums | 007 / CHAOS |
 
 ## Rule for future rooms
 
