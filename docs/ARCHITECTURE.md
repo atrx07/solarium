@@ -57,6 +57,7 @@ src/
     chaos.ts
     echo.ts
     moire.ts
+    phase.ts
   main.ts
   style.css
 ```
@@ -101,6 +102,7 @@ docs/
     chaos.md
     echo.md
     moire.md
+    phase.md
 ```
 
 The root `README.md` is intentionally concise. It contains the origin, a compact room index, basic run instructions, principles, and links into deeper documentation.
@@ -113,7 +115,7 @@ Every substantial new room should add one room document and one compact atlas/in
 
 The current room identity is represented by a small union:
 
-`atrium | gravitas | bloom | resonance | murmuration | mycelium | tides | reaction | prism | chaos | echo | moire`
+`atrium | gravitas | bloom | resonance | murmuration | mycelium | tides | reaction | prism | chaos | echo | moire | phase`
 
 The Atrium acts as the central navigation layer.
 
@@ -282,6 +284,16 @@ Audio is **off by default** and only starts on a user gesture (SOUND canvas cont
 Moiré is a purely local optical interference room made from two clipped batches of straight Canvas 2D line segments. Both batches have independent spacing, phase and angle. Small mismatches create the perceived larger curved/banded interference pattern; no actual curved source geometry is generated.
 
 The visitor controls spacing and angle differences by moving the pointer. Click cycles five deterministic geometric presets; **Space** freezes time and pointer influence, and **R** restores the initial state. Line count is capped to keep GPU/CPU work bounded.
+
+## Phase
+
+Phase is a deterministic coupled-oscillator room based on a Kuramoto-style mean-field model.
+
+The room currently uses 72 oscillators. Each oscillator has a fixed natural frequency and phase, while its derivative also includes attraction toward the population's complex order parameter. This avoids pairwise O(N²) coupling: each frame computes one global coherence magnitude and mean phase, then advances each oscillator from that shared field.
+
+Visitor interaction adds a local pacemaker term whose influence falls with distance. Holding the pointer raises global coupling strength, clicking introduces a deterministic distance-shaped phase shock, **Space** pauses, and **R** reseeds the canonical initial condition.
+
+The central hand visualizes mean phase and the coherence meter visualizes the magnitude of collective agreement. Initial positions, frequencies, and phases are deterministic and all computation remains browser-local.
 
 ## Keyboard and focus interaction
 
