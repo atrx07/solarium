@@ -7,6 +7,15 @@ type OrbitNode = {
   x: number;
   y: number;
   r: number;
+  ring: number;
+};
+
+type OrbitRing = {
+  count: number;
+  radius: number;
+  squash: number;
+  speed: number;
+  phase: number;
 };
 
 export function createAtriumRoom(targets: RoomModule[]): RoomModule {
@@ -22,23 +31,62 @@ export function createAtriumRoom(targets: RoomModule[]): RoomModule {
         ? " · key 1"
         : ` · keys 1–${shortcutCount}`;
 
+  function orbitRings(env: RoomEnvironment): OrbitRing[] {
+    const { stage } = env;
+    const targetCount = Math.max(targets.length, 1);
+    const maxPerRing = stage.width < 680 ? 6 : 8;
+    const ringCount = Math.max(1, Math.ceil(targetCount / maxPerRing));
+    const base = Math.min(stage.width, stage.height);
+    const minRadius = ringCount === 1 ? 0.28 : 0.17;
+    const maxRadius = ringCount === 1 ? 0.28 : 0.36;
+    const step = ringCount <= 1 ? 0 : (maxRadius - minRadius) / (ringCount - 1);
+
+    const counts = Array.from({ length: ringCount }, () =>
+      Math.floor(targetCount / ringCount),
+    );
+    for (let index = 0; index < targetCount % ringCount; index += 1) {
+      counts[index] += 1;
+    }
+
+    return counts.map((count, ring) => ({
+      count,
+      radius: base * (minRadius + ring * step),
+      squash: 0.68 - Math.min(ring, 2) * 0.035,
+      speed: (0.000105 + ring * 0.000022) * (ring % 2 === 0 ? 1 : -1),
+      phase: ring * 0.63 - Math.PI / 2,
+    }));
+  }
+
   function orbitNodes(env: RoomEnvironment): OrbitNode[] {
     const { stage } = env;
     const cx = stage.width / 2;
     const cy = stage.height / 2;
-    const orbit = Math.min(stage.width, stage.height) * 0.28;
-    const angle = stage.time * 0.00012;
+    const rings = orbitRings(env);
+    const nodes: OrbitNode[] = [];
+    let targetIndex = 0;
 
-    return targets.map((target, index) => {
-      const a = angle + index * (TAU / targets.length) - Math.PI / 2;
-      return {
-        room: target.id,
-        title: target.title,
-        x: cx + Math.cos(a) * orbit,
-        y: cy + Math.sin(a) * orbit * 0.64,
-        r: 12 + index * 2,
-      };
+    rings.forEach((ring, ringIndex) => {
+      const angle = stage.time * ring.speed + ring.phase;
+
+      for (let slot = 0; slot < ring.count; slot += 1) {
+        const target = targets[targetIndex];
+        if (!target) break;
+
+        const a = angle + slot * (TAU / ring.count);
+        nodes.push({
+          room: target.id,
+          title: target.title,
+          x: cx + Math.cos(a) * ring.radius,
+          y: cy + Math.sin(a) * ring.radius * ring.squash,
+          r: 11 + ((targetIndex + ringIndex) % 4) * 1.6,
+          ring: ringIndex,
+        });
+
+        targetIndex += 1;
+      }
     });
+
+    return nodes;
   }
 
   function nearestOrbitNode(
@@ -73,13 +121,26 @@ export function createAtriumRoom(targets: RoomModule[]): RoomModule {
 
       const cx = stage.width / 2;
       const cy = stage.height / 2;
-      const orbit = Math.min(stage.width, stage.height) * 0.28;
+      const rings = orbitRings(env);
 
-      stage.ctx.strokeStyle = "rgba(255,255,255,0.055)";
-      stage.ctx.lineWidth = 1;
-      stage.ctx.beginPath();
-      stage.ctx.ellipse(cx, cy, orbit, orbit * 0.64, 0, 0, TAU);
-      stage.ctx.stroke();
+      rings.forEach((ring, index) => {
+        stage.ctx.strokeStyle =
+          index === 0
+            ? "rgba(255,255,255,0.065)"
+            : "rgba(255,255,255,0.042)";
+        stage.ctx.lineWidth = 1;
+        stage.ctx.beginPath();
+        stage.ctx.ellipse(
+          cx,
+          cy,
+          ring.radius,
+          ring.radius * ring.squash,
+          0,
+          0,
+          TAU,
+        );
+        stage.ctx.stroke();
+      });
 
       const breathe = 1 + Math.sin(stage.time * 0.0011) * 0.045;
       stage.glow(
@@ -127,7 +188,7 @@ export function createAtriumRoom(targets: RoomModule[]): RoomModule {
         stage.glow(
           node.x,
           node.y,
-          (hovered ? 42 : 28) * pulse,
+          (hovered ? 38 : 25) * pulse,
           hovered
             ? "rgba(207,221,255,0.44)"
             : "rgba(185,198,255,0.23)",
@@ -174,7 +235,11 @@ export function createAtriumRoom(targets: RoomModule[]): RoomModule {
       stage.ctx.font =
         "500 11px ui-monospace, SFMono-Regular, Menlo, monospace";
       stage.ctx.fillStyle = "rgba(255,255,255,0.28)";
-      stage.ctx.fillText("ENTER NOTHING / LEAVE DIFFERENT", cx, cy + 142);
+      stage.ctx.fillText(
+        "ENTER NOTHING / LEAVE DIFFERENT",
+        cx,
+        Math.min(stage.height - 34, cy + Math.min(stage.width, stage.height) * 0.43),
+      );
     },
 
     click(env, x, y): RoomId | void {
