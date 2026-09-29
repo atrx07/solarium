@@ -6,7 +6,7 @@
 **Introduced:** 001 / GENESIS  
 **Source:** [`src/rooms/atrium.ts`](../../src/rooms/atrium.ts)
 
-The Atrium is Solarium's quiet center: one light, a slow orbit, and a growing set of anomalies.
+The Atrium is Solarium's quiet center: one light, a growing set of anomalies, and as many orbital shells as that collection actually needs.
 
 It is intentionally not a dashboard. Rooms are discovered as objects in space rather than selected from a conventional menu.
 
@@ -19,7 +19,7 @@ It is intentionally not a dashboard. Rooms are discovered as objects in space ra
 - **1–9** jump directly to the first nine rooms, where available. A future tenth room will not require a fictional multi-digit keypress: every room is accessible through its orbiting light.
 - **Esc** returns here from any room.
 
-The room count is generated from registered rooms; the number-key hint stops at nine. If hit areas overlap as the orbit grows, the closest anomaly to the pointer or virtual cursor wins, so activation and hover agree.
+The room count is generated from registered rooms; the number-key hint stops at nine. Orbital layout is adaptive: wide screens allow up to eight anomalies per shell and narrow screens up to six. Once that comfortable density is exceeded, rooms are redistributed across balanced concentric ellipses rather than being packed onto a single ring. Adjacent shells counter-rotate at slightly different speeds. If hit areas overlap, the closest anomaly to the pointer or virtual cursor wins, so activation and hover agree.
 
 ## Intent
 
