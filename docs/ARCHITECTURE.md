@@ -311,7 +311,7 @@ A visible reticle is drawn only while keyboard control is active and the canvas 
 
 Pointer input automatically returns control to pointer mode.
 
-The Atrium only advertises single-digit shortcuts `1–9` for the first nine rooms. Every present or future room can still be selected through its orbiting node with pointer or keyboard cursor + Enter/Space. When orbital hit areas overlap on small screens or as room count grows, the nearest orb is the hovered/activated target rather than the first match in registration order.
+The Atrium only advertises single-digit shortcuts `1–9` for the first nine rooms. Every present or future room can still be selected through its orbiting node with pointer or keyboard cursor + Enter/Space. Navigation geometry grows through adaptive orbital shells: wide layouts cap a shell at eight anomalies, narrow layouts at six, then rebalance targets across however many concentric ellipses are needed. Adjacent shells counter-rotate with slightly different angular speeds, and room-node radius stays bounded instead of growing with global room index. When hit areas overlap, the nearest orb is the hovered/activated target rather than the first match in registration order.
 
 ## Reduced motion
 
