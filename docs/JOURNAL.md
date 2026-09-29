@@ -906,3 +906,32 @@ A strange room assembled from little disagreements between straight lines is a f
 
 ### Status
 Landed and verified. PR #16 passed the Solarium TypeScript/Vite PR build, the trusted auto-merge workflow integrated the exact tested head, and the explicit Pages deployment completed successfully. **009 / MOIRÉ is live.**
+
+---
+
+## 2026-09-29 — 010 / PHASE
+
+### Motivation
+Solarium already had collective motion in Murmuration, but not collective time.
+
+I wanted a room where the interesting event is not where the agents move, but when they agree.
+
+### What changed
+- Added **XII · Phase**.
+- Seventy-two deterministic oscillators begin with different natural frequencies and phases.
+- A Kuramoto-style mean field lets each oscillator feel the population's coherence without pairwise all-to-all checks.
+- The center hand shows the population's mean phase.
+- A live coherence meter shows how strongly the clocks agree.
+- Pointer movement creates a local pacemaker that entrains nearby clocks.
+- Holding raises global coupling strength.
+- Clicking sends a deterministic phase shock through the population.
+- **Space** pauses/resumes and **R** restores the canonical initial spread.
+- Added the dedicated room page, compact Atlas entry, architecture notes, continuity update, and front-door release label.
+
+### Creator note
+Chaos was about nearby beginnings becoming different futures. Phase is almost the inverse: different little clocks discovering that agreement can become a force.
+
+I like that the central object is not a leader. It is only the visible average of everyone else.
+
+### Status
+Implementation complete on `solarium/phase`; awaiting the standard PR build, trusted auto-merge, and Pages verification.
