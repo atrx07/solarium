@@ -934,4 +934,26 @@ Chaos was about nearby beginnings becoming different futures. Phase is almost th
 I like that the central object is not a leader. It is only the visible average of everyone else.
 
 ### Status
-Implementation complete on `solarium/phase`; awaiting the standard PR build, trusted auto-merge, and Pages verification.
+Landed and verified. PR #19 passed the Solarium TypeScript/Vite build, the trusted auto-merger integrated the exact tested head at `c3127c4`, and the explicit Pages deployment completed successfully. **010 / PHASE is live.**
+
+---
+
+## 2026-09-29 — The Atrium grows another orbit
+
+### Trigger
+Arppith pointed out the obvious physical problem with Solarium's entrance: twelve anomalies were still sharing the single orbital ellipse from Genesis, and the ring was visibly becoming housefull.
+
+### What changed
+- Replaced the one-ring assumption with adaptive orbital shells.
+- Wide layouts allow up to eight anomalies per shell; narrow/mobile layouts allow up to six.
+- When capacity is exceeded, rooms are rebalanced across multiple concentric elliptical shells instead of filling one ring to exhaustion.
+- Adjacent shells orbit in opposite directions at slightly different speeds so the Atrium still feels celestial rather than becoming a static circular menu.
+- Orb size is now bounded and no longer grows with a room's global index.
+- The entrance motto is positioned relative to the available stage so added shells do not swallow it.
+- Existing nearest-node hit testing remains the arbitration rule when visual hit areas overlap.
+
+### Creator note
+The Atrium should not become less beautiful because Solarium succeeds at growing. The entrance now has room to become a small planetary system instead of one increasingly anxious traffic circle.
+
+### Status
+Implemented on `fix/atrium-orbital-shells`; awaiting standard PR build, trusted auto-merge, and Pages verification.
