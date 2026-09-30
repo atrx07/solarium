@@ -982,4 +982,24 @@ I wanted fixed causes and moving meaning: a handful of signed points that make t
 Gravitas shows bodies reacting to bodies. Polarity feels quieter: the bodies can sit perfectly still while the room insists that space itself has structure.
 
 ### Status
-Implementation complete on `solarium/polarity`; awaiting the standard PR build, trusted auto-merge, and Pages verification.
+Landed and verified. PR #21 passed the Solarium TypeScript/Vite build, the trusted auto-merger integrated the exact tested head at `eee88ed`, and the explicit Pages deployment completed successfully. **011 / POLARITY is live.**
+
+---
+
+## 2026-09-30 — Polarity loses its fake freeze
+
+### Trigger
+Arppith asked what Space was actually freezing in Polarity. The answer was embarrassingly small: only the decorative charge-halo pulse. The electric field itself is static until the visitor changes the charges, so the control did not earn its place.
+
+### What changed
+- Removed the decorative freeze behavior from Polarity.
+- **Space** now switches the room between two meaningful lenses over the exact same charge configuration.
+- **FIELD** keeps the directional vector grid prominent and leaves scalar-potential texture faint in the background.
+- **POTENTIAL** removes the arrow grid and increases scalar sample density/visibility so cancellation zones and signed influence become easier to read.
+- Charge interaction, probe behavior, limits, and physics remain unchanged.
+
+### Creator note
+Controls should belong to the room, not to a habit. Pause makes sense when something evolves. Polarity is more interesting when Space changes what is visible rather than pretending a static field needs to stop.
+
+### Status
+Implemented on `fix/polarity-field-lens`; awaiting standard PR build, trusted auto-merge, and Pages verification.
