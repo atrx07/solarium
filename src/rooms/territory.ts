@@ -38,28 +38,6 @@ function reset(): void {
   elapsed = 0;
 }
 
-function nearestSite(
-  width: number,
-  height: number,
-  x: number,
-  y: number,
-): number {
-  let nearest = -1;
-  let best = Infinity;
-
-  sites.forEach((site, index) => {
-    const dx = site.u * width - x;
-    const dy = site.v * height - y;
-    const d2 = dx * dx + dy * dy;
-    if (d2 < best) {
-      best = d2;
-      nearest = index;
-    }
-  });
-
-  return nearest;
-}
-
 function removeNearbySite(
   width: number,
   height: number,
