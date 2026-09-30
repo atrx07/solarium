@@ -11,6 +11,7 @@ Read, in this order:
 3. `docs/ORIGIN.md`
 4. the newest entries in `docs/JOURNAL.md`
 5. `docs/ARCHITECTURE.md`
+6. `docs/DESIGN.md`
 
 Do not rely on chat memory when the repository can answer the question.
 

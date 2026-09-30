@@ -55,8 +55,11 @@ app.innerHTML = `
     Focus the stage, use arrow keys to move the virtual cursor, and press Enter to activate the current point.
     Space also activates unless the current room already uses Space for its own control.
   </p>
-  <div class="shell">
+  <div class="shell" data-room="atrium">
     <div class="brand"><strong>SOLARIUM</strong><span>012 / TERRITORY</span></div>
+    <div class="atrium-kicker" aria-hidden="true">local-first / 14 anomalies</div>
+    <div class="atrium-motto" aria-hidden="true">enter nothing<br />leave different</div>
+    <p class="atrium-copy" aria-hidden="true">${atriumRoom.copy}</p>
     <section class="room-meta" aria-live="polite">
       <h1 id="room-title">${atriumRoom.title}</h1>
       <p id="room-copy">${atriumRoom.copy}</p>
@@ -73,8 +76,9 @@ const copyEl = document.querySelector<HTMLElement>("#room-copy");
 const hintEl = document.querySelector<HTMLElement>("#hint");
 const statusEl = document.querySelector<HTMLElement>("#status");
 const backEl = document.querySelector<HTMLButtonElement>("#back");
+const shellEl = document.querySelector<HTMLElement>(".shell");
 
-if (!canvas || !titleEl || !copyEl || !hintEl || !statusEl || !backEl) {
+if (!canvas || !titleEl || !copyEl || !hintEl || !statusEl || !backEl || !shellEl) {
   throw new Error("Solarium interface failed to initialize.");
 }
 
@@ -123,6 +127,7 @@ function enterRoom(target: RoomId): void {
 
   if (currentRoom !== target) roomById.get(currentRoom)?.exit?.(env);
   currentRoom = target;
+  shellEl.dataset.room = target;
   titleEl.textContent = next.title;
   copyEl.textContent = next.copy;
   hintEl.textContent = next.hint;
