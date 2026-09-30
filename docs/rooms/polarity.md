@@ -15,14 +15,14 @@ Positive and negative charges do not move. The space around them does all the in
 - Click an existing charge to flip its sign.
 - **C** clears every charge.
 - **R** restores the canonical dipole.
-- **Space** freezes/resumes the room's pulse animation.
+- **Space** switches between **FIELD** and **POTENTIAL** lenses.
 - **Esc** returns to the Atrium.
 
 ## Under the hood
 
 The field is evaluated from a softened inverse-square-style vector sum. Each charge contributes a signed vector based on direction and distance; the room samples that field on a bounded grid and draws small directional arrows.
 
-A second, coarser scalar sample produces faint signed potential speckles so cancellation regions and dominant positive/negative regions remain visible even when the arrows are subtle.
+A second signed scalar sample renders electric-potential structure. In **FIELD** view it stays faint behind the arrows; in **POTENTIAL** view the vector grid steps back and the signed scalar texture becomes denser and stronger, revealing cancellation zones and regions dominated by positive or negative influence.
 
 The pointer acts only as a probe: it does not secretly alter the field. Charge count is capped at ten, and all rendering stays browser-local with no assets, APIs, or dependencies.
 
