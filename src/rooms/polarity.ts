@@ -20,6 +20,7 @@ const GRID_STEP = 46;
 let charges: Charge[] = [];
 let nextSign: 1 | -1 = 1;
 let frozen = false;
+let visualTime = 0;
 
 function reset(): void {
   charges = [
@@ -28,6 +29,7 @@ function reset(): void {
   ];
   nextSign = 1;
   frozen = false;
+  visualTime = 0;
 }
 
 function fieldAt(
@@ -218,11 +220,7 @@ export const polarityRoom: RoomModule = {
   },
 
   draw({ stage }, dt): void {
-    if (!frozen) {
-      // Keep time advancing through the shared stage clock; dt is consumed only
-      // to honor the RoomModule contract and future animation hooks.
-      void dt;
-    }
+    if (!frozen) visualTime += Math.min(dt, 32);
 
     const { ctx, width, height } = stage;
     stage.clear("#03060d");
@@ -264,7 +262,7 @@ export const polarityRoom: RoomModule = {
     ctx.restore();
 
     charges.forEach((charge) =>
-      drawCharge(ctx, width, height, charge, stage.time),
+      drawCharge(ctx, width, height, charge, visualTime),
     );
 
     if (stage.pointer.active) {
