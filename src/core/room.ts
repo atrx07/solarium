@@ -14,7 +14,8 @@ export type RoomId =
   | "echo"
   | "moire"
   | "phase"
-  | "polarity";
+  | "polarity"
+  | "territory";
 
 export type RoomEnvironment = {
   stage: Stage;
