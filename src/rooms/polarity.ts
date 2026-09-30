@@ -19,7 +19,7 @@ const GRID_STEP = 46;
 
 let charges: Charge[] = [];
 let nextSign: 1 | -1 = 1;
-let frozen = false;
+let potentialView = false;
 let visualTime = 0;
 
 function reset(): void {
@@ -28,7 +28,7 @@ function reset(): void {
     { u: 0.63, v: 0.5, sign: -1 },
   ];
   nextSign = 1;
-  frozen = false;
+  potentialView = false;
   visualTime = 0;
 }
 
@@ -213,30 +213,33 @@ export const polarityRoom: RoomModule = {
   title: "XIII · Polarity",
   copy: "Put opposite signs in the dark. The empty space between them stops being empty.",
   hint:
-    "click empty space to add · click a charge to flip sign · pointer probes force · C clears · R resets",
+    "click empty space to add · click charge flips sign · pointer probes force · Space changes lens · C clears · R resets",
 
   enter({ setStatus }): void {
     setStatus("polarity / dipole awake");
   },
 
   draw({ stage }, dt): void {
-    if (!frozen) visualTime += Math.min(dt, 32);
+    visualTime += Math.min(dt, 32);
 
     const { ctx, width, height } = stage;
     stage.clear("#03060d");
     stage.drawStars(0.1);
 
-    const offset = GRID_STEP * 0.5;
-    for (let y = offset; y < height; y += GRID_STEP) {
-      for (let x = offset; x < width; x += GRID_STEP) {
-        drawArrow(ctx, x, y, fieldAt(width, height, x, y));
+    if (!potentialView) {
+      const offset = GRID_STEP * 0.5;
+      for (let y = offset; y < height; y += GRID_STEP) {
+        for (let x = offset; x < width; x += GRID_STEP) {
+          drawArrow(ctx, x, y, fieldAt(width, height, x, y));
+        }
       }
     }
 
-    // Draw faint equipotential-like contour bands from the signed scalar sum.
+    // Signed scalar potential is always present as context, but becomes the
+    // dominant visual when the visitor switches from FIELD to POTENTIAL.
     ctx.save();
-    ctx.globalAlpha = 0.1;
-    const bandStep = 24;
+    ctx.globalAlpha = potentialView ? 0.44 : 0.1;
+    const bandStep = potentialView ? 14 : 24;
     for (let y = bandStep * 0.5; y < height; y += bandStep) {
       for (let x = bandStep * 0.5; x < width; x += bandStep) {
         let potential = 0;
@@ -250,13 +253,16 @@ export const polarityRoom: RoomModule = {
         }
 
         const strength = clamp(Math.abs(potential) / 10, 0, 1);
-        if (strength < 0.12) continue;
+        if (strength < (potentialView ? 0.045 : 0.12)) continue;
 
+        const size = potentialView ? 3 + strength * 3.5 : 2;
         ctx.fillStyle =
           potential >= 0
-            ? `rgba(255,188,145,${0.08 + strength * 0.18})`
-            : `rgba(140,194,255,${0.08 + strength * 0.18})`;
-        ctx.fillRect(x - 1, y - 1, 2, 2);
+            ? `rgba(255,188,145,${0.1 + strength * (potentialView ? 0.48 : 0.18)})`
+            : `rgba(140,194,255,${0.1 + strength * (potentialView ? 0.48 : 0.18)})`;
+        ctx.beginPath();
+        ctx.arc(x, y, size, 0, TAU);
+        ctx.fill();
       }
     }
     ctx.restore();
@@ -283,7 +289,7 @@ export const polarityRoom: RoomModule = {
     const positive = charges.filter((charge) => charge.sign > 0).length;
     const negative = charges.length - positive;
     ctx.fillText(
-      `${charges.length} CHARGES / +${positive} −${negative} / NEXT ${nextSign > 0 ? "+" : "−"}${frozen ? " / FROZEN" : ""}`,
+      `${charges.length} CHARGES / +${positive} −${negative} / NEXT ${nextSign > 0 ? "+" : "−"} / ${potentialView ? "POTENTIAL" : "FIELD"}`,
       28,
       height - 74,
     );
@@ -328,8 +334,12 @@ export const polarityRoom: RoomModule = {
 
     if (event.code === "Space") {
       event.preventDefault();
-      frozen = !frozen;
-      env.setStatus(frozen ? "polarity / pulses frozen" : "polarity / pulses awake");
+      potentialView = !potentialView;
+      env.setStatus(
+        potentialView
+          ? "polarity / potential lens"
+          : "polarity / field lens",
+      );
     }
   },
 };
