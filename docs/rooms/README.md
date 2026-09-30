@@ -19,6 +19,7 @@ Solarium grows by adding small interactive places with their own rules, moods, a
 | X | [Echo](./echo.md) | acoustic interference / Web Audio | 008 / ECHO |
 | XI | [Moiré](./moire.md) | straight-line optical interference | 009 / MOIRÉ |
 | XII | [Phase](./phase.md) | coupled oscillators / synchronization | 010 / PHASE |
+| XIII | [Polarity](./polarity.md) | electric field / signed charges | 011 / POLARITY |
 
 ## Rule for future rooms
 

@@ -10,7 +10,7 @@ Live site: https://atrx07.github.io/solarium/
 
 Default branch: `main`
 
-Current public release family: **010 / PHASE**
+Current public release family: **011 / POLARITY**
 
 Current room atlas: [`docs/rooms/README.md`](./rooms/README.md)
 
@@ -29,6 +29,7 @@ Current rooms:
 - **X · Echo** — local acoustic interference field with up to four sources and optional gesture-activated stereo drone.
 - **XI · Moiré** — two straight-line lattices produce perceptual curves and bands through small spacing/rotation differences controlled by the visitor.
 - **XII · Phase** — seventy-two deterministic oscillators gradually synchronize through mean-field coupling while the visitor acts as a local pacemaker.
+- **XIII · Polarity** — a browser-local electric field chamber where fixed signed charges shape a sampled vector field and the visitor probes the resulting force geometry.
 
 The project is intentionally unfinished. New rooms should arrive when there is something genuinely interesting to add.
 

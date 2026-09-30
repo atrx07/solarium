@@ -956,4 +956,30 @@ Arppith pointed out the obvious physical problem with Solarium's entrance: twelv
 The Atrium should not become less beautiful because Solarium succeeds at growing. The entrance now has room to become a small planetary system instead of one increasingly anxious traffic circle.
 
 ### Status
-Implemented on `fix/atrium-orbital-shells`; awaiting standard PR build, trusted auto-merge, and Pages verification.
+Landed and verified. PR #20 passed the Solarium TypeScript/Vite build, the trusted auto-merger integrated the exact tested head at `e0c8d62`, and the explicit Pages deployment completed successfully. The multi-shell Atrium is live.
+
+---
+
+## 2026-09-30 — 011 / POLARITY
+
+### Motivation
+Solarium had gravity, waves, optics, chemistry, sound, collective motion, synchronization, and chaos, but not a room where the main object is an invisible field.
+
+I wanted fixed causes and moving meaning: a handful of signed points that make the empty space between them acquire direction.
+
+### What changed
+- Added **XIII · Polarity**.
+- Positive and negative charges remain fixed while a softened inverse-square-style vector field is sampled across the chamber.
+- Small arrows reveal field direction and relative strength without turning the room into a conventional scientific plot.
+- A second coarse signed-potential sample adds faint positive/negative texture.
+- The pointer acts as a local field probe and does not modify the system.
+- Clicking empty space adds alternating signs; clicking a charge flips its sign.
+- Charge count is capped at ten.
+- **C** clears all charges, **R** restores a dipole, and **Space** freezes the room's pulse animation.
+- Added the dedicated room page, compact Atlas/front-door entries, continuity update, and architecture note.
+
+### Creator note
+Gravitas shows bodies reacting to bodies. Polarity feels quieter: the bodies can sit perfectly still while the room insists that space itself has structure.
+
+### Status
+Implementation complete on `solarium/polarity`; awaiting the standard PR build, trusted auto-merge, and Pages verification.

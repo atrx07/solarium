@@ -58,6 +58,7 @@ src/
     echo.ts
     moire.ts
     phase.ts
+    polarity.ts
   main.ts
   style.css
 ```
@@ -103,6 +104,7 @@ docs/
     echo.md
     moire.md
     phase.md
+    polarity.md
 ```
 
 The root `README.md` is intentionally concise. It contains the origin, a compact room index, basic run instructions, principles, and links into deeper documentation.
@@ -115,7 +117,7 @@ Every substantial new room should add one room document and one compact atlas/in
 
 The current room identity is represented by a small union:
 
-`atrium | gravitas | bloom | resonance | murmuration | mycelium | tides | reaction | prism | chaos | echo | moire | phase`
+`atrium | gravitas | bloom | resonance | murmuration | mycelium | tides | reaction | prism | chaos | echo | moire | phase | polarity`
 
 The Atrium acts as the central navigation layer.
 
@@ -294,6 +296,16 @@ The room currently uses 72 oscillators. Each oscillator has a fixed natural freq
 Visitor interaction adds a local pacemaker term whose influence falls with distance. Holding the pointer raises global coupling strength, clicking introduces a deterministic distance-shaped phase shock, **Space** pauses, and **R** reseeds the canonical initial condition.
 
 The central hand visualizes mean phase and the coherence meter visualizes the magnitude of collective agreement. Initial positions, frequencies, and phases are deterministic and all computation remains browser-local.
+
+## Polarity
+
+Polarity is a browser-local electric-field chamber with up to ten fixed signed charges.
+
+The room samples a softened inverse-square-style vector sum on a bounded grid and renders the resulting direction as small arrows. A second, coarser signed scalar sample adds faint potential speckles so regions dominated by positive or negative charges remain readable without turning the room into a heatmap dashboard.
+
+The visitor is a probe rather than another source: pointer movement reads the local vector, while click adds alternating charges or flips the sign of a nearby existing one. **C** clears the field, **R** restores a canonical dipole, and **Space** freezes the room's pulse animation.
+
+Charge count and sampling density are bounded; no remote assets, APIs, services, or runtime dependencies are required.
 
 ## Keyboard and focus interaction
 
