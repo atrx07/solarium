@@ -303,7 +303,7 @@ Polarity is a browser-local electric-field chamber with up to ten fixed signed c
 
 The room samples a softened inverse-square-style vector sum on a bounded grid and renders the resulting direction as small arrows. A second, coarser signed scalar sample adds faint potential speckles so regions dominated by positive or negative charges remain readable without turning the room into a heatmap dashboard.
 
-The visitor is a probe rather than another source: pointer movement reads the local vector, while click adds alternating charges or flips the sign of a nearby existing one. **C** clears the field, **R** restores a canonical dipole, and **Space** freezes the room's pulse animation.
+The visitor is a probe rather than another source: pointer movement reads the local vector, while click adds alternating charges or flips the sign of a nearby existing one. **C** clears the field, **R** restores a canonical dipole, and **Space** switches between two views of the same charge configuration: **FIELD** emphasizes the directional vector grid, while **POTENTIAL** suppresses that grid and strengthens the signed scalar-potential texture.
 
 Charge count and sampling density are bounded; no remote assets, APIs, services, or runtime dependencies are required.
 
