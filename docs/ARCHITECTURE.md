@@ -59,6 +59,7 @@ src/
     moire.ts
     phase.ts
     polarity.ts
+    territory.ts
   main.ts
   style.css
 ```
@@ -105,6 +106,7 @@ docs/
     moire.md
     phase.md
     polarity.md
+    territory.md
 ```
 
 The root `README.md` is intentionally concise. It contains the origin, a compact room index, basic run instructions, principles, and links into deeper documentation.
@@ -117,7 +119,7 @@ Every substantial new room should add one room document and one compact atlas/in
 
 The current room identity is represented by a small union:
 
-`atrium | gravitas | bloom | resonance | murmuration | mycelium | tides | reaction | prism | chaos | echo | moire | phase | polarity`
+`atrium | gravitas | bloom | resonance | murmuration | mycelium | tides | reaction | prism | chaos | echo | moire | phase | polarity | territory`
 
 The Atrium acts as the central navigation layer.
 
@@ -306,6 +308,16 @@ The room samples a softened inverse-square-style vector sum on a bounded grid an
 The visitor is a probe rather than another source: pointer movement reads the local vector, while click adds alternating charges or flips the sign of a nearby existing one. **C** clears the field, **R** restores a canonical dipole, and **Space** switches between two views of the same charge configuration: **FIELD** emphasizes the directional vector grid, while **POTENTIAL** suppresses that grid and strengthens the signed scalar-potential texture.
 
 Charge count and sampling density are bounded; no remote assets, APIs, services, or runtime dependencies are required.
+
+## Territory
+
+Territory is a browser-local Voronoi-style proximity chamber with twelve deterministic drifting sites by default and a cap of twenty-four.
+
+A bounded low-resolution pass assigns each visual sample to its nearest site. While the pointer is active, it competes as one temporary ghost site, so territory can form around the visitor without mutating permanent state. A second coarser ownership pass compares neighboring samples and draws subtle boundary fragments wherever ownership changes.
+
+Permanent sites drift slowly in normalized coordinates and reflect from soft room bounds. Click plants a permanent site or removes a nearby one, **Space** pauses site drift, and **R** restores the canonical twelve-site arrangement.
+
+The room stores sites, not borders. Every visible border is recomputed from nearest-neighbor disagreement, keeping the concept faithful to the mathematical rule instead of turning the experience into authored polygon geometry.
 
 ## Keyboard and focus interaction
 
