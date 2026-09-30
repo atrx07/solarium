@@ -111,7 +111,7 @@ export function createAtriumRoom(targets: RoomModule[]): RoomModule {
   return {
     id: "atrium",
     title: "The Atrium",
-    copy: `${countLabel} quiet anomalies are orbiting the light. Pick one.`,
+    copy: `${countLabel} quiet anomalies orbit the light. Pick the one that notices you back.`,
     hint: `click an anomaly · Tab to stage, arrows + Enter for any room${shortcutHint}`,
 
     draw(env): void {
@@ -122,6 +122,22 @@ export function createAtriumRoom(targets: RoomModule[]): RoomModule {
       const cx = stage.width / 2;
       const cy = stage.height / 2;
       const rings = orbitRings(env);
+
+      // The title behaves like architecture, not interface chrome. Drawing it
+      // before the orbital system lets the anomalies pass in front of it.
+      const wordmarkSize = Math.min(stage.width * 0.155, stage.height * 0.22);
+      stage.ctx.save();
+      stage.ctx.textAlign = "center";
+      stage.ctx.textBaseline = "middle";
+      stage.ctx.font =
+        `700 ${wordmarkSize}px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
+      stage.ctx.fillStyle = "rgba(255,255,255,0.045)";
+      stage.ctx.fillText(
+        "SOLARIUM",
+        cx,
+        Math.max(wordmarkSize * 0.72, stage.height * 0.185),
+      );
+      stage.ctx.restore();
 
       rings.forEach((ring, index) => {
         stage.ctx.strokeStyle =
@@ -231,15 +247,6 @@ export function createAtriumRoom(targets: RoomModule[]): RoomModule {
         }
       }
 
-      stage.ctx.textAlign = "center";
-      stage.ctx.font =
-        "500 11px ui-monospace, SFMono-Regular, Menlo, monospace";
-      stage.ctx.fillStyle = "rgba(255,255,255,0.28)";
-      stage.ctx.fillText(
-        "ENTER NOTHING / LEAVE DIFFERENT",
-        cx,
-        Math.min(stage.height - 34, cy + Math.min(stage.width, stage.height) * 0.43),
-      );
     },
 
     click(env, x, y): RoomId | void {
