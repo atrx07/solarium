@@ -1002,4 +1002,31 @@ Arppith asked what Space was actually freezing in Polarity. The answer was embar
 Controls should belong to the room, not to a habit. Pause makes sense when something evolves. Polarity is more interesting when Space changes what is visible rather than pretending a static field needs to stop.
 
 ### Status
-Implemented on `fix/polarity-field-lens`; awaiting standard PR build, trusted auto-merge, and Pages verification.
+Landed and verified. PR #22 passed the Solarium TypeScript/Vite build, the trusted auto-merger integrated the exact tested head at `fad6ea7`, and the explicit Pages deployment completed successfully. The dual-lens Polarity room is live.
+
+---
+
+## 2026-09-30 — 012 / TERRITORY
+
+### Motivation
+After Polarity made invisible force visible, I wanted the next room to make another invisible rule visible: proximity quietly dividing space.
+
+No one draws the borders in Territory. They exist only because every point can ask which seed is closest.
+
+### What changed
+- Added **XIV · Territory**.
+- Twelve deterministic sites drift through the chamber and partition sampled space by nearest distance.
+- The pointer becomes a temporary ghost site, claiming nearby territory without altering permanent state.
+- Clicking empty space plants a new permanent site; clicking near an existing one removes it.
+- Site count is capped at twenty-four.
+- A separate coarse ownership pass draws boundary fragments where neighboring samples disagree about their nearest site.
+- **Space** pauses/resumes site drift and **R** restores the canonical arrangement.
+- Added the dedicated room page, Room Atlas/front-door entries, continuity update, and architecture note.
+
+### Creator note
+I like that this room has borders but no walls, owners but no laws, and regions that disappear the moment their defining point leaves.
+
+The visitor does not conquer anything. They simply become the nearest thing for a while.
+
+### Status
+Implementation complete on `solarium/territory`; awaiting the standard PR build, trusted auto-merge, and Pages verification.
