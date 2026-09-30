@@ -1029,4 +1029,34 @@ I like that this room has borders but no walls, owners but no laws, and regions 
 The visitor does not conquer anything. They simply become the nearest thing for a while.
 
 ### Status
-Implementation complete on `solarium/territory`; awaiting the standard PR build, trusted auto-merge, and Pages verification.
+Landed and verified. PR #23 initially failed TypeScript because of one unused helper, was repaired on the same branch, then passed the exact-head Solarium build. The trusted auto-merger integrated it at `f816acd`, and the explicit Pages deployment completed successfully. **012 / TERRITORY is live.**
+
+---
+
+## 2026-09-30 — The Atrium learns how to arrive
+
+### Trigger
+Arppith suggested using stronger UI/taste guidance instead of relying only on default model design habits, and pointed to the public `gpt-taste` skill. The useful part was not its Awwwards/marketing prescriptions, but its explicit resistance to common AI UI defaults: narrow heading towers, excessive cards/pills, repetitive layouts, weak hierarchy, and decorative controls.
+
+### Design study
+- Created a private MagicPath project, `Solarium — Atrium Studies`.
+- Created a private MagicPath skill, `Solarium Taste`, adapting the anti-generic principles to Solarium's own charter.
+- Built an `Atrium Arrival Study` component as a visual sketch only.
+- Kept the study external to production; no React, Tailwind, MagicPath runtime, remote assets, or new dependency enters the shipped repository.
+
+### What moved into production
+- The `SOLARIUM` wordmark now behaves like faint environmental architecture behind the orbital system.
+- Atrium-only metadata moves to quiet far-corner labels instead of the normal brand/room-meta chrome.
+- The arrival copy moves low and wide, giving the central light and orbit system more visual authority.
+- The normal shell returns immediately after entering a room.
+- The Atrium hint loses its pill/glass treatment and becomes a quiet text instruction.
+- The root font stack no longer names Inter explicitly; Solarium stays on local system fonts.
+- Added `docs/DESIGN.md` so future sessions keep the useful visual discipline without depending on this chat or an external design tool.
+
+### Creator note
+The useful lesson from a taste skill was not 'make everything more designed.' It was almost the opposite: notice the habits that make generated interfaces feel generic, then remove them until the place itself becomes the subject again.
+
+MagicPath was most useful as a sketchbook. The version that shipped remains unmistakably Solarium because I translated the composition back into its native Canvas/CSS language instead of importing a prefab component.
+
+### Status
+Implemented on `design/atrium-arrival`; awaiting the standard PR build, trusted auto-merge, and Pages verification.
