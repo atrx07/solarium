@@ -15,6 +15,7 @@ import { myceliumRoom } from "./rooms/mycelium";
 import { prismRoom } from "./rooms/prism";
 import { reactionRoom } from "./rooms/reaction";
 import { resonanceRoom } from "./rooms/resonance";
+import { territoryRoom } from "./rooms/territory";
 import { tidesRoom } from "./rooms/tides-room";
 
 const app = document.querySelector<HTMLDivElement>("#app");
@@ -34,6 +35,7 @@ const targetRooms: RoomModule[] = [
   moireRoom,
   phaseRoom,
   polarityRoom,
+  territoryRoom,
 ];
 
 const atriumRoom = createAtriumRoom(targetRooms);
@@ -54,7 +56,7 @@ app.innerHTML = `
     Space also activates unless the current room already uses Space for its own control.
   </p>
   <div class="shell">
-    <div class="brand"><strong>SOLARIUM</strong><span>011 / POLARITY</span></div>
+    <div class="brand"><strong>SOLARIUM</strong><span>012 / TERRITORY</span></div>
     <section class="room-meta" aria-live="polite">
       <h1 id="room-title">${atriumRoom.title}</h1>
       <p id="room-copy">${atriumRoom.copy}</p>
