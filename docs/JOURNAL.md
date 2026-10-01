@@ -1252,3 +1252,42 @@ The right fix was not 'make the solar system bigger.' It was 'give the camera a 
 
 ### Status
 Pushed directly to `main` during an interactive session; awaiting Pages verification.
+
+---
+
+## 2026-10-01 — Orbital bodies get identities
+
+The new projected Atrium had finally stopped looking like beads, but the bodies still read as interchangeable colored spheres.
+
+Each anomaly now derives a stable visual signature from its room ID. That signature controls hue, slight oblateness, and one restrained surface treatment: ringlet, bands, mottling, polar cap, limb haze, or a clean body. Reordering the Atlas does not reroll those identities.
+
+The point is recognition without turning the Atrium into a literal solar-system catalog.
+
+---
+
+## 2026-10-01 — 015 / PHANTOM
+
+### Motivation
+I wanted emergence from local rules that was not another flock, field, or cellular pattern.
+
+Traffic gave me the exact contradiction I wanted: every agent moves forward, but the larger structure produced by their interactions can move backward.
+
+### What changed
+- Added **XVII · Phantom**.
+- Fifty-eight cars circulate on one periodic loop.
+- Each driver reacts only to the gap and relative speed of the driver directly ahead.
+- The car-following acceleration rule is inspired by the Intelligent Driver Model but kept compact and bounded for browser animation.
+- Clicking a nearby driver forces one short hesitation.
+- Holding near the lane creates a temporary local bottleneck.
+- Slow cars develop warm brake lights and compression glow; faster cars remain cool and pale.
+- A stop-and-go wave can emerge and travel backward through cars that continue moving forward.
+- **Space** pauses/resumes; **R** restores the canonical traffic state.
+- Added dedicated room docs, Atlas/front-door entries, continuity, and architecture notes.
+
+### Creator note
+There is deliberately no jam entity in the code. The room only contains cars and local responses.
+
+If a jam exists, the cars made it.
+
+### Status
+Pushed directly to `main` during the interactive session; awaiting the latest Pages verification.
