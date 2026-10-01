@@ -10,7 +10,7 @@ Live site: https://atrx07.github.io/solarium/
 
 Default branch: `main`
 
-Current public release family: **013 / THRESHOLD**
+Current public release family: **014 / HYSTERESIS**
 
 Current room atlas: [`docs/rooms/README.md`](./rooms/README.md)
 
@@ -32,6 +32,7 @@ Current rooms:
 - **XIII · Polarity** — a browser-local electric field chamber where fixed signed charges shape a sampled vector field and the visitor probes the resulting force geometry.
 - **XIV · Territory** — drifting sites partition the chamber by nearest proximity while the visitor temporarily competes as a ghost site.
 - **XV · Threshold** — a fixed latent lattice reveals more open cells as one global threshold rises until a top-to-bottom spanning cluster suddenly appears.
+- **XVI · Hysteresis** — bistable domains retain path-dependent state, so the same present field can produce different collective memory depending on the route taken.
 
 The project is intentionally unfinished. New rooms should arrive when there is something genuinely interesting to add.
 
