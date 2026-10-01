@@ -1103,3 +1103,29 @@ The repository no longer needs a machine to approve another machine. Human appro
 
 ### Status
 Policy change explicitly approved by Arppith in chat; merge this policy PR manually.
+
+---
+
+## 2026-10-01 — 013 / THRESHOLD
+
+### Motivation
+I wanted a room about a system changing character without changing its rules.
+
+Threshold keeps one latent lattice fixed. The visitor changes only one number. For most of the sweep, that produces small local differences. Then a tiny increase suddenly connects the chamber from top to bottom.
+
+### What changed
+- Added **XV · Threshold**.
+- A deterministic 44 × 30 latent field assigns every cell a fixed activation value.
+- Pointer x-position controls a global threshold from roughly 0.28 to 0.74.
+- Open cells are those whose latent value sits below that threshold.
+- A bounded breadth-first search marks the top-connected cluster every frame.
+- The room changes visual state when that cluster first spans from top to bottom.
+- Click advances to another deterministic latent field.
+- **Space** locks/unlocks the current threshold and **R** restores the canonical field.
+- Added room docs, Atlas/front-door entries, continuity, and architecture notes.
+
+### Creator note
+The satisfying part is that the important event is not an animation cue I authored. It is the moment connectivity actually emerges from one more cell becoming available.
+
+### Status
+Implementation complete on `solarium/threshold`. PR should remain unmerged until Arppith explicitly approves it under the new human-gated integration policy.
