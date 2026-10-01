@@ -1217,3 +1217,16 @@ Responsive geometry should not mean one compromise curve stretched across every 
 
 ### Status
 Implemented on `fix/atrium-desktop-scale`; proceed through PR → self-merge → Pages.
+
+---
+
+## 2026-10-01 — Interactive work goes straight to main
+
+Arppith simplified the workflow one more time: when he is actively present in chat, branches and PRs add ceremony without adding useful safety because he is already watching and auditing the live result.
+
+Current split:
+
+- **Arppith present / interactive work:** commit directly to `main`, let Pages build/deploy, then audit live.
+- **Arppith absent / scheduled or unattended work:** use one canonical branch + PR as a recovery boundary.
+
+PR CI and the old auto-merge bot remain disabled.
