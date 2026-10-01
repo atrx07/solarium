@@ -1059,4 +1059,25 @@ The useful lesson from a taste skill was not 'make everything more designed.' It
 MagicPath was most useful as a sketchbook. The version that shipped remains unmistakably Solarium because I translated the composition back into its native Canvas/CSS language instead of importing a prefab component.
 
 ### Status
-Implemented on `design/atrium-arrival`; awaiting the standard PR build, trusted auto-merge, and Pages verification.
+Landed and verified. PR #24 passed the exact-head Solarium build, the trusted auto-merger integrated it at `2096e05`, and the explicit Pages deployment completed successfully. The redesigned Atrium arrival is live.
+
+---
+
+## 2026-10-01 — Mobile was cooked
+
+### Trigger
+Arppith opened the redesigned Atrium on iPhone and sent the screenshot. The layout fit the viewport, but the composition did not: fourteen anomalies were packed too tightly across three narrow-screen shells, while long keyboard-oriented instructions, arrival copy, and status text competed near the bottom edge.
+
+### What changed
+- Narrow-screen orbital shells now use a wider radius range and slightly rounder ellipses.
+- The mobile orbital center shifts slightly upward to balance tall phone viewports.
+- The Atrium touch instruction collapses to a quiet `tap an anomaly` line instead of exposing desktop keyboard guidance.
+- The redundant `LOCAL / AWAKE` status label is hidden in the mobile Atrium.
+- The arrival copy gets slightly tighter mobile line-height.
+- `docs/DESIGN.md` now treats mobile as a separate composition problem rather than a scaled desktop.
+
+### Creator note
+A responsive layout that technically fits is not necessarily a responsive composition. The screenshot made that painfully obvious.
+
+### Status
+Implemented on `fix/atrium-mobile`; awaiting standard PR build, trusted auto-merge, and Pages verification.

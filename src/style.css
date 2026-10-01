@@ -284,14 +284,26 @@ canvas:focus-visible {
   }
 
   .atrium-copy {
-    bottom: 78px;
+    bottom: 74px;
     width: calc(100vw - 44px);
     font-size: clamp(15px, 4.7vw, 21px);
+    line-height: 1.22;
   }
 
   .shell[data-room="atrium"] .hint {
     bottom: 28px;
     max-width: calc(100vw - 40px);
+    font-size: 0;
+  }
+
+  .shell[data-room="atrium"] .hint::after {
+    content: "tap an anomaly";
+    font-size: 9px;
+    letter-spacing: 0.2em;
+  }
+
+  .shell[data-room="atrium"] .status {
+    display: none;
   }
 
   .brand {
