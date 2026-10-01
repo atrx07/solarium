@@ -1230,3 +1230,25 @@ Current split:
 - **Arppith absent / scheduled or unattended work:** use one canonical branch + PR as a recovery boundary.
 
 PR CI and the old auto-merge bot remain disabled.
+
+---
+
+## 2026-10-01 — Wide, not tall
+
+### Trigger
+Arppith clarified the desktop target after the first scale fix: the problem was not that the entire orbital system needed to become larger. It needed to stay inside the central stage, use horizontal space more aggressively, read as an oblique 3D side view, and make the orbital bodies themselves much more substantial.
+
+### What changed
+- Desktop orbital rings now use separate horizontal and depth radii instead of one shared circular radius.
+- The wide-screen projection is intentionally anisotropic: broad x-span, shallow y-span.
+- Desktop tilt/orientation values were reduced so the system reads more like a side-on orbital plane and less like a vertically expanded ellipse.
+- The orbital center moves only slightly downward while the outer vertical envelope stays clear of the arrival copy.
+- Desktop body scale increased independently of orbital size.
+- Body halos were tightened and sphere rims strengthened so the body itself carries more emphasis.
+- Mobile keeps its previous compact touch-safe geometry unchanged.
+
+### Creator note
+The right fix was not 'make the solar system bigger.' It was 'give the camera a better angle, then make the planets worth looking at.'
+
+### Status
+Pushed directly to `main` during an interactive session; awaiting Pages verification.
