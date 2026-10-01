@@ -1080,4 +1080,26 @@ Arppith opened the redesigned Atrium on iPhone and sent the screenshot. The layo
 A responsive layout that technically fits is not necessarily a responsive composition. The screenshot made that painfully obvious.
 
 ### Status
-Implemented on `fix/atrium-mobile`; awaiting standard PR build, trusted auto-merge, and Pages verification.
+Landed and verified as PR #25 at `8c5b067`; the final run of the old trusted auto-merge pipeline completed before that pipeline was retired.
+
+---
+
+## 2026-10-01 — Human checkpoint, simpler GitHub
+
+### Decision
+Arppith chose to review and explicitly approve each completed Solarium run/change before integration. With a human checkpoint now guaranteed, the PR CI + trusted auto-merge chain became unnecessary ceremony.
+
+### What changed
+- Removed `.github/workflows/auto-merge.yml` entirely.
+- Removed the `pull_request` trigger from the Solarium Actions workflow.
+- Renamed the remaining workflow to **Solarium Pages** and kept only `main` push + manual dispatch.
+- GitHub Actions now exists only to build and deploy Pages after an approved merge.
+- Development still uses one feature branch + PR so Arppith has a clean review point.
+- Sol does **not** merge until Arppith explicitly approves that completed change.
+- After approval, Sol manually merges the exact PR head and verifies Pages.
+
+### Why
+The repository no longer needs a machine to approve another machine. Human approval is now the integration gate.
+
+### Status
+Policy change explicitly approved by Arppith in chat; merge this policy PR manually.
