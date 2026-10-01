@@ -63,6 +63,7 @@ src/
     threshold.ts
     hysteresis.ts
     phantom.ts
+    trace.ts
   main.ts
   style.css
 ```
@@ -124,7 +125,7 @@ Every substantial new room should add one room document and one compact atlas/in
 
 The current room identity is represented by a small union:
 
-`atrium | gravitas | bloom | resonance | murmuration | mycelium | tides | reaction | prism | chaos | echo | moire | phase | polarity | territory | threshold | hysteresis | phantom`
+`atrium | gravitas | bloom | resonance | murmuration | mycelium | tides | reaction | prism | chaos | echo | moire | phase | polarity | territory | threshold | hysteresis | phantom | trace`
 
 The Atrium acts as the central navigation layer.
 
@@ -363,6 +364,18 @@ There is no global jam object and no controller that decides where congestion be
 The visual color of each car reflects its own current speed. A small aggregate readout is observational only and does not feed back into the simulation.
 
 Work stays bounded by the fixed car count and browser-local state. **Space** pauses/resumes and **R** restores the canonical traffic state.
+
+## Trace
+
+Trace is a stigmergic colony built from 120 bounded local agents and two fixed 84 × 52 scalar trail fields.
+
+Searching agents deposit a cool home field and sample a warm food field ahead. Returning agents do the opposite. Agents only sense short-range forward/left/right samples; when useful trail information is absent, deterministic wandering supplies exploration.
+
+Both trail fields diffuse slightly and decay continuously. No agent stores a complete route, sees the whole source map, or communicates directly with another agent. Stable paths emerge because every traversal edits the shared environment for later agents.
+
+Clicking plants or removes resource sources up to a small fixed cap. **C** clears both trail fields without resetting the colony, **Space** pauses/resumes, and **R** restores the canonical source layout and agents.
+
+All state is browser-local and bounded by fixed agent/grid sizes.
 
 ## Keyboard and focus interaction
 
