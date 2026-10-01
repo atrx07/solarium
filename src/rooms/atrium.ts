@@ -8,21 +8,43 @@ type OrbitNode = {
   y: number;
   r: number;
   ring: number;
+  depth: number;
+  scale: number;
+  hue: number;
 };
 
 type OrbitRing = {
   count: number;
   radius: number;
-  squash: number;
   speed: number;
   phase: number;
+  tilt: number;
+  orientation: number;
+};
+
+type ProjectedPoint = {
+  x: number;
+  y: number;
+  depth: number;
+  scale: number;
 };
 
 export function createAtriumRoom(targets: RoomModule[]): RoomModule {
-  const countWords = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"];
+  const countWords = [
+    "zero",
+    "one",
+    "two",
+    "three",
+    "four",
+    "five",
+    "six",
+    "seven",
+    "eight",
+    "nine",
+    "ten",
+  ];
   const rawCount = countWords[targets.length] ?? String(targets.length);
   const countLabel = rawCount.charAt(0).toUpperCase() + rawCount.slice(1);
-  // A keydown event carries one digit, never a multi-digit room number.
   const shortcutCount = Math.min(targets.length, 9);
   const shortcutHint =
     shortcutCount === 0
@@ -31,15 +53,23 @@ export function createAtriumRoom(targets: RoomModule[]): RoomModule {
         ? " · key 1"
         : ` · keys 1–${shortcutCount}`;
 
+  function center(env: RoomEnvironment): { x: number; y: number } {
+    const { stage } = env;
+    return {
+      x: stage.width / 2,
+      y: stage.width < 680 ? stage.height * 0.49 : stage.height / 2,
+    };
+  }
+
   function orbitRings(env: RoomEnvironment): OrbitRing[] {
     const { stage } = env;
     const targetCount = Math.max(targets.length, 1);
-    const maxPerRing = stage.width < 680 ? 6 : 8;
+    const narrow = stage.width < 680;
+    const maxPerRing = narrow ? 5 : 6;
     const ringCount = Math.max(1, Math.ceil(targetCount / maxPerRing));
     const base = Math.min(stage.width, stage.height);
-    const narrow = stage.width < 680;
-    const minRadius = ringCount === 1 ? 0.28 : narrow ? 0.2 : 0.17;
-    const maxRadius = ringCount === 1 ? 0.28 : narrow ? 0.43 : 0.36;
+    const minRadius = ringCount === 1 ? 0.28 : narrow ? 0.17 : 0.16;
+    const maxRadius = ringCount === 1 ? 0.28 : narrow ? 0.4 : 0.37;
     const step = ringCount <= 1 ? 0 : (maxRadius - minRadius) / (ringCount - 1);
 
     const counts = Array.from({ length: ringCount }, () =>
@@ -52,36 +82,69 @@ export function createAtriumRoom(targets: RoomModule[]): RoomModule {
     return counts.map((count, ring) => ({
       count,
       radius: base * (minRadius + ring * step),
-      squash:
-        (narrow ? 0.74 : 0.68) - Math.min(ring, 2) * (narrow ? 0.028 : 0.035),
-      speed: (0.000105 + ring * 0.000022) * (ring % 2 === 0 ? 1 : -1),
-      phase: ring * 0.63 - Math.PI / 2,
+      speed: (0.000085 + ring * 0.000018) * (ring % 2 === 0 ? 1 : -1),
+      phase: -Math.PI / 2 + ring * 0.71,
+      tilt: 0.5 + Math.min(ring, 3) * 0.085,
+      orientation: (ring % 2 === 0 ? -1 : 1) * (0.1 + ring * 0.045),
     }));
+  }
+
+  function projectPoint(
+    env: RoomEnvironment,
+    ring: OrbitRing,
+    angle: number,
+  ): ProjectedPoint {
+    const { stage } = env;
+    const { x: cx, y: cy } = center(env);
+    const localX = Math.cos(angle) * ring.radius;
+    const depthAxis = Math.sin(angle) * ring.radius;
+
+    const planeY = depthAxis * Math.sin(ring.tilt);
+    const depth = depthAxis * Math.cos(ring.tilt);
+
+    const cosO = Math.cos(ring.orientation);
+    const sinO = Math.sin(ring.orientation);
+    const rotatedX = localX * cosO - planeY * sinO;
+    const rotatedY = localX * sinO + planeY * cosO;
+
+    const focal = Math.min(stage.width, stage.height) * 2.75;
+    const scale = focal / Math.max(focal - depth, focal * 0.45);
+
+    return {
+      x: cx + rotatedX * scale,
+      y: cy + rotatedY * scale,
+      depth,
+      scale,
+    };
   }
 
   function orbitNodes(env: RoomEnvironment): OrbitNode[] {
     const { stage } = env;
-    const cx = stage.width / 2;
-    const cy = stage.height / 2;
     const rings = orbitRings(env);
     const nodes: OrbitNode[] = [];
     let targetIndex = 0;
 
     rings.forEach((ring, ringIndex) => {
-      const angle = stage.time * ring.speed + ring.phase;
+      const ringAngle = stage.time * ring.speed + ring.phase;
 
       for (let slot = 0; slot < ring.count; slot += 1) {
         const target = targets[targetIndex];
         if (!target) break;
 
-        const a = angle + slot * (TAU / ring.count);
+        const angle = ringAngle + slot * (TAU / ring.count);
+        const projected = projectPoint(env, ring, angle);
+        const baseRadius = 8.2 + ((targetIndex * 7 + ringIndex * 3) % 4) * 0.85;
+
         nodes.push({
           room: target.id,
           title: target.title,
-          x: cx + Math.cos(a) * ring.radius,
-          y: cy + Math.sin(a) * ring.radius * ring.squash,
-          r: 11 + ((targetIndex + ringIndex) % 4) * 1.6,
+          x: projected.x,
+          y: projected.y,
+          r: baseRadius * projected.scale,
           ring: ringIndex,
+          depth: projected.depth,
+          scale: projected.scale,
+          hue: 208 + ((targetIndex * 29 + ringIndex * 11) % 66),
         });
 
         targetIndex += 1;
@@ -97,17 +160,160 @@ export function createAtriumRoom(targets: RoomModule[]): RoomModule {
     y: number,
   ): OrbitNode | undefined {
     let nearest: OrbitNode | undefined;
-    let nearestDistance = 38;
+    let nearestDistance = Number.POSITIVE_INFINITY;
 
-    // Overlapping hit areas must select the closest orb, not the first room.
     for (const node of nodes) {
       const distance = dist({ x, y }, node);
-      if (distance < nearestDistance) {
+      const hitRadius = Math.max(28, node.r + 18);
+      if (distance <= hitRadius && distance < nearestDistance) {
         nearest = node;
         nearestDistance = distance;
       }
     }
     return nearest;
+  }
+
+  function drawOrbitPath(env: RoomEnvironment, ring: OrbitRing, ringIndex: number): void {
+    const { ctx } = env.stage;
+    const segments = 96;
+
+    for (let segment = 0; segment < segments; segment += 1) {
+      const a0 = (segment / segments) * TAU;
+      const a1 = ((segment + 1) / segments) * TAU;
+      const p0 = projectPoint(env, ring, a0);
+      const p1 = projectPoint(env, ring, a1);
+      const depthNorm =
+        ((p0.depth + p1.depth) * 0.5) / Math.max(ring.radius, 1);
+      const front = (depthNorm + 1) * 0.5;
+      const alpha = (ringIndex === 0 ? 0.035 : 0.022) + front * 0.055;
+
+      ctx.strokeStyle = `rgba(255,255,255,${alpha.toFixed(4)})`;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(p0.x, p0.y);
+      ctx.lineTo(p1.x, p1.y);
+      ctx.stroke();
+    }
+  }
+
+  function drawBody(
+    env: RoomEnvironment,
+    node: OrbitNode,
+    index: number,
+    hovered: boolean,
+  ): void {
+    const { stage, visited } = env;
+    const { ctx } = stage;
+    const { x: cx, y: cy } = center(env);
+    const visitedBoost = visited.has(node.room) ? 1 : 0.78;
+    const pulse = 1 + Math.sin(stage.time * 0.0018 + index * 1.47) * 0.08;
+    const radius = node.r * (hovered ? 1.2 : 1) * pulse;
+
+    stage.glow(
+      node.x,
+      node.y,
+      (hovered ? 31 : 21) * node.scale,
+      hovered
+        ? `hsla(${node.hue}, 72%, 84%, 0.42)`
+        : `hsla(${node.hue}, 62%, 77%, 0.2)`,
+      `hsla(${node.hue}, 66%, 62%, 0)`,
+    );
+
+    const lightDx = cx - node.x;
+    const lightDy = cy - node.y;
+    const lightLength = Math.max(1, Math.hypot(lightDx, lightDy));
+    const highlightX = node.x + (lightDx / lightLength) * radius * 0.42;
+    const highlightY = node.y + (lightDy / lightLength) * radius * 0.42;
+
+    const body = ctx.createRadialGradient(
+      highlightX,
+      highlightY,
+      radius * 0.08,
+      node.x,
+      node.y,
+      radius * 1.08,
+    );
+    body.addColorStop(
+      0,
+      hovered
+        ? "rgba(255,255,255,0.98)"
+        : `hsla(${node.hue}, 74%, 93%, ${0.9 * visitedBoost})`,
+    );
+    body.addColorStop(
+      0.42,
+      `hsla(${node.hue}, 52%, 72%, ${0.78 * visitedBoost})`,
+    );
+    body.addColorStop(
+      0.78,
+      `hsla(${node.hue + 8}, 46%, 36%, ${0.82 * visitedBoost})`,
+    );
+    body.addColorStop(1, "rgba(8,10,18,0.96)");
+
+    ctx.fillStyle = body;
+    ctx.beginPath();
+    ctx.arc(node.x, node.y, radius, 0, TAU);
+    ctx.fill();
+
+    ctx.strokeStyle = hovered
+      ? "rgba(255,255,255,0.72)"
+      : `rgba(255,255,255,${0.13 + node.scale * 0.04})`;
+    ctx.lineWidth = hovered ? 1.25 : 0.8;
+    ctx.beginPath();
+    ctx.arc(node.x, node.y, radius + 1.8, 0, TAU);
+    ctx.stroke();
+
+    if (visited.has(node.room)) {
+      ctx.fillStyle = "rgba(255,244,214,0.72)";
+      ctx.beginPath();
+      ctx.arc(
+        node.x + radius * 0.78,
+        node.y - radius * 0.58,
+        Math.max(1.2, 1.7 * node.scale),
+        0,
+        TAU,
+      );
+      ctx.fill();
+    }
+  }
+
+  function drawCentralLight(env: RoomEnvironment): void {
+    const { stage } = env;
+    const { ctx } = stage;
+    const { x: cx, y: cy } = center(env);
+    const breathe = 1 + Math.sin(stage.time * 0.0011) * 0.045;
+
+    stage.glow(
+      cx,
+      cy,
+      104 * breathe,
+      "rgba(255,242,210,0.22)",
+      "rgba(255,220,160,0)",
+    );
+    stage.glow(
+      cx,
+      cy,
+      28 * breathe,
+      "rgba(255,248,226,0.98)",
+      "rgba(255,226,171,0)",
+    );
+
+    const core = ctx.createRadialGradient(
+      cx - 5,
+      cy - 6,
+      1,
+      cx,
+      cy,
+      15 * breathe,
+    );
+    core.addColorStop(0, "rgba(255,255,255,1)");
+    core.addColorStop(0.28, "rgba(255,248,225,0.98)");
+    core.addColorStop(0.72, "rgba(255,211,136,0.88)");
+    core.addColorStop(1, "rgba(126,74,20,0.2)");
+
+    ctx.fillStyle = core;
+    ctx.beginPath();
+    ctx.arc(cx, cy, 14 * breathe, 0, TAU);
+    ctx.fill();
   }
 
   return {
@@ -117,83 +323,45 @@ export function createAtriumRoom(targets: RoomModule[]): RoomModule {
     hint: `click an anomaly · Tab to stage, arrows + Enter for any room${shortcutHint}`,
 
     draw(env): void {
-      const { stage, visited } = env;
+      const { stage } = env;
+      const { ctx } = stage;
       stage.clear("#050509");
       stage.drawStars(1);
 
-      const cx = stage.width / 2;
-      const cy =
-        stage.width < 680
-          ? stage.height * 0.49
-          : stage.height / 2;
+      const { x: cx, y: cy } = center(env);
       const rings = orbitRings(env);
 
-      // The title behaves like architecture, not interface chrome. Drawing it
-      // before the orbital system lets the anomalies pass in front of it.
       const wordmarkSize = Math.min(stage.width * 0.155, stage.height * 0.22);
-      stage.ctx.save();
-      stage.ctx.textAlign = "center";
-      stage.ctx.textBaseline = "middle";
-      stage.ctx.font =
+      ctx.save();
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.font =
         `700 ${wordmarkSize}px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
-      stage.ctx.fillStyle = "rgba(255,255,255,0.045)";
-      stage.ctx.fillText(
+      ctx.fillStyle = "rgba(255,255,255,0.045)";
+      ctx.fillText(
         "SOLARIUM",
         cx,
         Math.max(wordmarkSize * 0.72, stage.height * 0.185),
       );
-      stage.ctx.restore();
+      ctx.restore();
 
-      rings.forEach((ring, index) => {
-        stage.ctx.strokeStyle =
-          index === 0
-            ? "rgba(255,255,255,0.065)"
-            : "rgba(255,255,255,0.042)";
-        stage.ctx.lineWidth = 1;
-        stage.ctx.beginPath();
-        stage.ctx.ellipse(
-          cx,
-          cy,
-          ring.radius,
-          ring.radius * ring.squash,
-          0,
-          0,
-          TAU,
-        );
-        stage.ctx.stroke();
-      });
-
-      const breathe = 1 + Math.sin(stage.time * 0.0011) * 0.045;
-      stage.glow(
-        cx,
-        cy,
-        96 * breathe,
-        "rgba(255,242,210,0.22)",
-        "rgba(255,220,160,0)",
-      );
-      stage.glow(
-        cx,
-        cy,
-        22 * breathe,
-        "rgba(255,250,235,1)",
-        "rgba(255,226,171,0)",
-      );
+      rings.forEach((ring, index) => drawOrbitPath(env, ring, index));
 
       if (stage.pointer.active) {
-        const gradient = stage.ctx.createLinearGradient(
+        const gradient = ctx.createLinearGradient(
           cx,
           cy,
           stage.pointer.x,
           stage.pointer.y,
         );
-        gradient.addColorStop(0, "rgba(255,245,220,0.14)");
+        gradient.addColorStop(0, "rgba(255,245,220,0.1)");
         gradient.addColorStop(1, "rgba(255,255,255,0)");
-        stage.ctx.strokeStyle = gradient;
-        stage.ctx.lineWidth = 0.7;
-        stage.ctx.beginPath();
-        stage.ctx.moveTo(cx, cy);
-        stage.ctx.lineTo(stage.pointer.x, stage.pointer.y);
-        stage.ctx.stroke();
+        ctx.strokeStyle = gradient;
+        ctx.lineWidth = 0.7;
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.lineTo(stage.pointer.x, stage.pointer.y);
+        ctx.stroke();
       }
 
       const nodes = orbitNodes(env);
@@ -201,57 +369,33 @@ export function createAtriumRoom(targets: RoomModule[]): RoomModule {
         ? nearestOrbitNode(nodes, stage.pointer.x, stage.pointer.y)
         : undefined;
 
-      for (const [index, node] of nodes.entries()) {
-        const hovered = hoveredNode?.room === node.room;
-        const pulse = 1 + Math.sin(stage.time * 0.002 + index * 1.7) * 0.12;
-        const visitedBoost = visited.has(node.room) ? 1 : 0.72;
+      const sorted = [...nodes].sort((a, b) => a.depth - b.depth);
+      const back = sorted.filter((node) => node.depth <= 0);
+      const front = sorted.filter((node) => node.depth > 0);
 
-        stage.glow(
-          node.x,
-          node.y,
-          (hovered ? 38 : 25) * pulse,
-          hovered
-            ? "rgba(207,221,255,0.44)"
-            : "rgba(185,198,255,0.23)",
-          "rgba(120,140,255,0)",
+      back.forEach((node) => {
+        const index = nodes.findIndex((candidate) => candidate.room === node.room);
+        drawBody(env, node, index, hoveredNode?.room === node.room);
+      });
+
+      drawCentralLight(env);
+
+      front.forEach((node) => {
+        const index = nodes.findIndex((candidate) => candidate.room === node.room);
+        drawBody(env, node, index, hoveredNode?.room === node.room);
+      });
+
+      if (hoveredNode) {
+        const labelY = hoveredNode.y + Math.max(34, hoveredNode.r + 26);
+        ctx.font = "10px ui-monospace, SFMono-Regular, Menlo, monospace";
+        ctx.textAlign = "center";
+        ctx.fillStyle = "rgba(255,255,255,0.82)";
+        ctx.fillText(
+          hoveredNode.title.toUpperCase(),
+          hoveredNode.x,
+          Math.min(stage.height - 26, labelY),
         );
-
-        stage.ctx.fillStyle = hovered
-          ? "#ffffff"
-          : `rgba(232,236,255,${visitedBoost})`;
-        stage.ctx.beginPath();
-        stage.ctx.arc(
-          node.x,
-          node.y,
-          hovered ? node.r * 0.7 : node.r * 0.48,
-          0,
-          TAU,
-        );
-        stage.ctx.fill();
-
-        stage.ctx.strokeStyle = hovered
-          ? "rgba(255,255,255,0.65)"
-          : "rgba(255,255,255,0.17)";
-        stage.ctx.lineWidth = 1;
-        stage.ctx.beginPath();
-        stage.ctx.arc(
-          node.x,
-          node.y,
-          node.r + 9 + Math.sin(stage.time * 0.0015 + index) * 3,
-          0,
-          TAU,
-        );
-        stage.ctx.stroke();
-
-        if (hovered) {
-          stage.ctx.font =
-            "10px ui-monospace, SFMono-Regular, Menlo, monospace";
-          stage.ctx.textAlign = "center";
-          stage.ctx.fillStyle = "rgba(255,255,255,0.75)";
-          stage.ctx.fillText(node.title.toUpperCase(), node.x, node.y + 42);
-        }
       }
-
     },
 
     click(env, x, y): RoomId | void {

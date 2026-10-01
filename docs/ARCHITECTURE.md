@@ -127,7 +127,11 @@ The current room identity is represented by a small union:
 
 The Atrium acts as the central navigation layer.
 
-Its HTML/CSS shell has an Atrium-specific arrival state keyed by `data-room="atrium"`. In that state, ordinary brand/room-meta chrome fades away in favor of tiny corner metadata and low, wide invitation copy. The large `SOLARIUM` wordmark is rendered inside the Atrium canvas *before* the orbital nodes, so the room system visually passes in front of the title. Entering any anomaly restores the normal room shell. This keeps the arrival composition special without forcing every room into the same layout.
+Its HTML/CSS shell has an Atrium-specific arrival state keyed by `data-room="atrium"`. In that state, ordinary brand/room-meta chrome fades away in favor of tiny corner metadata and low, wide invitation copy. The large `SOLARIUM` wordmark is rendered inside the Atrium canvas before the orbital system. Entering any anomaly restores the normal room shell.
+
+Atrium navigation itself uses a lightweight 3D projection implemented entirely in Canvas 2D. Each adaptive orbit has a radius, tilt, orientation, phase, and angular velocity. A room body's local orbital coordinate is rotated into a tilted plane, assigned a depth value, then perspective-projected into screen space. Projected depth also controls body scale and render ordering.
+
+The orbit curves are sampled from the same projection instead of being authored ellipses. Far-side bodies render before the central light and near-side bodies render after it, which creates real visual occlusion at conjunction without WebGL or another runtime dependency.
 
 Room visits are remembered locally through:
 
