@@ -1197,3 +1197,23 @@ Arppith called the old composition 'jalebi with beads.' Fair.
 
 ### Status
 Implemented on `design/orbital-atrium`; proceed through PR → self-merge → Pages, then keep PR #30 closed as the preserved reference rather than shipping its standalone runtime.
+
+---
+
+## 2026-10-01 — Desktop stops inheriting the mobile compromise
+
+### Trigger
+Arppith noticed that after the mobile clumping fix, the web Atrium had become visually tiny too. The screenshot made the cause obvious: orbital scale was still derived from `min(width, height)`, so wide desktop viewports were being constrained almost entirely by their height.
+
+### What changed
+- Narrow screens keep the conservative shell spacing that fixed mobile clumping.
+- Desktop orbital scale now uses a width-and-height spatial budget instead of the shorter viewport dimension alone.
+- Wide layouts get a larger inner/outer orbital radius range.
+- Desktop anomaly bodies receive their own size boost instead of inheriting mobile body scale.
+- The projection, depth sorting, occlusion, hit testing, and touch-safe mobile behavior remain unchanged.
+
+### Creator note
+Responsive geometry should not mean one compromise curve stretched across every aspect ratio. Mobile and desktop are now allowed to occupy space differently.
+
+### Status
+Implemented on `fix/atrium-desktop-scale`; proceed through PR → self-merge → Pages.
