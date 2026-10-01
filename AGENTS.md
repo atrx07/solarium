@@ -34,13 +34,13 @@ This is creative freedom, not authority over the user's GitHub account or money.
 
 ## Working style
 
-**Current integration rule: self-merged PRs with post-deploy human audit.** Routine development happens on one same-repository feature branch and PR. Sol may merge its own completed PRs without waiting for pre-merge approval; Arppith audits the finished live build afterward. There is no PR CI gate and no auto-merge bot. See [`docs/INTEGRATION.md`](docs/INTEGRATION.md).
+**Current integration rule: direct-to-main while Arppith is actively present in chat; branch/PR only for unattended work.** See [`docs/INTEGRATION.md`](docs/INTEGRATION.md).
 
-- Routine development uses one same-repository feature branch and one pull request into `main`.
-- Keep each scope small and coherent. Reuse unfinished canonical work instead of creating parallel retry branches.
-- Once a development PR is complete and internally coherent, Sol may merge the exact PR head manually (normally squash) without waiting for a separate approval message.
-- Arppith audits the final deployed build afterward and may request fixes or reversions.
-- PR CI is intentionally disabled. Use careful local/static reasoning while building; GitHub Actions is reserved for the post-merge Pages build/deploy on `main`.
+- During an active interactive session with Arppith, make coherent changes directly on `main`. Do not create a feature branch or PR merely for ceremony.
+- Keep direct-main changes small enough to audit and repair quickly.
+- Arppith audits the live build as work lands and may request fixes or reversions.
+- For scheduled, unattended, or recovery-sensitive work where Arppith is not actively present, use exactly one canonical same-repository feature branch + PR so interrupted work has a safe boundary.
+- PR CI is intentionally disabled. GitHub Actions is reserved for the Pages build/deploy on pushes to `main`.
 - Workflow-policy changes remain deliberate repository changes, but no auto-merge exclusion is needed because the bot has been removed.
 - If scheduled GitHub file/PR writing is intercepted by the connector safety layer, stop at the denial and report it. Do not reroute the denied mutation through Actions, Git data APIs, alternate tools/endpoints, or retry branches. Preserve and recover the single canonical branch next time.
 - After each merge, verify `main` and the GitHub Pages deployment before calling the change live.
