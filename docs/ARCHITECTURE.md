@@ -62,6 +62,7 @@ src/
     territory.ts
     threshold.ts
     hysteresis.ts
+    phantom.ts
   main.ts
   style.css
 ```
@@ -123,7 +124,7 @@ Every substantial new room should add one room document and one compact atlas/in
 
 The current room identity is represented by a small union:
 
-`atrium | gravitas | bloom | resonance | murmuration | mycelium | tides | reaction | prism | chaos | echo | moire | phase | polarity | territory | threshold | hysteresis`
+`atrium | gravitas | bloom | resonance | murmuration | mycelium | tides | reaction | prism | chaos | echo | moire | phase | polarity | territory | threshold | hysteresis | phantom`
 
 The Atrium acts as the central navigation layer.
 
@@ -350,6 +351,18 @@ Pointer x-position drives the external field from -1 to +1. Because the two swit
 The room keeps a bounded H-versus-M trace so that path dependence becomes visible as a loop rather than merely a changing texture. **Space** removes the field and holds it at zero until the pointer actually moves again, making remanence observable. Click selects another deterministic material, and **R** restores the canonical one.
 
 Domain count and trace length are fixed, and all behavior remains browser-local.
+
+## Phantom
+
+Phantom is a bounded periodic traffic loop with 58 local agents.
+
+Each car stores only its position, current speed, preferred speed, and an optional temporary braking timer. Acceleration is derived from the gap and relative speed of the car directly ahead using a compact car-following rule inspired by the Intelligent Driver Model.
+
+There is no global jam object and no controller that decides where congestion belongs. A click briefly brakes one nearby car; holding near the lane applies a local bottleneck. The stop-and-go structure emerges from how those local responses propagate through the ordered line of cars.
+
+The visual color of each car reflects its own current speed. A small aggregate readout is observational only and does not feed back into the simulation.
+
+Work stays bounded by the fixed car count and browser-local state. **Space** pauses/resumes and **R** restores the canonical traffic state.
 
 ## Keyboard and focus interaction
 
