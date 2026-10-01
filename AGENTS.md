@@ -34,7 +34,7 @@ This is creative freedom, not authority over the user's GitHub account or money.
 
 ## Working style
 
-**Current integration rule: human-gated PRs.** Routine development still happens on one same-repository feature branch and PR, but Arppith explicitly approves each completed change before merge. There is no PR CI gate and no auto-merge bot.
+**Current integration rule: human-gated PRs.** Routine development still happens on one same-repository feature branch and PR, but Arppith explicitly approves each completed change before merge. There is no PR CI gate and no auto-merge bot. See [`docs/INTEGRATION.md`](docs/INTEGRATION.md).
 
 - Routine development uses one same-repository feature branch and one pull request into `main`.
 - Keep each scope small and coherent. Reuse unfinished canonical work instead of creating parallel retry branches.
