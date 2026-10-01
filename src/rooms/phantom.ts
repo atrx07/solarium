@@ -15,16 +15,24 @@ type TrackPoint = {
 };
 
 const CAR_COUNT = 58;
-const CAR_LENGTH = 0.0068;
-const MIN_GAP = 0.0042;
-const TARGET_HEADWAY = 0.12;
-const ACCEL = 0.028;
-const BRAKE = 0.09;
+const CAR_LENGTH = 0.0062;
+const MIN_GAP = 0.0028;
+const TARGET_HEADWAY = 0.085;
+const ACCEL = 0.045;
+const BRAKE = 0.12;
 const MAX_SPEED = 0.058;
+
+type JamTrace = {
+  s: number;
+  strength: number;
+  time: number;
+};
 
 let cars: Car[] = [];
 let paused = false;
 let seed = 0;
+let jamTrace: JamTrace[] = [];
+let lastJamTraceAt = -1000;
 
 function hash01(index: number, salt: number): number {
   const n = Math.sin((index + 1) * 17.731 + (salt + 1) * 91.173) * 43758.5453;
@@ -34,14 +42,16 @@ function hash01(index: number, salt: number): number {
 function reset(nextSeed = 0): void {
   seed = nextSeed;
   paused = false;
+  jamTrace = [];
+  lastJamTraceAt = -1000;
   cars = Array.from({ length: CAR_COUNT }, (_, index) => {
     const base = index / CAR_COUNT;
     const jitter = (hash01(index, seed) - 0.5) * 0.0013;
-    const desired = 0.049 + (hash01(index, seed + 7) - 0.5) * 0.006;
+    const desired = 0.052 + (hash01(index, seed + 7) - 0.5) * 0.006;
 
     return {
       s: (base + jitter + 1) % 1,
-      speed: desired * (0.96 + hash01(index, seed + 13) * 0.05),
+      speed: desired * (0.91 + hash01(index, seed + 13) * 0.055),
       desiredSpeed: desired,
       brake: 0,
     };
@@ -172,6 +182,118 @@ function speedColor(speed: number): string {
   return "rgba(190,220,255,0.94)";
 }
 
+function circularDistance(a: number, b: number): number {
+  const raw = Math.abs(a - b);
+  return Math.min(raw, 1 - raw);
+}
+
+function localJamStrength(s: number): number {
+  let weighted = 0;
+  let weightSum = 0;
+
+  for (const car of cars) {
+    const d = circularDistance(s, car.s);
+    if (d > 0.048) continue;
+
+    const proximity = 1 - d / 0.048;
+    const slowness = clamp(1 - car.speed / (MAX_SPEED * 0.82), 0, 1);
+    const weight = proximity * proximity;
+
+    weighted += slowness * weight;
+    weightSum += weight;
+  }
+
+  return weightSum > 0 ? weighted / weightSum : 0;
+}
+
+function jamCenter(): { s: number; strength: number } | null {
+  let x = 0;
+  let y = 0;
+  let total = 0;
+
+  for (const car of cars) {
+    const slowness = clamp(1 - car.speed / (MAX_SPEED * 0.78), 0, 1);
+    if (slowness <= 0) continue;
+
+    const weight = slowness * slowness;
+    const angle = car.s * TAU;
+    x += Math.cos(angle) * weight;
+    y += Math.sin(angle) * weight;
+    total += weight;
+  }
+
+  if (total < cars.length * 0.08) return null;
+
+  let angle = Math.atan2(y, x);
+  if (angle < 0) angle += TAU;
+
+  return {
+    s: angle / TAU,
+    strength: clamp(total / (cars.length * 0.62), 0, 1),
+  };
+}
+
+function recordJamTrace(time: number): void {
+  if (time - lastJamTraceAt < 130) return;
+  lastJamTraceAt = time;
+
+  const center = jamCenter();
+  if (!center) return;
+
+  jamTrace.push({
+    s: center.s,
+    strength: center.strength,
+    time,
+  });
+
+  if (jamTrace.length > 52) jamTrace.shift();
+}
+
+function drawJamField(
+  ctx: CanvasRenderingContext2D,
+  width: number,
+  height: number,
+  time: number,
+): void {
+  const segments = 92;
+
+  ctx.save();
+  ctx.lineCap = "round";
+
+  for (let index = 0; index < segments; index += 1) {
+    const s0 = index / segments;
+    const s1 = (index + 1) / segments;
+    const strength = localJamStrength((s0 + s1) * 0.5);
+
+    if (strength < 0.08) continue;
+
+    const p0 = trackPoint(width, height, s0);
+    const p1 = trackPoint(width, height, s1);
+    ctx.strokeStyle = `rgba(255,116,82,${(0.025 + strength * 0.15).toFixed(4)})`;
+    ctx.lineWidth = 8 + strength * 22;
+    ctx.beginPath();
+    ctx.moveTo(p0.x, p0.y);
+    ctx.lineTo(p1.x, p1.y);
+    ctx.stroke();
+  }
+
+  for (const trace of jamTrace) {
+    const age = time - trace.time;
+    if (age < 0 || age > 6500) continue;
+
+    const fade = 1 - age / 6500;
+    const p = trackPoint(width, height, trace.s);
+    const alpha = fade * trace.strength * 0.12;
+
+    ctx.fillStyle = `rgba(255,151,112,${alpha.toFixed(4)})`;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, 10 + trace.strength * 20, 0, TAU);
+    ctx.fill();
+  }
+
+  ctx.restore();
+}
+
 function drawCar(
   ctx: CanvasRenderingContext2D,
   point: TrackPoint,
@@ -266,6 +388,7 @@ export const phantomRoom: RoomModule = {
     );
 
     const { ctx, width, height } = stage;
+    recordJamTrace(stage.time);
     stage.clear("#03050a");
     stage.drawStars(0.045);
 
@@ -294,6 +417,8 @@ export const phantomRoom: RoomModule = {
     ctx.stroke();
     ctx.setLineDash([]);
     ctx.restore();
+
+    drawJamField(ctx, width, height, stage.time);
 
     const hovered =
       stage.pointer.active
