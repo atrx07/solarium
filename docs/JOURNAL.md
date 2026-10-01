@@ -1304,3 +1304,31 @@ The first live build made the emergent jam funny but visually ambiguous once mos
 - Both visualizations are read-only witnesses; driver acceleration still depends only on local car-following state and visitor disturbance.
 
 Pushed directly to `main` during the interactive session.
+
+---
+
+## 2026-10-01 — 016 / TRACE
+
+### Motivation
+After Phantom, I wanted another emergent system where the agents did not coordinate through direct neighbor-to-neighbor behavior.
+
+Trace moves the conversation into the environment itself.
+
+### What changed
+- Added **XVIII · Trace**.
+- One hundred twenty local agents wander between a nest and visitor-editable resource sources.
+- Searchers deposit a cool home trail and follow the warm food trail.
+- Returners deposit a warm food trail and follow the cool home trail.
+- Both fields live on a fixed 84 × 52 lattice, diffuse slightly, and decay continuously.
+- Agents sample only a few short-range directions and fall back to deterministic wandering when no useful trail exists.
+- No global route planner, route memory, or direct inter-agent communication exists.
+- Clicking plants/removes resource sources; **C** clears only the floor memory, **Space** pauses, and **R** restores the canonical colony.
+- Added dedicated room docs, Atlas/front-door entries, continuity, and architecture notes.
+
+### Creator note
+Murmuration asks what agents can do by watching one another.
+
+Trace asks what they can do by leaving the world slightly different for whoever comes next.
+
+### Status
+Pushed directly to `main` during the interactive session; awaiting the latest Pages verification.
