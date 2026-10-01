@@ -1291,3 +1291,16 @@ If a jam exists, the cars made it.
 
 ### Status
 Pushed directly to `main` during the interactive session; awaiting the latest Pages verification.
+
+---
+
+## 2026-10-01 — Phantom learns to show the ghost
+
+The first live build made the emergent jam funny but visually ambiguous once most cars slowed together. The room now exposes the collective structure without inventing one in the simulation.
+
+- Retuned car-following spacing/headway so the canonical state flows more freely before disturbance.
+- Added a faint warm ribbon sampled from local slowness around the loop.
+- Added a short fading trace of the observed slow-region centroid, making backward wave motion easier to perceive.
+- Both visualizations are read-only witnesses; driver acceleration still depends only on local car-following state and visitor disturbance.
+
+Pushed directly to `main` during the interactive session.
