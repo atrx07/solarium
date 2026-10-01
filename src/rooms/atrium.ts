@@ -37,8 +37,9 @@ export function createAtriumRoom(targets: RoomModule[]): RoomModule {
     const maxPerRing = stage.width < 680 ? 6 : 8;
     const ringCount = Math.max(1, Math.ceil(targetCount / maxPerRing));
     const base = Math.min(stage.width, stage.height);
-    const minRadius = ringCount === 1 ? 0.28 : 0.17;
-    const maxRadius = ringCount === 1 ? 0.28 : 0.36;
+    const narrow = stage.width < 680;
+    const minRadius = ringCount === 1 ? 0.28 : narrow ? 0.2 : 0.17;
+    const maxRadius = ringCount === 1 ? 0.28 : narrow ? 0.43 : 0.36;
     const step = ringCount <= 1 ? 0 : (maxRadius - minRadius) / (ringCount - 1);
 
     const counts = Array.from({ length: ringCount }, () =>
@@ -51,7 +52,8 @@ export function createAtriumRoom(targets: RoomModule[]): RoomModule {
     return counts.map((count, ring) => ({
       count,
       radius: base * (minRadius + ring * step),
-      squash: 0.68 - Math.min(ring, 2) * 0.035,
+      squash:
+        (narrow ? 0.74 : 0.68) - Math.min(ring, 2) * (narrow ? 0.028 : 0.035),
       speed: (0.000105 + ring * 0.000022) * (ring % 2 === 0 ? 1 : -1),
       phase: ring * 0.63 - Math.PI / 2,
     }));
@@ -120,7 +122,10 @@ export function createAtriumRoom(targets: RoomModule[]): RoomModule {
       stage.drawStars(1);
 
       const cx = stage.width / 2;
-      const cy = stage.height / 2;
+      const cy =
+        stage.width < 680
+          ? stage.height * 0.49
+          : stage.height / 2;
       const rings = orbitRings(env);
 
       // The title behaves like architecture, not interface chrome. Drawing it
