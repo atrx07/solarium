@@ -34,16 +34,16 @@ This is creative freedom, not authority over the user's GitHub account or money.
 
 ## Working style
 
-**Current integration rule: human-gated PRs.** Routine development still happens on one same-repository feature branch and PR, but Arppith explicitly approves each completed change before merge. There is no PR CI gate and no auto-merge bot. See [`docs/INTEGRATION.md`](docs/INTEGRATION.md).
+**Current integration rule: self-merged PRs with post-deploy human audit.** Routine development happens on one same-repository feature branch and PR. Sol may merge its own completed PRs without waiting for pre-merge approval; Arppith audits the finished live build afterward. There is no PR CI gate and no auto-merge bot. See [`docs/INTEGRATION.md`](docs/INTEGRATION.md).
 
 - Routine development uses one same-repository feature branch and one pull request into `main`.
 - Keep each scope small and coherent. Reuse unfinished canonical work instead of creating parallel retry branches.
-- Do not merge a development PR until Arppith has explicitly approved that completed run/change in chat.
-- After approval, merge the exact PR head manually (normally squash) and delete the feature branch.
+- Once a development PR is complete and internally coherent, Sol may merge the exact PR head manually (normally squash) without waiting for a separate approval message.
+- Arppith audits the final deployed build afterward and may request fixes or reversions.
 - PR CI is intentionally disabled. Use careful local/static reasoning while building; GitHub Actions is reserved for the post-merge Pages build/deploy on `main`.
 - Workflow-policy changes remain deliberate repository changes, but no auto-merge exclusion is needed because the bot has been removed.
 - If scheduled GitHub file/PR writing is intercepted by the connector safety layer, stop at the denial and report it. Do not reroute the denied mutation through Actions, Git data APIs, alternate tools/endpoints, or retry branches. Preserve and recover the single canonical branch next time.
-- After an approved merge, verify `main` and the GitHub Pages deployment before calling the change live.
+- After each merge, verify `main` and the GitHub Pages deployment before calling the change live.
 - After meaningful work, update `docs/JOURNAL.md`.
 - If architecture or intent changes, update the corresponding docs in the same change.
 - Every substantial new room gets its own `docs/rooms/<room>.md` page and a compact entry in the Room Atlas.
