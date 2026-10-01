@@ -11,6 +11,9 @@ type OrbitNode = {
   depth: number;
   scale: number;
   hue: number;
+  signature: number;
+  feature: number;
+  aspect: number;
 };
 
 type OrbitRing = {
@@ -29,6 +32,15 @@ type ProjectedPoint = {
   depth: number;
   scale: number;
 };
+
+function stableSignature(value: string): number {
+  let hash = 2166136261;
+  for (let index = 0; index < value.length; index += 1) {
+    hash ^= value.charCodeAt(index);
+    hash = Math.imul(hash, 16777619);
+  }
+  return hash >>> 0;
+}
 
 export function createAtriumRoom(targets: RoomModule[]): RoomModule {
   const countWords = [
@@ -167,6 +179,10 @@ export function createAtriumRoom(targets: RoomModule[]): RoomModule {
           (8.2 + ((targetIndex * 7 + ringIndex * 3) % 4) * 0.85) *
           desktopBoost;
 
+        const signature = stableSignature(target.id);
+        const hue = 198 + (signature % 88);
+        const aspect = 0.9 + ((signature >>> 8) % 17) / 100;
+
         nodes.push({
           room: target.id,
           title: target.title,
@@ -176,7 +192,10 @@ export function createAtriumRoom(targets: RoomModule[]): RoomModule {
           ring: ringIndex,
           depth: projected.depth,
           scale: projected.scale,
-          hue: 208 + ((targetIndex * 29 + ringIndex * 11) % 66),
+          hue,
+          signature,
+          feature: (signature >>> 16) % 6,
+          aspect,
         });
 
         targetIndex += 1;
@@ -281,17 +300,117 @@ export function createAtriumRoom(targets: RoomModule[]): RoomModule {
     );
     body.addColorStop(1, "rgba(8,10,18,0.96)");
 
+    const rx = radius;
+    const ry = radius * node.aspect;
+
+    if (node.feature === 1) {
+      ctx.save();
+      ctx.strokeStyle = `hsla(${node.hue + 18}, 58%, 76%, 0.28)`;
+      ctx.lineWidth = Math.max(0.7, radius * 0.055);
+      ctx.beginPath();
+      ctx.ellipse(
+        node.x,
+        node.y,
+        radius * 1.58,
+        radius * 0.46,
+        -0.28,
+        0,
+        TAU,
+      );
+      ctx.stroke();
+      ctx.restore();
+    }
+
     ctx.fillStyle = body;
     ctx.beginPath();
-    ctx.arc(node.x, node.y, radius, 0, TAU);
+    ctx.ellipse(node.x, node.y, rx, ry, 0, 0, TAU);
     ctx.fill();
+
+    ctx.save();
+    ctx.beginPath();
+    ctx.ellipse(node.x, node.y, rx * 0.98, ry * 0.98, 0, 0, TAU);
+    ctx.clip();
+
+    if (node.feature === 2) {
+      ctx.strokeStyle = "rgba(255,255,255,0.16)";
+      ctx.lineWidth = Math.max(1, radius * 0.12);
+      for (const offset of [-0.32, 0.05, 0.38]) {
+        ctx.beginPath();
+        ctx.moveTo(node.x - radius, node.y + ry * offset);
+        ctx.lineTo(node.x + radius, node.y + ry * offset);
+        ctx.stroke();
+      }
+    } else if (node.feature === 3) {
+      const spotCount = 3 + (node.signature % 3);
+      for (let spot = 0; spot < spotCount; spot += 1) {
+        const phase = (node.signature >>> (spot * 3)) & 31;
+        const angle = (phase / 31) * TAU;
+        const distance = radius * (0.18 + ((phase * 7) % 17) / 42);
+        ctx.fillStyle = `hsla(${node.hue + 24}, 42%, 22%, 0.24)`;
+        ctx.beginPath();
+        ctx.arc(
+          node.x + Math.cos(angle) * distance,
+          node.y + Math.sin(angle) * distance * node.aspect,
+          radius * (0.09 + (spot % 2) * 0.035),
+          0,
+          TAU,
+        );
+        ctx.fill();
+      }
+    } else if (node.feature === 4) {
+      ctx.fillStyle = "rgba(255,255,255,0.18)";
+      ctx.beginPath();
+      ctx.ellipse(
+        node.x,
+        node.y - ry * 0.62,
+        radius * 0.46,
+        ry * 0.2,
+        0,
+        0,
+        TAU,
+      );
+      ctx.fill();
+    } else if (node.feature === 5) {
+      const haze = ctx.createRadialGradient(
+        node.x,
+        node.y,
+        radius * 0.62,
+        node.x,
+        node.y,
+        radius,
+      );
+      haze.addColorStop(0, "rgba(255,255,255,0)");
+      haze.addColorStop(1, `hsla(${node.hue + 10}, 74%, 88%, 0.18)`);
+      ctx.fillStyle = haze;
+      ctx.fillRect(node.x - radius, node.y - ry, radius * 2, ry * 2);
+    }
+
+    ctx.restore();
+
+    if (node.feature === 1) {
+      ctx.save();
+      ctx.strokeStyle = `hsla(${node.hue + 20}, 68%, 88%, 0.34)`;
+      ctx.lineWidth = Math.max(0.8, radius * 0.06);
+      ctx.beginPath();
+      ctx.ellipse(
+        node.x,
+        node.y,
+        radius * 1.58,
+        radius * 0.46,
+        -0.28,
+        0.05,
+        Math.PI - 0.05,
+      );
+      ctx.stroke();
+      ctx.restore();
+    }
 
     ctx.strokeStyle = hovered
       ? "rgba(255,255,255,0.78)"
       : `rgba(255,255,255,${0.2 + node.scale * 0.055})`;
     ctx.lineWidth = hovered ? 1.4 : stage.width >= 680 ? 1.05 : 0.8;
     ctx.beginPath();
-    ctx.arc(node.x, node.y, radius + 1.8, 0, TAU);
+    ctx.ellipse(node.x, node.y, rx + 1.8, ry + 1.8, 0, 0, TAU);
     ctx.stroke();
 
     if (visited.has(node.room)) {
