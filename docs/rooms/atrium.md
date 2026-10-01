@@ -25,6 +25,8 @@ The old flat concentric-ellipse navigation has been replaced by a small 3D proje
 
 Bodies are depth-sorted around the central light. Far-side anomalies render first, then the light, then near-side anomalies, so conjunctions can actually pass behind the center instead of merely crossing a drawn ellipse. The orbital guide itself is sampled from the same projection, with its near side slightly more visible than its far side.
 
+Each anomaly also carries a stable visual signature derived from its room ID. That signature chooses its hue, slight body shape, and one restrained surface treatment such as a ringlet, bands, mottling, polar cap, or limb haze. The identity survives reloads and future room reordering because it is tied to the room itself rather than its current Atlas index.
+
 The layout remains adaptive: narrow screens use more, smaller shells to keep touch targets separated. Wide screens use separate horizontal and depth radii, creating a deliberately oblique side-view projection: the system expands across available width while its vertical envelope stays bounded above the arrival copy. Desktop body size is tuned independently from orbital span, so anomalies can read as defined objects without forcing the whole system to grow downward. If projected hit areas overlap, the closest anomaly to the pointer or virtual cursor wins, so activation and hover still agree.
 
 ## Intent
