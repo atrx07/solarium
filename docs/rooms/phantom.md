@@ -35,6 +35,8 @@ Each car stores only:
 
 Acceleration is based on a compact car-following rule inspired by the Intelligent Driver Model. A driver accelerates toward its preferred speed on open road and brakes when the available gap or closing speed makes that unsafe.
 
+The simulation never creates a global "jam object." A faint warm ribbon is sampled from current local slowness only for visualization, and a short fading trail records the observed center of the slow region so its motion can be watched. Neither feeds back into any driver's behavior.
+
 The simulation never creates a global "jam object."
 
 A jam is only visible when many individually reasonable local responses line up into a coherent region of low speed and high density.
