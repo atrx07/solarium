@@ -70,6 +70,8 @@ The 2026-09-30 Atrium arrival study established a useful pattern:
 
 This is a precedent, not a mandatory template for future rooms.
 
+The later orbital-Atrium pass adds another precedent: when a spatial metaphor is central to the experience, prefer making the geometry *actually behave spatially* over decorating a flat layout to imply depth. Perspective, occlusion, and scale should come from one coherent model rather than unrelated visual tricks.
+
 ## Mobile composition
 
 Mobile is a separate composition problem, not a smaller desktop. Preserve breathing room, touch-first instruction density, and the hierarchy of the room even when that requires different orbital spacing, copy placement, or hidden instrumentation.
