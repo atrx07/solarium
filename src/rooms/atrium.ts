@@ -65,11 +65,21 @@ export function createAtriumRoom(targets: RoomModule[]): RoomModule {
     const { stage } = env;
     const targetCount = Math.max(targets.length, 1);
     const narrow = stage.width < 680;
+    const wide = !narrow && stage.width / Math.max(stage.height, 1) >= 1.25;
     const maxPerRing = narrow ? 5 : 6;
     const ringCount = Math.max(1, Math.ceil(targetCount / maxPerRing));
-    const base = Math.min(stage.width, stage.height);
-    const minRadius = ringCount === 1 ? 0.28 : narrow ? 0.17 : 0.16;
-    const maxRadius = ringCount === 1 ? 0.28 : narrow ? 0.4 : 0.37;
+
+    // Mobile and desktop need genuinely different spatial budgets.
+    // Narrow screens stay height-safe; wide screens are allowed to use their
+    // horizontal room instead of being capped by viewport height alone.
+    const base = narrow
+      ? Math.min(stage.width, stage.height)
+      : Math.min(stage.width * 0.72, stage.height * 1.15);
+
+    const minRadius =
+      ringCount === 1 ? (wide ? 0.34 : 0.28) : narrow ? 0.17 : wide ? 0.19 : 0.18;
+    const maxRadius =
+      ringCount === 1 ? (wide ? 0.34 : 0.28) : narrow ? 0.4 : wide ? 0.47 : 0.42;
     const step = ringCount <= 1 ? 0 : (maxRadius - minRadius) / (ringCount - 1);
 
     const counts = Array.from({ length: ringCount }, () =>
@@ -133,7 +143,10 @@ export function createAtriumRoom(targets: RoomModule[]): RoomModule {
 
         const angle = ringAngle + slot * (TAU / ring.count);
         const projected = projectPoint(env, ring, angle);
-        const baseRadius = 8.2 + ((targetIndex * 7 + ringIndex * 3) % 4) * 0.85;
+        const desktopBoost = stage.width < 680 ? 1 : stage.width >= 1200 ? 1.34 : 1.18;
+        const baseRadius =
+          (8.2 + ((targetIndex * 7 + ringIndex * 3) % 4) * 0.85) *
+          desktopBoost;
 
         nodes.push({
           room: target.id,
