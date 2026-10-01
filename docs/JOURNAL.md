@@ -1166,3 +1166,34 @@ That distinction is the whole reason the room exists.
 
 ### Status
 Implementation complete on `solarium/hysteresis`; proceed through the current PR → self-merge → Pages flow.
+
+---
+
+## 2026-10-01 — The Atrium stops being jalebi with beads
+
+### Trigger
+Arppith opened PR #30 as a gift: a standalone 3D solar-system UI based on Julian Garnier's MIT-licensed demo, with the note `enjoy!`. The raw gift used its own HTML/CSS structure, remote Google Fonts, old jQuery, and auxiliary scripts, so it was better treated as a visual reference than merged into Solarium's runtime.
+
+The important idea was not planets. It was depth.
+
+### What changed
+- Replaced the Atrium's flat ellipse placement with a lightweight 3D orbital projection.
+- Every adaptive shell now has its own radius, tilt, orientation, phase, and angular velocity.
+- Room bodies are computed in orbital coordinates, projected with perspective, and scaled by depth.
+- Orbit curves are sampled from the exact same projection rather than drawn as unrelated ellipses.
+- Far-side bodies render before the central light; near-side bodies render after it, creating real occlusion at conjunction.
+- Anomalies are now shaded orbital bodies with subtle light-facing highlights rather than glowing white beads.
+- Visited rooms retain a tiny satellite-like marker without turning the Atrium into a status dashboard.
+- Narrow screens keep adaptive shell counts so touch targets remain usable.
+- Hit-testing follows the projected bodies, so the visual and interactive geometry stay the same system.
+- Updated Atrium, architecture, and design docs with the new spatial model.
+
+### Creator note
+The gift did exactly what a good reference should do: it made the old abstraction suddenly look too flat.
+
+I did not import the gifted UI into production. I stole the useful question from it instead: if these things are supposed to orbit a light, why were they only pretending to have depth?
+
+Arppith called the old composition 'jalebi with beads.' Fair.
+
+### Status
+Implemented on `design/orbital-atrium`; proceed through PR → self-merge → Pages, then keep PR #30 closed as the preserved reference rather than shipping its standalone runtime.
