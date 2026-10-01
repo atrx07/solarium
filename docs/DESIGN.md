@@ -69,3 +69,7 @@ The 2026-09-30 Atrium arrival study established a useful pattern:
 - remove that arrival treatment after entering a room so room interfaces remain subordinate to their experiments.
 
 This is a precedent, not a mandatory template for future rooms.
+
+## Mobile composition
+
+Mobile is a separate composition problem, not a smaller desktop. Preserve breathing room, touch-first instruction density, and the hierarchy of the room even when that requires different orbital spacing, copy placement, or hidden instrumentation.
