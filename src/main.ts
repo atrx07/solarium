@@ -16,6 +16,7 @@ import { prismRoom } from "./rooms/prism";
 import { reactionRoom } from "./rooms/reaction";
 import { resonanceRoom } from "./rooms/resonance";
 import { territoryRoom } from "./rooms/territory";
+import { thresholdRoom } from "./rooms/threshold";
 import { tidesRoom } from "./rooms/tides-room";
 
 const app = document.querySelector<HTMLDivElement>("#app");
@@ -36,6 +37,7 @@ const targetRooms: RoomModule[] = [
   phaseRoom,
   polarityRoom,
   territoryRoom,
+  thresholdRoom,
 ];
 
 const atriumRoom = createAtriumRoom(targetRooms);
@@ -56,8 +58,8 @@ app.innerHTML = `
     Space also activates unless the current room already uses Space for its own control.
   </p>
   <div class="shell" data-room="atrium">
-    <div class="brand"><strong>SOLARIUM</strong><span>012 / TERRITORY</span></div>
-    <div class="atrium-kicker" aria-hidden="true">local-first / 14 anomalies</div>
+    <div class="brand"><strong>SOLARIUM</strong><span>013 / THRESHOLD</span></div>
+    <div class="atrium-kicker" aria-hidden="true">local-first / 15 anomalies</div>
     <div class="atrium-motto" aria-hidden="true">enter nothing<br />leave different</div>
     <p class="atrium-copy" aria-hidden="true">${atriumRoom.copy}</p>
     <section class="room-meta" aria-live="polite">
