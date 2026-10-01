@@ -23,6 +23,7 @@ let domains: Domain[] = [];
 let trace: TracePoint[] = [];
 let seedOffset = 0;
 let drive = 0;
+let zeroHoldX: number | null = null;
 
 function hash01(x: number, y: number, seed: number): number {
   const n =
@@ -41,6 +42,7 @@ function magnetization(): number {
 function reset(seed = 0): void {
   seedOffset = seed;
   drive = 0;
+  zeroHoldX = null;
 
   domains = Array.from({ length: COLS * ROWS }, (_, index) => {
     const x = index % COLS;
@@ -58,6 +60,7 @@ function reset(seed = 0): void {
     };
   });
 
+  applyField(drive);
   trace = [{ field: drive, magnetization: magnetization() }];
 }
 
@@ -171,7 +174,15 @@ export const hysteresisRoom: RoomModule = {
   draw({ stage }, dt): void {
     const { ctx, width, height } = stage;
 
-    if (stage.pointer.active) {
+    if (
+      zeroHoldX !== null &&
+      stage.pointer.active &&
+      Math.abs(stage.pointer.x - zeroHoldX) > 2
+    ) {
+      zeroHoldX = null;
+    }
+
+    if (stage.pointer.active && zeroHoldX === null) {
       const nextDrive = fieldFromPointer(width, stage.pointer.x);
       if (Math.abs(nextDrive - drive) > 0.0005) {
         drive = nextDrive;
@@ -294,6 +305,7 @@ export const hysteresisRoom: RoomModule = {
     if (event.code === "Space") {
       event.preventDefault();
       drive = 0;
+      zeroHoldX = env.stage.pointer.active ? env.stage.pointer.x : null;
       const switched = applyField(drive);
       recordTrace(true);
       env.setStatus(
