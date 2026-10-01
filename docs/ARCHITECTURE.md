@@ -60,6 +60,7 @@ src/
     phase.ts
     polarity.ts
     territory.ts
+    threshold.ts
   main.ts
   style.css
 ```
@@ -107,6 +108,7 @@ docs/
     phase.md
     polarity.md
     territory.md
+    threshold.md
 ```
 
 The root `README.md` is intentionally concise. It contains the origin, a compact room index, basic run instructions, principles, and links into deeper documentation.
@@ -119,7 +121,7 @@ Every substantial new room should add one room document and one compact atlas/in
 
 The current room identity is represented by a small union:
 
-`atrium | gravitas | bloom | resonance | murmuration | mycelium | tides | reaction | prism | chaos | echo | moire | phase | polarity | territory`
+`atrium | gravitas | bloom | resonance | murmuration | mycelium | tides | reaction | prism | chaos | echo | moire | phase | polarity | territory | threshold`
 
 The Atrium acts as the central navigation layer.
 
@@ -320,6 +322,16 @@ A bounded low-resolution pass assigns each visual sample to its nearest site. Wh
 Permanent sites drift slowly in normalized coordinates and reflect from soft room bounds. Click plants a permanent site or removes a nearby one, **Space** pauses site drift, and **R** restores the canonical twelve-site arrangement.
 
 The room stores sites, not borders. Every visible border is recomputed from nearest-neighbor disagreement, keeping the concept faithful to the mathematical rule instead of turning the experience into authored polygon geometry.
+
+## Threshold
+
+Threshold is a deterministic site-percolation room built on a 44 × 30 lattice.
+
+Each cell stores one pseudo-random latent value. The current global threshold determines whether that cell is open, so moving the visitor horizontally reveals more of the same underlying field rather than regenerating it.
+
+A bounded breadth-first search starts from open cells along the top edge and marks all four-neighbor cells reachable from that boundary. If any marked cell reaches the bottom row, the chamber has formed a spanning cluster.
+
+Click advances the deterministic latent seed, **Space** locks/unlocks the current threshold, and **R** restores the canonical field. Work is bounded by the fixed lattice size; no remote data or dependency is involved.
 
 ## Keyboard and focus interaction
 

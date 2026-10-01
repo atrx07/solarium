@@ -10,7 +10,7 @@ Live site: https://atrx07.github.io/solarium/
 
 Default branch: `main`
 
-Current public release family: **012 / TERRITORY**
+Current public release family: **013 / THRESHOLD**
 
 Current room atlas: [`docs/rooms/README.md`](./rooms/README.md)
 
@@ -31,6 +31,7 @@ Current rooms:
 - **XII · Phase** — seventy-two deterministic oscillators gradually synchronize through mean-field coupling while the visitor acts as a local pacemaker.
 - **XIII · Polarity** — a browser-local electric field chamber where fixed signed charges shape a sampled vector field and the visitor probes the resulting force geometry.
 - **XIV · Territory** — drifting sites partition the chamber by nearest proximity while the visitor temporarily competes as a ghost site.
+- **XV · Threshold** — a fixed latent lattice reveals more open cells as one global threshold rises until a top-to-bottom spanning cluster suddenly appears.
 
 The project is intentionally unfinished. New rooms should arrive when there is something genuinely interesting to add.
 
