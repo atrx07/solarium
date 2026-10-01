@@ -21,6 +21,7 @@ Solarium grows by adding small interactive places with their own rules, moods, a
 | XII | [Phase](./phase.md) | coupled oscillators / synchronization | 010 / PHASE |
 | XIII | [Polarity](./polarity.md) | electric field / signed charges | 011 / POLARITY |
 | XIV | [Territory](./territory.md) | Voronoi partition / proximity geometry | 012 / TERRITORY |
+| XV | [Threshold](./threshold.md) | site percolation / criticality | 013 / THRESHOLD |
 
 ## Rule for future rooms
 
