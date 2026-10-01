@@ -15,7 +15,8 @@ type OrbitNode = {
 
 type OrbitRing = {
   count: number;
-  radius: number;
+  radiusX: number;
+  radiusDepth: number;
   speed: number;
   phase: number;
   tilt: number;
@@ -57,7 +58,7 @@ export function createAtriumRoom(targets: RoomModule[]): RoomModule {
     const { stage } = env;
     return {
       x: stage.width / 2,
-      y: stage.width < 680 ? stage.height * 0.49 : stage.height / 2,
+      y: stage.width < 680 ? stage.height * 0.49 : stage.height * 0.515,
     };
   }
 
@@ -69,18 +70,11 @@ export function createAtriumRoom(targets: RoomModule[]): RoomModule {
     const maxPerRing = narrow ? 5 : 6;
     const ringCount = Math.max(1, Math.ceil(targetCount / maxPerRing));
 
-    // Mobile and desktop need genuinely different spatial budgets.
-    // Narrow screens stay height-safe; wide screens are allowed to use their
-    // horizontal room instead of being capped by viewport height alone.
-    const base = narrow
-      ? Math.min(stage.width, stage.height)
-      : Math.min(stage.width * 0.72, stage.height * 1.15);
-
-    const minRadius =
-      ringCount === 1 ? (wide ? 0.34 : 0.28) : narrow ? 0.17 : wide ? 0.19 : 0.18;
-    const maxRadius =
-      ringCount === 1 ? (wide ? 0.34 : 0.28) : narrow ? 0.4 : wide ? 0.47 : 0.42;
-    const step = ringCount <= 1 ? 0 : (maxRadius - minRadius) / (ringCount - 1);
+    // Mobile stays compact and touch-safe. Desktop uses an intentionally
+    // anisotropic orbital volume: broad horizontally, shallow vertically.
+    const mobileBase = Math.min(stage.width, stage.height);
+    const desktopOuterX = Math.min(stage.width * 0.33, stage.height * 0.58);
+    const desktopOuterDepth = Math.min(stage.width * 0.22, stage.height * 0.39);
 
     const counts = Array.from({ length: ringCount }, () =>
       Math.floor(targetCount / ringCount),
@@ -89,14 +83,38 @@ export function createAtriumRoom(targets: RoomModule[]): RoomModule {
       counts[index] += 1;
     }
 
-    return counts.map((count, ring) => ({
-      count,
-      radius: base * (minRadius + ring * step),
-      speed: (0.000085 + ring * 0.000018) * (ring % 2 === 0 ? 1 : -1),
-      phase: -Math.PI / 2 + ring * 0.71,
-      tilt: 0.5 + Math.min(ring, 3) * 0.085,
-      orientation: (ring % 2 === 0 ? -1 : 1) * (0.1 + ring * 0.045),
-    }));
+    return counts.map((count, ring) => {
+      const t = ringCount <= 1 ? 1 : ring / (ringCount - 1);
+
+      if (narrow) {
+        const minRadius = ringCount === 1 ? 0.28 : 0.17;
+        const maxRadius = ringCount === 1 ? 0.28 : 0.4;
+        const radius = mobileBase * (minRadius + (maxRadius - minRadius) * t);
+
+        return {
+          count,
+          radiusX: radius,
+          radiusDepth: radius,
+          speed: (0.000085 + ring * 0.000018) * (ring % 2 === 0 ? 1 : -1),
+          phase: -Math.PI / 2 + ring * 0.71,
+          tilt: 0.5 + Math.min(ring, 3) * 0.085,
+          orientation: (ring % 2 === 0 ? -1 : 1) * (0.1 + ring * 0.045),
+        };
+      }
+
+      const innerX = desktopOuterX * (wide ? 0.44 : 0.48);
+      const innerDepth = desktopOuterDepth * 0.48;
+
+      return {
+        count,
+        radiusX: innerX + (desktopOuterX - innerX) * t,
+        radiusDepth: innerDepth + (desktopOuterDepth - innerDepth) * t,
+        speed: (0.000078 + ring * 0.000017) * (ring % 2 === 0 ? 1 : -1),
+        phase: -Math.PI / 2 + ring * 0.71,
+        tilt: 0.46 + Math.min(ring, 3) * 0.045,
+        orientation: (ring % 2 === 0 ? -1 : 1) * (0.055 + ring * 0.026),
+      };
+    });
   }
 
   function projectPoint(
@@ -106,8 +124,8 @@ export function createAtriumRoom(targets: RoomModule[]): RoomModule {
   ): ProjectedPoint {
     const { stage } = env;
     const { x: cx, y: cy } = center(env);
-    const localX = Math.cos(angle) * ring.radius;
-    const depthAxis = Math.sin(angle) * ring.radius;
+    const localX = Math.cos(angle) * ring.radiusX;
+    const depthAxis = Math.sin(angle) * ring.radiusDepth;
 
     const planeY = depthAxis * Math.sin(ring.tilt);
     const depth = depthAxis * Math.cos(ring.tilt);
@@ -143,7 +161,8 @@ export function createAtriumRoom(targets: RoomModule[]): RoomModule {
 
         const angle = ringAngle + slot * (TAU / ring.count);
         const projected = projectPoint(env, ring, angle);
-        const desktopBoost = stage.width < 680 ? 1 : stage.width >= 1200 ? 1.34 : 1.18;
+        const desktopBoost =
+          stage.width < 680 ? 1 : stage.width >= 1200 ? 1.95 : 1.55;
         const baseRadius =
           (8.2 + ((targetIndex * 7 + ringIndex * 3) % 4) * 0.85) *
           desktopBoost;
@@ -196,7 +215,7 @@ export function createAtriumRoom(targets: RoomModule[]): RoomModule {
       const p0 = projectPoint(env, ring, a0);
       const p1 = projectPoint(env, ring, a1);
       const depthNorm =
-        ((p0.depth + p1.depth) * 0.5) / Math.max(ring.radius, 1);
+        ((p0.depth + p1.depth) * 0.5) / Math.max(ring.radiusDepth, 1);
       const front = (depthNorm + 1) * 0.5;
       const alpha = (ringIndex === 0 ? 0.035 : 0.022) + front * 0.055;
 
@@ -225,7 +244,7 @@ export function createAtriumRoom(targets: RoomModule[]): RoomModule {
     stage.glow(
       node.x,
       node.y,
-      (hovered ? 31 : 21) * node.scale,
+      radius * (hovered ? 2.25 : 1.65),
       hovered
         ? `hsla(${node.hue}, 72%, 84%, 0.42)`
         : `hsla(${node.hue}, 62%, 77%, 0.2)`,
@@ -268,9 +287,9 @@ export function createAtriumRoom(targets: RoomModule[]): RoomModule {
     ctx.fill();
 
     ctx.strokeStyle = hovered
-      ? "rgba(255,255,255,0.72)"
-      : `rgba(255,255,255,${0.13 + node.scale * 0.04})`;
-    ctx.lineWidth = hovered ? 1.25 : 0.8;
+      ? "rgba(255,255,255,0.78)"
+      : `rgba(255,255,255,${0.2 + node.scale * 0.055})`;
+    ctx.lineWidth = hovered ? 1.4 : stage.width >= 680 ? 1.05 : 0.8;
     ctx.beginPath();
     ctx.arc(node.x, node.y, radius + 1.8, 0, TAU);
     ctx.stroke();
