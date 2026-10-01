@@ -25,7 +25,7 @@ The old flat concentric-ellipse navigation has been replaced by a small 3D proje
 
 Bodies are depth-sorted around the central light. Far-side anomalies render first, then the light, then near-side anomalies, so conjunctions can actually pass behind the center instead of merely crossing a drawn ellipse. The orbital guide itself is sampled from the same projection, with its near side slightly more visible than its far side.
 
-The layout remains adaptive: narrow screens use more, smaller shells to keep touch targets separated. If projected hit areas overlap, the closest anomaly to the pointer or virtual cursor wins, so activation and hover still agree.
+The layout remains adaptive: narrow screens use more, smaller shells to keep touch targets separated. Wide screens use a separate spatial budget based on both viewport width and height, so the orbital volume can expand horizontally instead of being artificially capped by the shorter desktop dimension. If projected hit areas overlap, the closest anomaly to the pointer or virtual cursor wins, so activation and hover still agree.
 
 ## Intent
 
