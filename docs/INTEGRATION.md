@@ -1,16 +1,15 @@
 # Integration workflow
 
-Solarium uses a human approval checkpoint.
+Solarium uses self-merged pull requests with post-deploy human audit.
 
 ## Development
 
 1. Create or reuse one same-repository feature branch.
 2. Keep the scope coherent and update relevant project memory/docs.
 3. Open one pull request into `main`.
-4. Present the completed change to Arppith.
-5. **Do not merge until Arppith explicitly approves that change.**
-6. After approval, manually merge the exact PR head, normally with a squash merge, and delete the source branch.
-7. Verify `main` and the GitHub Pages deployment before calling the change live.
+4. When the PR is complete and coherent, manually merge the exact PR head, normally with a squash merge, and delete the source branch.
+5. Verify `main` and the GitHub Pages deployment before calling the change live.
+6. Arppith audits the finished live build afterward and can request corrections.
 
 There is intentionally no pull-request CI gate and no automatic merge bot.
 
@@ -29,6 +28,6 @@ This post-merge build is a deployment safeguard, not an approval gate.
 
 ## Historical note
 
-From PR #14 through PR #25, Solarium used a trusted exact-head CI + automatic squash-merge pipeline. It worked, but became unnecessary after Arppith chose to explicitly review and approve each completed run before integration.
+From PR #14 through PR #25, Solarium used a trusted exact-head CI + automatic squash-merge pipeline. It worked, but became unnecessary once Arppith preferred direct post-deploy auditing instead of automated or pre-merge approval gates.
 
 Historical journal entries may still mention that pipeline. They are history, not current policy.

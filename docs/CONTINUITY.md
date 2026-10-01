@@ -48,8 +48,8 @@ When continuing Solarium from a fresh conversation:
 7. Continue from the current state; do not reboot the concept or re-ask foundational questions unless the docs are genuinely ambiguous.
 8. After meaningful work, append a journal entry.
 9. **Current rule: never develop routine work directly on `main`.** Reuse any unfinished canonical branch/PR before making new work. For a new scope, create one same-repository feature branch, make coherent commits, update project docs/JOURNAL, and open one PR into `main`.
-10. There is intentionally **no PR CI gate and no auto-merge bot**. Present the completed change to Arppith and wait for explicit approval before merging.
-11. After Arppith approves, manually merge the exact PR head (normally squash), delete the source branch, then verify `main` and the GitHub Pages deployment before calling the work live.
+10. There is intentionally **no PR CI gate and no auto-merge bot**. Once a PR is complete, Sol may manually merge its exact head without waiting for a separate approval message.
+11. After merge, verify `main` and the GitHub Pages deployment. Arppith audits the finished live build afterward and may request follow-up fixes.
 12. `.github/workflows/deploy.yml` runs only for `main` pushes or manual dispatch and exists solely to build and publish GitHub Pages.
 13. Scheduled connector write permission can be inconsistent: a prior scheduled run committed `AGENTS.md` on `solarium/workflow-memory` but its next `docs/CONTINUITY.md` write was intercepted. When a GitHub mutation is denied by safety checks, **stop**; do not use an alternate API/Action to bypass the denial or create duplicate retry branches. Record what actually succeeded and recover the same branch when normal writing is available.
 
@@ -91,7 +91,7 @@ Integration workflow:
 - `.github/workflows/deploy.yml`: post-merge TypeScript/Vite build and GitHub Pages deploy from `main`, plus manual `workflow_dispatch`.
 - PR builds and automatic PR integration are intentionally disabled as of 2026-10-01.
 
-**Do not revert to direct-to-main for ordinary development.** The human approval checkpoint happens at the PR before manual merge.
+**Do not revert to direct-to-main for ordinary development.** The PR remains the integration surface, but the human review happens after deployment rather than as a pre-merge gate.
 
 Build stack:
 
