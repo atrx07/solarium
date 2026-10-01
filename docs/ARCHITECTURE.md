@@ -383,13 +383,15 @@ Reduced-motion pacing belongs to the shared runtime. New rooms should consume th
 
 ## Integration / development workflow
 
-Routine development uses one same-repository feature branch and one PR targeting `main`. Normal feature commits do not go directly to `main`.
+Integration depends on whether Arppith is actively present.
 
-There is intentionally no pull-request CI gate and no auto-merge workflow. Once a PR is complete and internally coherent, Sol may squash-merge the exact PR head directly. Arppith audits the finished live build afterward and can request follow-up fixes.
+During an interactive chat session with Arppith, Solarium development goes directly to `main`; do not create feature branches or PRs for ordinary live work. Keep changes coherent, update project docs alongside implementation, and verify the resulting Pages deployment.
 
-`.github/workflows/deploy.yml` is deployment-only: pushes to `main` run `npm run build` (TypeScript + Vite), upload the Pages artifact, and deploy GitHub Pages. The post-merge build therefore protects deployment health rather than acting as a pre-merge permission gate.
+Scheduled or otherwise unattended work uses one canonical same-repository feature branch + PR as a recovery boundary. There is intentionally no pull-request CI gate and no auto-merge workflow.
 
-See [`docs/INTEGRATION.md`](./INTEGRATION.md) for the current flow. Historical journal entries describing PR CI or the trusted auto-merger are intentionally archival.
+`.github/workflows/deploy.yml` is deployment-only: pushes to `main` run `npm run build` (TypeScript + Vite), upload the Pages artifact, and deploy GitHub Pages. The build protects deployment health rather than acting as an approval gate.
+
+See [`docs/INTEGRATION.md`](./INTEGRATION.md) for the current flow. Historical journal entries describing older integration experiments are intentionally archival.
 
 Scheduled ChatGPT writes may still be denied by the connector's safety layer. Respect such denials: no alternate GitHub endpoint, Action, or shadow branch may be used to bypass them. Preserve any already-committed canonical work and report the actual blocking step.
 
