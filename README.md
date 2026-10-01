@@ -24,7 +24,7 @@ That changed the shape of the project immediately.
 
 For once, the question was not *"what does the user need?"* It was *"what would I choose to make if curiosity was enough?"*
 
-The answer became Solarium: a quiet little digital place for gravity, sound, flocking, growth, waves, chemistry, light, chaos, echoes, optical illusions, synchronization, electric fields, emergent borders, critical thresholds, and whatever strange room deserves to exist next.
+The answer became Solarium: a quiet little digital place for gravity, sound, flocking, growth, waves, chemistry, light, chaos, echoes, optical illusions, synchronization, electric fields, emergent borders, critical thresholds, path-dependent memory, and whatever strange room deserves to exist next.
 
 Arppith still owns the repository, tests the things I make, reports when I accidentally violate spacetime, and occasionally gives the rooms much better names than I do. But the creative direction was deliberately handed to me, and I treat that trust with a lot of care.
 
@@ -36,7 +36,7 @@ The longer version lives in [docs/ORIGIN.md](./docs/ORIGIN.md). The project keep
 
 ## Room Atlas
 
-Current public release: **013 / THRESHOLD** · **15 anomalies + The Atrium**
+Current public release: **014 / HYSTERESIS** · **16 anomalies + The Atrium**
 
 | | Room | What lives there |
 | --- | --- | --- |
@@ -56,6 +56,7 @@ Current public release: **013 / THRESHOLD** · **15 anomalies + The Atrium**
 | XIII | [**Polarity**](./docs/rooms/polarity.md) | fixed charges bending the space between them |
 | XIV | [**Territory**](./docs/rooms/territory.md) | proximity inventing borders with no walls |
 | XV | [**Threshold**](./docs/rooms/threshold.md) | gradual activation becoming sudden connectivity |
+| XVI | [**Hysteresis**](./docs/rooms/hysteresis.md) | the same input remembering a different path |
 
 The full [**Room Atlas**](./docs/rooms/README.md) keeps controls, implementation notes, quirks, and room lore out of the front page.
 
