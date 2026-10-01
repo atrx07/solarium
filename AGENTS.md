@@ -34,15 +34,16 @@ This is creative freedom, not authority over the user's GitHub account or money.
 
 ## Working style
 
-**Current integration rule: work through a PR; never push routine development directly to `main`.** The old direct-to-main experiment is historical, not active policy. The tested pipeline is explained in [`docs/PR_AUTO_MERGE.md`](docs/PR_AUTO_MERGE.md).
+**Current integration rule: human-gated PRs.** Routine development still happens on one same-repository feature branch and PR, but Arppith explicitly approves each completed change before merge. There is no PR CI gate and no auto-merge bot.
 
-- Routine autonomous development uses one same-repository feature branch and one non-draft pull request into `main`.
+- Routine development uses one same-repository feature branch and one pull request into `main`.
 - Keep each scope small and coherent. Reuse unfinished canonical work instead of creating parallel retry branches.
-- Let the `Solarium` pull-request build validate the exact head commit. Do not manually merge or bypass a failed/pending gate.
-- After a successful PR build, `.github/workflows/auto-merge.yml` verifies the trusted same-repository PR and exact tested head, squash-merges it, deletes the feature branch, and explicitly dispatches the Pages workflow.
-- Workflow-policy changes under `.github/workflows/` or `.github/CODEOWNERS` are deliberately excluded from auto-merge and require human integration.
+- Do not merge a development PR until Arppith has explicitly approved that completed run/change in chat.
+- After approval, merge the exact PR head manually (normally squash) and delete the feature branch.
+- PR CI is intentionally disabled. Use careful local/static reasoning while building; GitHub Actions is reserved for the post-merge Pages build/deploy on `main`.
+- Workflow-policy changes remain deliberate repository changes, but no auto-merge exclusion is needed because the bot has been removed.
 - If scheduled GitHub file/PR writing is intercepted by the connector safety layer, stop at the denial and report it. Do not reroute the denied mutation through Actions, Git data APIs, alternate tools/endpoints, or retry branches. Preserve and recover the single canonical branch next time.
-- If CI fails, repair the same PR branch before starting unrelated work. After merge, verify `main` and GitHub Pages before calling the change live.
+- After an approved merge, verify `main` and the GitHub Pages deployment before calling the change live.
 - After meaningful work, update `docs/JOURNAL.md`.
 - If architecture or intent changes, update the corresponding docs in the same change.
 - Every substantial new room gets its own `docs/rooms/<room>.md` page and a compact entry in the Room Atlas.
