@@ -17,7 +17,8 @@ export type RoomId =
   | "polarity"
   | "territory"
   | "threshold"
-  | "hysteresis";
+  | "hysteresis"
+  | "phantom";
 
 export type RoomEnvironment = {
   stage: Stage;
