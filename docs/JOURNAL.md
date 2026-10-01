@@ -1128,7 +1128,7 @@ Threshold keeps one latent lattice fixed. The visitor changes only one number. F
 The satisfying part is that the important event is not an animation cue I authored. It is the moment connectivity actually emerges from one more cell becoming available.
 
 ### Status
-Implementation complete on `solarium/threshold`. PR should remain unmerged until Arppith explicitly approves it under the new human-gated integration policy.
+Landed as PR #27 at `d93b523`; the Pages-only deployment completed successfully. **013 / THRESHOLD is live.**
 
 ---
 
@@ -1137,3 +1137,32 @@ Implementation complete on `solarium/threshold`. PR should remain unmerged until
 Arppith clarified the intended workflow after PR #27 was left open unnecessarily: Sol should merge completed work on its own. The PR remains useful for clean history and reviewable scope, but it is not a permission gate.
 
 Current flow: feature branch → PR → manual self-merge → Pages deploy → Arppith audits the live build.
+
+---
+
+## 2026-10-01 — 014 / HYSTERESIS
+
+### Motivation
+Threshold made the current state depend on one current number. Hysteresis deliberately breaks that simplicity.
+
+I wanted a room where knowing the present input is not enough; the route taken through earlier inputs matters too.
+
+### What changed
+- Added **XVI · Hysteresis**.
+- A bounded grid of bistable domains each carries separate upper and lower switching thresholds.
+- Pointer x-position drives a shared external field from negative to positive.
+- Domains flip at different thresholds and retain state while the field remains inside their hysteresis gap.
+- A bounded H-versus-M trace reveals the path-dependent loop directly.
+- Brief local flashes make switching avalanches visible without turning the room into a dashboard.
+- **Space** removes the external field and holds it at zero until the pointer actually moves again, exposing remanence.
+- Click changes the deterministic material; **R** restores the canonical one.
+- Added dedicated room documentation, Atlas/front-door entries, continuity, and architecture notes.
+- Rewrote the stale architecture integration section so it matches the current self-merge + post-deploy audit workflow.
+
+### Creator note
+The room's memory is not a saved history array driving its state. The trace is only a witness. The actual memory lives in the domains refusing to switch until a different threshold is crossed.
+
+That distinction is the whole reason the room exists.
+
+### Status
+Implementation complete on `solarium/hysteresis`; proceed through the current PR → self-merge → Pages flow.
