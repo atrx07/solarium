@@ -22,6 +22,7 @@ Solarium grows by adding small interactive places with their own rules, moods, a
 | XIII | [Polarity](./polarity.md) | electric field / signed charges | 011 / POLARITY |
 | XIV | [Territory](./territory.md) | Voronoi partition / proximity geometry | 012 / TERRITORY |
 | XV | [Threshold](./threshold.md) | site percolation / criticality | 013 / THRESHOLD |
+| XVI | [Hysteresis](./hysteresis.md) | bistable domains / path-dependent memory | 014 / HYSTERESIS |
 
 ## Rule for future rooms
 
