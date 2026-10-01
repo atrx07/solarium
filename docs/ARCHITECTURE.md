@@ -61,6 +61,7 @@ src/
     polarity.ts
     territory.ts
     threshold.ts
+    hysteresis.ts
   main.ts
   style.css
 ```
@@ -109,6 +110,7 @@ docs/
     polarity.md
     territory.md
     threshold.md
+    hysteresis.md
 ```
 
 The root `README.md` is intentionally concise. It contains the origin, a compact room index, basic run instructions, principles, and links into deeper documentation.
@@ -121,7 +123,7 @@ Every substantial new room should add one room document and one compact atlas/in
 
 The current room identity is represented by a small union:
 
-`atrium | gravitas | bloom | resonance | murmuration | mycelium | tides | reaction | prism | chaos | echo | moire | phase | polarity | territory | threshold`
+`atrium | gravitas | bloom | resonance | murmuration | mycelium | tides | reaction | prism | chaos | echo | moire | phase | polarity | territory | threshold | hysteresis`
 
 The Atrium acts as the central navigation layer.
 
@@ -333,6 +335,18 @@ A bounded breadth-first search starts from open cells along the top edge and mar
 
 Click advances the deterministic latent seed, **Space** locks/unlocks the current threshold, and **R** restores the canonical field. Work is bounded by the fixed lattice size; no remote data or dependency is involved.
 
+## Hysteresis
+
+Hysteresis is a deterministic collection of independent bistable domains, inspired by a simple Preisach-style memory model.
+
+Each domain has an upper switching threshold, a lower switching threshold, and one of two persistent states. When the applied field rises above the upper threshold the domain flips positive; when the field falls below the lower threshold it flips negative. Between those values the current state is retained.
+
+Pointer x-position drives the external field from -1 to +1. Because the two switching thresholds differ, returning to the same field through a different path can produce a different collective magnetization.
+
+The room keeps a bounded H-versus-M trace so that path dependence becomes visible as a loop rather than merely a changing texture. **Space** removes the field and holds it at zero until the pointer actually moves again, making remanence observable. Click selects another deterministic material, and **R** restores the canonical one.
+
+Domain count and trace length are fixed, and all behavior remains browser-local.
+
 ## Keyboard and focus interaction
 
 The canvas is keyboard-focusable.
@@ -365,11 +379,13 @@ Reduced-motion pacing belongs to the shared runtime. New rooms should consume th
 
 ## Integration / development workflow
 
-Routine development is isolated on one same-repository feature branch, then submitted as a non-draft PR targeting `main`. Do not write normal feature commits straight to `main`; the older direct-main experiment was replaced after the trusted GitHub auto-merger was tested.
+Routine development uses one same-repository feature branch and one PR targeting `main`. Normal feature commits do not go directly to `main`.
 
-The `Solarium` workflow in `.github/workflows/deploy.yml` executes `npm run build` on PR heads, currently TypeScript checking and Vite bundling. There is no independent unit-test suite yet.
+There is intentionally no pull-request CI gate and no auto-merge workflow. Once a PR is complete and internally coherent, Sol may squash-merge the exact PR head directly. Arppith audits the finished live build afterward and can request follow-up fixes.
 
-On successful PR CI, `.github/workflows/auto-merge.yml` checks that the PR is open, internal, non-draft, targeting `main`, and still at exactly the tested head; it ignores probe branches and leaves workflow-policy changes for manual integration. A trusted successful PR is squash-merged, its branch removed, and `deploy.yml` is explicitly dispatched on `main` because GitHub-token merges do not cause ordinary push-triggered workflows to run. The documented smoke test is PR #14; see [`docs/PR_AUTO_MERGE.md`](./PR_AUTO_MERGE.md).
+`.github/workflows/deploy.yml` is deployment-only: pushes to `main` run `npm run build` (TypeScript + Vite), upload the Pages artifact, and deploy GitHub Pages. The post-merge build therefore protects deployment health rather than acting as a pre-merge permission gate.
+
+See [`docs/INTEGRATION.md`](./INTEGRATION.md) for the current flow. Historical journal entries describing PR CI or the trusted auto-merger are intentionally archival.
 
 Scheduled ChatGPT writes may still be denied by the connector's safety layer. Respect such denials: no alternate GitHub endpoint, Action, or shadow branch may be used to bypass them. Preserve any already-committed canonical work and report the actual blocking step.
 
