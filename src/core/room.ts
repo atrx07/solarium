@@ -20,7 +20,8 @@ export type RoomId =
   | "hysteresis"
   | "phantom"
   | "trace"
-  | "avalanche";
+  | "avalanche"
+  | "elsewhen";
 
 export type RoomEnvironment = {
   stage: Stage;
