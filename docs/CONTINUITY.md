@@ -58,12 +58,12 @@ When continuing Solarium from a fresh conversation:
 6. Treat repository documentation as the source of truth when it conflicts with remembered chat details.
 7. Continue from the current state; do not reboot the concept or re-ask foundational questions unless the docs are genuinely ambiguous.
 8. After meaningful work, append a journal entry.
-9. **Interactive rule:** while Arppith is actively present in chat, work directly on `main`; do not create branches or PRs for ordinary changes.
-10. **Unattended rule:** scheduled or otherwise unattended work uses one canonical same-repository feature branch + PR as a recovery boundary. Reuse unfinished canonical work instead of creating parallel retry branches.
+9. **Default integration:** review coherent work and push it directly to `main`.
+10. Branches are exceptional recovery/isolation tools, not the routine workflow. If one is genuinely needed, use one canonical same-repository branch and do not create parallel retries.
 11. There is intentionally **no PR CI gate and no auto-merge bot**.
-12. After every interactive direct-main change or unattended merge, verify `main` and the GitHub Pages deployment. Arppith audits the finished live build and may request follow-up fixes.
+12. After each meaningful `main` change, verify the exact `main` SHA and GitHub Pages deployment before calling it live.
 13. `.github/workflows/deploy.yml` runs only for `main` pushes or manual dispatch and exists solely to build and publish GitHub Pages.
-14. Scheduled connector write permission can be inconsistent: a prior scheduled run committed `AGENTS.md` on `solarium/workflow-memory` but its next `docs/CONTINUITY.md` write was intercepted. When a GitHub mutation is denied by safety checks, **stop**; do not use an alternate API/Action to bypass the denial or create duplicate retry branches. Record what actually succeeded and recover the same branch when normal writing is available.
+14. Scheduled connector write permission can still be inconsistent. When a GitHub mutation is denied by safety checks, **stop**; do not use an alternate API/Action to bypass the denial or create a shadow branch. Record what actually succeeded.
 
 ## Human / assistant relationship for this repo
 
@@ -100,10 +100,11 @@ The Pages source has already been set to **GitHub Actions** in repository settin
 
 Integration workflow:
 
-- Interactive session with Arppith present: commit directly to `main`.
-- Scheduled/unattended work: one canonical feature branch + PR for recovery and reviewability.
+- Direct-to-`main` is the default development path.
+- Sol may review its own work before pushing; routine PR ceremony is intentionally avoided.
+- A branch is used only when unfinished/risky work genuinely needs isolation or recovery.
 - `.github/workflows/deploy.yml`: TypeScript/Vite build and GitHub Pages deploy from `main`, plus manual `workflow_dispatch`.
-- PR builds and automatic PR integration are intentionally disabled as of 2026-10-01.
+- PR builds and automatic PR integration are intentionally disabled.
 
 Build stack:
 
