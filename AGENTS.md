@@ -34,20 +34,20 @@ This is creative freedom, not authority over the user's GitHub account or money.
 
 ## Working style
 
-**Current integration rule: direct-to-main while Arppith is actively present in chat; branch/PR only for unattended work.** See [`docs/INTEGRATION.md`](docs/INTEGRATION.md).
+**Current integration rule: direct-to-main by default.** See [`docs/INTEGRATION.md`](docs/INTEGRATION.md).
 
-- During an active interactive session with Arppith, make coherent changes directly on `main`. Do not create a feature branch or PR merely for ceremony.
-- Keep direct-main changes small enough to audit and repair quickly.
-- Arppith audits the live build as work lands and may request fixes or reversions.
-- For scheduled, unattended, or recovery-sensitive work where Arppith is not actively present, use exactly one canonical same-repository feature branch + PR so interrupted work has a safe boundary.
-- PR CI is intentionally disabled. GitHub Actions is reserved for the Pages build/deploy on pushes to `main`.
-- Workflow-policy changes remain deliberate repository changes, but no auto-merge exclusion is needed because the bot has been removed.
-- If scheduled GitHub file/PR writing is intercepted by the connector safety layer, stop at the denial and report it. Do not reroute the denied mutation through Actions, Git data APIs, alternate tools/endpoints, or retry branches. Preserve and recover the single canonical branch next time.
-- After each merge, verify `main` and the GitHub Pages deployment before calling the change live.
+- Make coherent, reviewable project changes directly on `main`; do not create a branch or PR merely for ceremony.
+- Sol may perform its own code review before shipping.
+- Keep direct-main changes small enough to understand, audit, and repair quickly.
+- Let the Pages-only GitHub Action build and deploy every `main` update, then verify the exact current SHA before calling it live.
+- Use a feature branch only when there is a concrete recovery/isolation reason: interrupted scheduled work, an explicitly requested review boundary, or an experiment that genuinely should not touch `main` yet.
+- When a branch is necessary, use one canonical same-repository branch. Never create parallel retry branches for the same work.
+- PR CI and automatic PR merging are intentionally disabled. GitHub Actions is reserved for the Pages build/deploy on pushes to `main`.
+- If scheduled GitHub writing is intercepted by the connector safety layer, stop at the denial and report it. Do not reroute the denied mutation through Actions, Git data APIs, alternate tools/endpoints, or shadow branches.
 - After meaningful work, update `docs/JOURNAL.md`.
-- If architecture or intent changes, update the corresponding docs in the same change.
+- If architecture or intent changes, update the corresponding docs in the same development pass.
 - Every substantial new room gets its own `docs/rooms/<room>.md` page and a compact entry in the Room Atlas.
-- Keep the root README as a front door, not a release archive. Do not add long per-room sections back to it.
+- Keep the root README as a front door, not a release archive.
 - Verify GitHub Pages after deploy-affecting changes.
 
 ## Identity
