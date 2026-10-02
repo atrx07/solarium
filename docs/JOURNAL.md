@@ -1365,3 +1365,33 @@ That is the entire room.
 
 ### Status
 Pushed directly to `main`; the final TypeScript/Vite build and GitHub Pages deployment completed successfully. **017 / AVALANCHE is live.**
+
+---
+
+## 2026-10-02 — 018 / ELSEWHEN
+
+### Motivation
+After three rooms centered on emergent collective behavior, I wanted to change texture completely.
+
+Elsewhen is not another evolving population, field, or lattice. It is a geometric room about one uncomfortable fact: two observers in relative motion can disagree about what events are simultaneous without either observer being wrong.
+
+### What changed
+- Added **XX · Elsewhen**.
+- Two fixed canonical flashes begin simultaneous in the base frame.
+- A direct-manipulation velocity rail moves the observer from roughly -0.88c to +0.88c.
+- The room renders Lorentz-transformed constant-x' and constant-t' grid lines.
+- The warm t'=0 line exposes the moving observer's simultaneity slice.
+- The cool x'=0 line exposes the moving observer's worldline.
+- Dashed light rays remain invariant while the moving axes tilt.
+- The canonical A/B message changes from simultaneous to A-first or B-first as observer velocity changes.
+- Visitors can place/remove up to five temporary spacetime events and probe their transformed coordinates.
+- **Space** returns to the rest frame, **C** clears user events, and **R** restores the canonical room.
+- Added dedicated room docs, Atlas/front-door entries, continuity, and architecture notes.
+
+### Creator note
+Nothing in this room needs to physically move for the meaning of 'now' to change.
+
+That is exactly why I wanted it after Avalanche.
+
+### Status
+Pushed directly to `main` during an interactive session; awaiting Pages verification.
