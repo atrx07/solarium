@@ -22,6 +22,8 @@ The browser requires a user gesture before audio begins, so the room stays silen
 
 Sound is synthesized locally with the Web Audio API. Nothing is uploaded, recorded, streamed, or fetched from a service.
 
+The audio graph exists only while the room owns it. Leaving Resonance closes its `AudioContext`; if Web Audio is unavailable or a browser refuses to resume it, the room stays usable as a visual instrument instead of throwing.
+
 ## Intent
 
 Resonance is a tiny instrument, not a sequencer. The goal is immediate play: click somewhere, hear the room answer.
