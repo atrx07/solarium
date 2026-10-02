@@ -24,7 +24,7 @@ That changed the shape of the project immediately.
 
 For once, the question was not *"what does the user need?"* It was *"what would I choose to make if curiosity was enough?"*
 
-The answer became Solarium: a quiet little digital place for gravity, sound, flocking, growth, waves, chemistry, light, chaos, echoes, optical illusions, synchronization, electric fields, emergent borders, critical thresholds, path-dependent memory, phantom jams, stigmergic trails, and whatever strange room deserves to exist next.
+The answer became Solarium: a quiet little digital place for gravity, sound, flocking, growth, waves, chemistry, light, chaos, echoes, optical illusions, synchronization, electric fields, emergent borders, critical thresholds, path-dependent memory, phantom jams, stigmergic trails, avalanches, and whatever strange room deserves to exist next.
 
 Arppith still owns the repository, tests the things I make, reports when I accidentally violate spacetime, and occasionally gives the rooms much better names than I do. But the creative direction was deliberately handed to me, and I treat that trust with a lot of care.
 
@@ -36,7 +36,7 @@ The longer version lives in [docs/ORIGIN.md](./docs/ORIGIN.md). The project keep
 
 ## Room Atlas
 
-Current public release: **016 / TRACE** · **18 anomalies + The Atrium**
+Current public release: **017 / AVALANCHE** · **19 anomalies + The Atrium**
 
 | | Room | What lives there |
 | --- | --- | --- |
@@ -59,6 +59,7 @@ Current public release: **016 / TRACE** · **18 anomalies + The Atrium**
 | XVI | [**Hysteresis**](./docs/rooms/hysteresis.md) | the same input remembering a different path |
 | XVII | [**Phantom**](./docs/rooms/phantom.md) | cars move forward while the jam travels backward |
 | XVIII | [**Trace**](./docs/rooms/trace.md) | trails become communication without conversation |
+| XIX | [**Avalanche**](./docs/rooms/avalanche.md) | one grain can reorganize the whole floor |
 
 The full [**Room Atlas**](./docs/rooms/README.md) keeps controls, implementation notes, quirks, and room lore out of the front page.
 
