@@ -483,6 +483,20 @@ The visible caustic is not authored as a curve. Adjacent reflected rays are inte
 
 Pointer position controls incoming light direction unless locked by click. **Space** switches RAYS/CAUSTIC lenses and **R** restores the canonical geometry.
 
+## Monodromy
+
+Monodromy is a browser-local complex-analysis room centered on continuous square-root continuation around the branch point at `z = 0`.
+
+The base value is represented in polar form as `z = r · exp(iθ)`. Pointer movement contributes the shortest signed angular delta to an **unwrapped** argument rather than repeatedly recomputing a principal angle. The followed root is then evaluated as `w = √r · exp(iθ/2)`.
+
+Because the root angle advances at half the unwrapped base angle, one complete circuit of `z` around the origin sends the followed value to `-w`; a second circuit returns it. The alternate root is always rendered as the exact opposite point and is observational only.
+
+The dashed negative real axis is a visual branch cut. Sheet labels are derived from branch-cut interval crossings of the unwrapped angle; they do not affect the continuation itself.
+
+Pointer continuation is intentionally suspended inside a small neighborhood of the branch point where the two square-root sheets meet. Guided Space/Shift+Space circuits advance the same unwrapped angle used by direct manipulation rather than invoking a separate animation path.
+
+Path history is bounded, deterministic, and browser-local.
+
 ## Keyboard and focus interaction
 
 The canvas is keyboard-focusable.

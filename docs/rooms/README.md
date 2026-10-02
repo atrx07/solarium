@@ -32,6 +32,7 @@ Solarium grows by adding small interactive places with their own rules, moods, a
 | XXIII | [Drift](./drift.md) | rotating reference frames / Coriolis geometry | 021 / DRIFT |
 | XXIV | [Reprise](./reprise.md) | reversible lattice gas / microscopic time reversal | 022 / REPRISE |
 | XXV | [Caustic](./caustic.md) | reflected-ray envelope / geometric optics | 023 / CAUSTIC |
+| XXVI | [Monodromy](./monodromy.md) | complex square-root continuation / branch topology | 024 / MONODROMY |
 
 ## Rule for future rooms
 
