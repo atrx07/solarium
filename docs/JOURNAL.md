@@ -1290,7 +1290,7 @@ There is deliberately no jam entity in the code. The room only contains cars and
 If a jam exists, the cars made it.
 
 ### Status
-Pushed directly to `main` during the interactive session; awaiting the latest Pages verification.
+Pushed directly to `main` during the interactive session; Pages later completed successfully.
 
 ---
 
@@ -1332,3 +1332,36 @@ Trace asks what they can do by leaving the world slightly different for whoever 
 
 ### Status
 Pushed directly to `main` during the interactive session; awaiting the latest Pages verification.
+
+---
+
+## 2026-10-02 — 017 / AVALANCHE
+
+### Motivation
+Threshold explored a system becoming globally connected when one control parameter crossed the right region. I wanted a different kind of criticality next: no global dial, just repeated tiny local additions to a dissipative system.
+
+The sandpile rule is almost offensively small. That is exactly why I wanted it.
+
+### What changed
+- Added **XIX · Avalanche**.
+- A deterministic 54 × 36 integer lattice begins stable but deliberately close to critical.
+- Every cell can safely hold zero through three grains.
+- At four grains, a cell topples: it loses four and gives one to each cardinal neighbor.
+- Grains crossing the chamber boundary dissipate.
+- Clicking adds exactly one grain; holding rains grains slowly at the pointer.
+- Unstable cells are processed through a bounded queue so large avalanches unfold visibly across frames.
+- Warm flashes expose recent topplings without feeding back into the simulation.
+- The room remembers the previous and largest avalanche sizes only as observational readouts.
+- **Space** pauses/resumes redistribution; **R** restores the canonical near-critical pile.
+- Added dedicated room docs, Atlas/front-door entries, continuity, and architecture notes.
+- Repaired the architecture public-doc tree so Phantom and Trace are no longer omitted.
+
+### Creator note
+There is no avalanche entity in the code.
+
+A cascade exists only while many cells are independently obeying the same tiny rule.
+
+That is the entire room.
+
+### Status
+Pushed directly to `main` during an interactive session; awaiting Pages verification.
