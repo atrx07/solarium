@@ -26,7 +26,8 @@ export type RoomId =
   | "alias"
   | "drift"
   | "reprise"
-  | "caustic";
+  | "caustic"
+  | "monodromy";
 
 export type RoomEnvironment = {
   stage: Stage;
