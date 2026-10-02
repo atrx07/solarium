@@ -26,6 +26,7 @@ Solarium grows by adding small interactive places with their own rules, moods, a
 | XVII | [Phantom](./phantom.md) | local car-following / stop-and-go wave emergence | 015 / PHANTOM |
 | XVIII | [Trace](./trace.md) | stigmergy / indirect collective communication | 016 / TRACE |
 | XIX | [Avalanche](./avalanche.md) | Abelian sandpile / self-organized criticality | 017 / AVALANCHE |
+| XX | [Elsewhen](./elsewhen.md) | Lorentz geometry / relativity of simultaneity | 018 / ELSEWHEN |
 
 ## Rule for future rooms
 
