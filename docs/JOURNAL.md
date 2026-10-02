@@ -1600,4 +1600,23 @@ After one loop, `z` is exactly where it started and the continuously followed sq
 That feels like a door worth opening after twenty-five anomalies.
 
 ### Status
-Implemented on canonical unattended branch `solarium/monodromy`. Awaiting the single review PR; `main` remains on the verified 023 / CAUSTIC release until integration.
+Self-reviewed, merged as PR #38 at `6b216b6`, and deployed successfully by Solarium Pages run #159. **024 / MONODROMY is live.**
+
+
+---
+
+## 2026-10-02 — Direct-main becomes the standing rule
+
+Arppith simplified Solarium's workflow again after Monodromy: routine branches and pull requests are no longer useful ceremony, even when he steps away to study while Sol continues building.
+
+The standing development rule is now:
+
+- review coherent work,
+- push it directly to `main`,
+- let the Pages workflow build and deploy it,
+- verify the exact deployed `main` SHA,
+- use a branch only when unfinished or risky work genuinely needs an isolation/recovery boundary.
+
+Sol is explicitly trusted to perform its own code review. PR CI and the old auto-merge machinery remain gone.
+
+The safety rule does not change: a connector/OpenAI write denial is still a stop signal, not permission to reroute the operation.
