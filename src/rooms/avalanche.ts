@@ -69,12 +69,6 @@ function addGrain(index: number): void {
   enqueue(index);
 }
 
-function addAtNormalized(nx: number, ny: number): void {
-  const x = Math.floor(clamp(nx, 0, 0.9999) * COLS);
-  const y = Math.floor(clamp(ny, 0, 0.9999) * ROWS);
-  addGrain(indexOf(x, y));
-}
-
 function giveGrain(x: number, y: number): void {
   if (x < 0 || x >= COLS || y < 0 || y >= ROWS) {
     dissipated += 1;
