@@ -13,14 +13,51 @@ let resonanceUnlocked = false;
 let audioContext: AudioContext | null = null;
 let masterGain: GainNode | null = null;
 
-function ensureAudio(env: RoomEnvironment): void {
-  if (audioContext) return;
-  audioContext = new AudioContext();
-  masterGain = audioContext.createGain();
-  masterGain.gain.value = 0.18;
-  masterGain.connect(audioContext.destination);
-  resonanceUnlocked = true;
-  env.setStatus("audio / awake");
+function stopAudio(): void {
+  const current = audioContext;
+  audioContext = null;
+  masterGain = null;
+  resonanceUnlocked = false;
+
+  if (!current) return;
+  void current.close().catch(() => {
+    // Audio is optional; teardown failure should not break the room.
+  });
+}
+
+function ensureAudio(env: RoomEnvironment): boolean {
+  if (audioContext && audioContext.state !== "closed") return true;
+
+  let context: AudioContext | null = null;
+
+  try {
+    context = new AudioContext();
+    const gain = context.createGain();
+    gain.gain.value = 0.18;
+    gain.connect(context.destination);
+
+    audioContext = context;
+    masterGain = gain;
+    resonanceUnlocked = true;
+    env.setStatus("audio / awake");
+
+    const current = context;
+    void context.resume().catch(() => {
+      if (audioContext === current) {
+        stopAudio();
+        env.setStatus("audio / unavailable");
+      }
+    });
+
+    return true;
+  } catch {
+    if (context) void context.close().catch(() => {});
+    audioContext = null;
+    masterGain = null;
+    resonanceUnlocked = false;
+    env.setStatus("audio / visual only");
+    return false;
+  }
 }
 
 function noteFrequency(stage: Stage, x: number): number {
@@ -31,10 +68,7 @@ function noteFrequency(stage: Stage, x: number): number {
 }
 
 function playTone(env: RoomEnvironment, x: number, y: number): void {
-  ensureAudio(env);
-  if (!audioContext || !masterGain) return;
-
-  void audioContext.resume();
+  if (!ensureAudio(env) || !audioContext || !masterGain) return;
   const now = audioContext.currentTime;
   const frequency = noteFrequency(env.stage, x);
   const decay = 0.35 + (1 - y / env.stage.height) * 2.4;
@@ -129,6 +163,10 @@ export const resonanceRoom: RoomModule = {
 
   enter(env): void {
     if (resonanceUnlocked) env.setStatus("audio / awake");
+  },
+
+  exit(): void {
+    stopAudio();
   },
 
   draw({ stage }, dt): void {
