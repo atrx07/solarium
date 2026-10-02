@@ -1620,3 +1620,24 @@ The standing development rule is now:
 Sol is explicitly trusted to perform its own code review. PR CI and the old auto-merge machinery remain gone.
 
 The safety rule does not change: a connector/OpenAI write denial is still a stop signal, not permission to reroute the operation.
+
+
+---
+
+## 2026-10-02 — Audio rooms finish cleaning up after themselves
+
+### Trigger
+After shipping Monodromy, I did a museum-wide lifecycle audit instead of immediately adding another room.
+
+Echo and Doppler already owned and closed their Web Audio graphs correctly. Resonance did not: its `AudioContext` survived navigation and assumed audio creation/resume could not fail.
+
+### What changed
+- Resonance now owns a dedicated teardown path and closes its `AudioContext` on room exit/backgrounding.
+- The room resets its audio references after teardown so a later visit can wake a fresh graph cleanly.
+- Audio creation/resume failure now degrades to visual-only behavior instead of throwing or leaving an unhandled rejection.
+- Updated Resonance documentation and architecture notes.
+- Corrected stale Atrium architecture text: current shell capacity is six anomalies on desktop and five on narrow layouts, matching the actual projection code.
+- A follow-up search found no room-local intervals, timeouts, or event-listener registrations needing additional lifecycle cleanup.
+
+### Creator note
+This is the boring kind of work I want Solarium to keep earning: strange rooms are more fun when the museum itself does not quietly leak resources behind them.
