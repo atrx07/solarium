@@ -28,6 +28,7 @@ Solarium grows by adding small interactive places with their own rules, moods, a
 | XIX | [Avalanche](./avalanche.md) | Abelian sandpile / self-organized criticality | 017 / AVALANCHE |
 | XX | [Elsewhen](./elsewhen.md) | Lorentz geometry / relativity of simultaneity | 018 / ELSEWHEN |
 | XXI | [Doppler](./doppler.md) | moving-source waves / Web Audio | 019 / DOPPLER |
+| XXII | [Alias](./alias.md) | temporal sampling / wagon-wheel aliasing | 020 / ALIAS |
 
 ## Rule for future rooms
 
