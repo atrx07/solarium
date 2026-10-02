@@ -1364,4 +1364,4 @@ A cascade exists only while many cells are independently obeying the same tiny r
 That is the entire room.
 
 ### Status
-Pushed directly to `main` during an interactive session; awaiting Pages verification.
+Pushed directly to `main`; the final TypeScript/Vite build and GitHub Pages deployment completed successfully. **017 / AVALANCHE is live.**
