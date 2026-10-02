@@ -66,6 +66,7 @@ src/
     trace.ts
     avalanche.ts
     elsewhen.ts
+    doppler.ts
   main.ts
   style.css
 ```
@@ -119,6 +120,7 @@ docs/
     trace.md
     avalanche.md
     elsewhen.md
+    doppler.md
 ```
 
 The root `README.md` is intentionally concise. It contains the origin, a compact room index, basic run instructions, principles, and links into deeper documentation.
@@ -131,7 +133,7 @@ Every substantial new room should add one room document and one compact atlas/in
 
 The current room identity is represented by a small union:
 
-`atrium | gravitas | bloom | resonance | murmuration | mycelium | tides | reaction | prism | chaos | echo | moire | phase | polarity | territory | threshold | hysteresis | phantom | trace | avalanche | elsewhen`
+`atrium | gravitas | bloom | resonance | murmuration | mycelium | tides | reaction | prism | chaos | echo | moire | phase | polarity | territory | threshold | hysteresis | phantom | trace | avalanche | elsewhen | doppler`
 
 The Atrium acts as the central navigation layer.
 
@@ -408,6 +410,20 @@ The warm axis is t' = 0 (the moving observer's simultaneity slice), the cool axi
 Dragging the velocity rail changes β, clicking the diagram adds/removes bounded user events, **Space** returns to the rest frame, **C** clears user events, and **R** restores the canonical room.
 
 The room contains no evolving simulation state beyond observer velocity and temporary event placement; its changing meaning comes from frame geometry rather than motion.
+
+## Doppler
+
+Doppler is a browser-local moving-source wave room with optional Web Audio.
+
+The emitter travels at constant speed along a horizontal rail and creates circular visual wavefronts at a fixed emission period. Each front remembers the source position where it was emitted and then expands at one shared propagation speed.
+
+The listener is visitor-placed. A front flashes the listener marker when its radius reaches the listener's current position. Moving the listener rearms existing fronts relative to the new position without retroactively changing their emission centers.
+
+The optional sine oscillator has a fixed source frequency of 220 Hz. The heard frequency is derived from the radial component of source velocity using the moving-source Doppler relation f_obs = f_src * c / (c - v_toward), clamped to a safe bounded range. Stereo and attenuation use the same source/listener geometry.
+
+Audio is gesture-gated and off by default. The room owns and closes its AudioContext through the room exit hook so sound cannot persist after navigation or backgrounding.
+
+**Space** pauses source/wave motion, **A** or the SOUND control toggles audio, and **R** restores the canonical geometry.
 
 ## Keyboard and focus interaction
 
