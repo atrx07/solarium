@@ -64,6 +64,7 @@ src/
     hysteresis.ts
     phantom.ts
     trace.ts
+    avalanche.ts
   main.ts
   style.css
 ```
@@ -113,6 +114,9 @@ docs/
     territory.md
     threshold.md
     hysteresis.md
+    phantom.md
+    trace.md
+    avalanche.md
 ```
 
 The root `README.md` is intentionally concise. It contains the origin, a compact room index, basic run instructions, principles, and links into deeper documentation.
@@ -125,7 +129,7 @@ Every substantial new room should add one room document and one compact atlas/in
 
 The current room identity is represented by a small union:
 
-`atrium | gravitas | bloom | resonance | murmuration | mycelium | tides | reaction | prism | chaos | echo | moire | phase | polarity | territory | threshold | hysteresis | phantom | trace`
+`atrium | gravitas | bloom | resonance | murmuration | mycelium | tides | reaction | prism | chaos | echo | moire | phase | polarity | territory | threshold | hysteresis | phantom | trace | avalanche`
 
 The Atrium acts as the central navigation layer.
 
@@ -376,6 +380,18 @@ Both trail fields diffuse slightly and decay continuously. No agent stores a com
 Clicking plants or removes resource sources up to a small fixed cap. **C** clears both trail fields without resetting the colony, **Space** pauses/resumes, and **R** restores the canonical source layout and agents.
 
 All state is browser-local and bounded by fixed agent/grid sizes.
+
+## Avalanche
+
+Avalanche is a bounded Abelian-sandpile-style redistribution system on a 54 × 36 integer lattice.
+
+Every cell stores an integer grain count. Stable cells contain zero through three grains. At four or more grains, a cell topples: four grains leave that cell and one grain is offered to each orthogonal neighbor. Contributions that cross the outer boundary dissipate from the system.
+
+The canonical pile is deterministic and deliberately biased toward heights two and three so the room begins close to criticality without starting unstable. Visitor clicks add one grain; holding adds grains slowly at the pointer.
+
+Unstable cells enter a bounded work queue. The room processes only a fixed number of topplings per frame, allowing large cascades to remain visible instead of resolving synchronously between frames. Warm flashes are read-only witnesses of redistribution and do not affect the rule.
+
+**Space** pauses/resumes redistribution and **R** restores the canonical pile. All state is local and bounded.
 
 ## Keyboard and focus interaction
 
