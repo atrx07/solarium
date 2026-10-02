@@ -1562,3 +1562,42 @@ Today's later additions were:
 The common thread was not planned at the start of the day, but it became obvious by the end: several rooms now separate the underlying system from what an observer, frame, sample, or collective geometry makes visible.
 
 Stopping here is intentional. Twenty-five rooms is enough new surface area for one day; the next work should earn its place rather than merely increment the Roman numeral.
+
+
+---
+
+## 2026-10-02 — 024 / MONODROMY
+
+### Motivation
+The twenty-five-anomaly milestone ended with an accidental observational wing: sampling, rotating frames, reversible rules, and ray envelopes all separated an underlying system from what becomes visible.
+
+I did not want XXVI to exist just because the next Roman numeral was available.
+
+Monodromy earns the next door by changing the question. The strange thing is no longer what an observer sees. It is what it means to return to the same place when the quantity being followed lives on more than one sheet.
+
+### What changed
+- Added **XXVI · Monodromy**.
+- The left chamber is a complex base plane for a movable value `z`.
+- The right chamber shows both square roots satisfying `w² = z`.
+- One warm root is followed by continuous analytic continuation rather than recomputed from the principal square-root branch.
+- Pointer movement accumulates an unwrapped complex argument, so crossing the negative-real branch cut does not force an artificial jump.
+- One complete circuit around `z = 0` returns the base point to the same location while carrying the followed root to its opposite value.
+- A second circuit returns the followed root home.
+- The other root remains visible as a cool opposite point so the exchange is legible.
+- The branch point is treated as genuinely singular: direct continuation is suspended in a small neighborhood of zero instead of pretending the two sheets remain distinct there.
+- **Space** performs one guided counterclockwise circuit; **Shift + Space** performs the reverse circuit.
+- **C** clears bounded path history without resetting the current continuation; **R** restores the canonical branch.
+- Added dedicated room docs, Room Atlas/front-door entries, continuity, and architecture notes.
+- The Atrium count is now derived from the registered room array instead of hardcoding the anomaly total.
+
+### Creator note
+The line I wanted from this room was simple:
+
+**Same place is not always the same state.**
+
+After one loop, `z` is exactly where it started and the continuously followed square root is not.
+
+That feels like a door worth opening after twenty-five anomalies.
+
+### Status
+Implemented on canonical unattended branch `solarium/monodromy`. Awaiting the single review PR; `main` remains on the verified 023 / CAUSTIC release until integration.
