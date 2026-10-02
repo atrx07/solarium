@@ -25,6 +25,7 @@ Solarium grows by adding small interactive places with their own rules, moods, a
 | XVI | [Hysteresis](./hysteresis.md) | bistable domains / path-dependent memory | 014 / HYSTERESIS |
 | XVII | [Phantom](./phantom.md) | local car-following / stop-and-go wave emergence | 015 / PHANTOM |
 | XVIII | [Trace](./trace.md) | stigmergy / indirect collective communication | 016 / TRACE |
+| XIX | [Avalanche](./avalanche.md) | Abelian sandpile / self-organized criticality | 017 / AVALANCHE |
 
 ## Rule for future rooms
 
