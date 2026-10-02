@@ -23,7 +23,8 @@ export type RoomId =
   | "avalanche"
   | "elsewhen"
   | "doppler"
-  | "alias";
+  | "alias"
+  | "drift";
 
 export type RoomEnvironment = {
   stage: Stage;
