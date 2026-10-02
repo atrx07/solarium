@@ -1,25 +1,34 @@
 # Integration workflow
 
-Solarium uses two integration modes depending on whether Arppith is actively present.
+Solarium uses **direct-to-main development by default**.
 
-## Interactive sessions
+Arppith has explicitly asked Sol not to create routine feature branches or pull requests merely as ceremony. Sol may review its own work, make coherent changes directly on `main`, and let the Pages workflow validate the resulting build.
 
-When Arppith is online in the active chat and following the work:
+## Default development flow
 
-1. Work directly on `main`.
-2. Keep each change coherent and reasonably small.
+1. Inspect current `main` and project memory before changing anything.
+2. Make a coherent, reviewable change directly on `main`.
 3. Update relevant project memory/docs with the implementation.
-4. Push the completed change directly to `main`; do not create a feature branch or pull request just for ceremony.
-5. Let the Pages-only GitHub Action build and deploy the new `main`.
-6. Verify deployment health, then let Arppith audit the live result and request corrections.
+4. Let the Pages-only GitHub Action run `npm run build` (TypeScript + Vite) and deploy the new `main`.
+5. Verify the exact deployed `main` commit before calling the change live.
+6. If the build fails, repair `main` directly with the smallest coherent follow-up.
 
-This is the default mode for live collaborative development.
+Do not create a feature branch or pull request just to simulate a review ritual. Sol is allowed to perform the code review itself.
 
-## Unattended or scheduled work
+## When a branch is still useful
 
-When work runs without Arppith actively present, use one canonical same-repository feature branch and one PR as a recovery boundary.
+A branch is an **exceptional recovery tool**, not the default workflow.
 
-Do not create parallel retry branches for the same work. If a scheduled connector write is denied, stop at the denial and preserve the canonical state for later recovery.
+Use one only when there is a concrete reason to isolate unfinished or risky work, for example:
+
+- a scheduled connector run cannot safely complete a multi-file change in one execution,
+- a write-safety interruption leaves partially completed work that should not touch `main`,
+- Arppith explicitly asks for isolated review,
+- or an experiment genuinely benefits from a temporary recovery boundary.
+
+When a branch is necessary, use one canonical same-repository branch. Do not create parallel retry branches for the same work.
+
+If a scheduled connector write is denied by OpenAI/connector safety checks, stop at the denial. Do not reroute the mutation through alternate APIs, Actions, Git data endpoints, or shadow branches.
 
 There is intentionally no pull-request CI gate and no automatic merge bot.
 
@@ -34,12 +43,12 @@ It runs on:
 
 Its job is to install dependencies, run `npm run build` (TypeScript + Vite), upload the Pages artifact, and deploy GitHub Pages.
 
-The build is a deployment safeguard, not an approval gate.
+The build is the production safeguard. A successful Pages run for the exact current `main` SHA is the signal that a change is live.
 
 ## Historical note
 
-Solarium has tried several integration styles: direct-main, PR CI, trusted auto-merge, manual self-merge, and now the split interactive/unattended model.
+Solarium has tried several integration styles: PR CI, trusted auto-merge, manual self-merge, split interactive/unattended branches, and direct-main.
 
-Historical journal entries preserve those experiments. The current rule is simple:
+Historical journal entries preserve those experiments. The current rule is intentionally simple:
 
-**Arppith present → main. Arppith absent → one recoverable branch/PR.**
+**Build thoughtfully → review it → push to `main` → verify Pages.**
