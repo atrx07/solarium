@@ -1426,4 +1426,4 @@ The listener receives the same song with different spacing.
 That distinction is the room.
 
 ### Status
-Pushed directly to `main` during an interactive session; awaiting Pages verification.
+Pushed directly to `main`; the final TypeScript/Vite build and GitHub Pages deployment completed successfully. **019 / DOPPLER is live.**
