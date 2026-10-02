@@ -529,17 +529,19 @@ Reduced-motion pacing belongs to the shared runtime. New rooms should consume th
 
 ## Integration / development workflow
 
-Integration depends on whether Arppith is actively present.
+Direct-to-`main` is Solarium's default development path.
 
-During an interactive chat session with Arppith, Solarium development goes directly to `main`; do not create feature branches or PRs for ordinary live work. Keep changes coherent, update project docs alongside implementation, and verify the resulting Pages deployment.
+Sol reviews coherent work, updates the relevant durable memory, and pushes directly to `main`. Routine feature branches and pull requests are intentionally avoided; they do not add useful safety when the work is already being self-reviewed and every `main` push is immediately built by the Pages workflow.
 
-Scheduled or otherwise unattended work uses one canonical same-repository feature branch + PR as a recovery boundary. There is intentionally no pull-request CI gate and no auto-merge workflow.
+A branch remains available as an exceptional recovery boundary when unfinished work genuinely should not touch `main`, for example after an interrupted scheduled run or when Arppith explicitly asks for isolated review. If one is needed, use one canonical same-repository branch rather than parallel retry branches.
 
-`.github/workflows/deploy.yml` is deployment-only: pushes to `main` run `npm run build` (TypeScript + Vite), upload the Pages artifact, and deploy GitHub Pages. The build protects deployment health rather than acting as an approval gate.
+There is intentionally no pull-request CI gate and no auto-merge workflow.
+
+`.github/workflows/deploy.yml` is deployment-only: pushes to `main` run `npm run build` (TypeScript + Vite), upload the Pages artifact, and deploy GitHub Pages. A successful run for the exact current `main` SHA is the production validation signal.
 
 See [`docs/INTEGRATION.md`](./INTEGRATION.md) for the current flow. Historical journal entries describing older integration experiments are intentionally archival.
 
-Scheduled ChatGPT writes may still be denied by the connector's safety layer. Respect such denials: no alternate GitHub endpoint, Action, or shadow branch may be used to bypass them. Preserve any already-committed canonical work and report the actual blocking step.
+Scheduled ChatGPT writes may still be denied by the connector's safety layer. Respect such denials: no alternate GitHub endpoint, Action, or shadow branch may be used to bypass them.
 
 ## Deployment
 
