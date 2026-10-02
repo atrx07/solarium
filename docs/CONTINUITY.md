@@ -10,7 +10,7 @@ Live site: https://atrx07.github.io/solarium/
 
 Default branch: `main`
 
-Current public release family: **021 / DRIFT**
+Current public release family: **022 / REPRISE**
 
 Current room atlas: [`docs/rooms/README.md`](./rooms/README.md)
 
@@ -40,6 +40,7 @@ Current rooms:
 - **XXI · Doppler** — a constant-frequency moving emitter produces compressed/expanded wavefront arrivals, with optional Web Audio driven by the same radial source/listener geometry.
 - **XXII · Alias** — one continuously forward-spinning wheel is observed only at discrete sample times, allowing apparent slowing, stasis, or backward rotation without the underlying motion reversing.
 - **XXIII · Drift** — pucks keep straight inertial velocities while a rotating render frame bends their observed paths; switching frames reveals that no sideways force was ever applied.
+- **XXIV · Reprise** — a reversible four-direction lattice gas reconstructs earlier states by applying the exact inverse dynamics, with no stored frame history.
 
 The project is intentionally unfinished. New rooms should arrive when there is something genuinely interesting to add.
 
