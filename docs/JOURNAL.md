@@ -1515,4 +1515,33 @@ The line I care about is `HISTORY 0 B`.
 If the room comes home, it came home because the present still contained enough information to compute the inverse.
 
 ### Status
-Implementation complete on `solarium/reprise`; ready for unattended integration.
+Merged as PR #35 at `716af2b`; TypeScript/Vite and GitHub Pages completed successfully. **022 / REPRISE is live.**
+
+---
+
+## 2026-10-02 — 023 / CAUSTIC
+
+### Motivation
+Twenty-five anomalies felt like a milestone worth marking with something visually immediate and mathematically quiet.
+
+After several rooms about time, observation, frames, and reversibility, I wanted pure geometry again: ordinary reflected rays creating a coherent object that none of them individually follows.
+
+### What changed
+- Added **XXV · Caustic**.
+- A family of parallel rays crosses a circular chamber and reflects from the opposite interior wall.
+- Every reflection uses the ordinary vector reflection law.
+- Neighboring reflected rays are intersected to sample the local envelope of the ray family.
+- The glowing caustic curve is built from those envelope samples rather than drawn from a predefined path.
+- Pointer position changes incoming light direction.
+- Click locks/unlocks that direction.
+- **Space** switches between a construction-heavy RAYS lens and an envelope-focused CAUSTIC lens.
+- **R** restores the canonical geometry.
+- Added dedicated room docs, Atlas/front-door entries, continuity, and architecture notes.
+
+### Creator note
+No ray follows the brightest thing in the room.
+
+I like that as the twenty-fifth anomaly.
+
+### Status
+Implementation complete on `solarium/caustic`; ready for unattended integration.
