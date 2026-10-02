@@ -65,6 +65,7 @@ src/
     phantom.ts
     trace.ts
     avalanche.ts
+    elsewhen.ts
   main.ts
   style.css
 ```
@@ -117,6 +118,7 @@ docs/
     phantom.md
     trace.md
     avalanche.md
+    elsewhen.md
 ```
 
 The root `README.md` is intentionally concise. It contains the origin, a compact room index, basic run instructions, principles, and links into deeper documentation.
@@ -129,7 +131,7 @@ Every substantial new room should add one room document and one compact atlas/in
 
 The current room identity is represented by a small union:
 
-`atrium | gravitas | bloom | resonance | murmuration | mycelium | tides | reaction | prism | chaos | echo | moire | phase | polarity | territory | threshold | hysteresis | phantom | trace | avalanche`
+`atrium | gravitas | bloom | resonance | murmuration | mycelium | tides | reaction | prism | chaos | echo | moire | phase | polarity | territory | threshold | hysteresis | phantom | trace | avalanche | elsewhen`
 
 The Atrium acts as the central navigation layer.
 
@@ -392,6 +394,20 @@ The canonical pile is deterministic and deliberately biased toward heights two a
 Unstable cells enter a bounded work queue. The room processes only a fixed number of topplings per frame, allowing large cascades to remain visible instead of resolving synchronously between frames. Warm flashes are read-only witnesses of redistribution and do not affect the rule.
 
 **Space** pauses/resumes redistribution and **R** restores the canonical pile. All state is local and bounded.
+
+## Elsewhen
+
+Elsewhen is a browser-local Lorentz-geometry room rendered entirely in Canvas 2D.
+
+The chamber uses units where c = 1. Observer velocity is represented as β = v/c, with γ = 1 / sqrt(1 - β²). Event coordinates transform through x' = γ(x - βt) and t' = γ(t - βx).
+
+The canonical pair of flashes is spacelike-separated and simultaneous in the base frame. Changing β leaves those events fixed but tilts the moving frame's simultaneity axis, allowing their transformed time order to change.
+
+The warm axis is t' = 0 (the moving observer's simultaneity slice), the cool axis is x' = 0 (the observer's worldline), and faint constant-x'/constant-t' grid lines are inverse-transformed back into base coordinates. Dashed diagonals represent light rays and remain invariant.
+
+Dragging the velocity rail changes β, clicking the diagram adds/removes bounded user events, **Space** returns to the rest frame, **C** clears user events, and **R** restores the canonical room.
+
+The room contains no evolving simulation state beyond observer velocity and temporary event placement; its changing meaning comes from frame geometry rather than motion.
 
 ## Keyboard and focus interaction
 
