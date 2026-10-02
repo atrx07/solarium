@@ -24,6 +24,7 @@ import { avalancheRoom } from "./rooms/avalanche";
 import { elsewhenRoom } from "./rooms/elsewhen";
 import { dopplerRoom } from "./rooms/doppler";
 import { aliasRoom } from "./rooms/alias";
+import { driftRoom } from "./rooms/drift";
 import { tidesRoom } from "./rooms/tides-room";
 
 const app = document.querySelector<HTMLDivElement>("#app");
@@ -52,6 +53,7 @@ const targetRooms: RoomModule[] = [
   elsewhenRoom,
   dopplerRoom,
   aliasRoom,
+  driftRoom,
 ];
 
 const atriumRoom = createAtriumRoom(targetRooms);
@@ -72,8 +74,8 @@ app.innerHTML = `
     Space also activates unless the current room already uses Space for its own control.
   </p>
   <div class="shell" data-room="atrium">
-    <div class="brand"><strong>SOLARIUM</strong><span>020 / ALIAS</span></div>
-    <div class="atrium-kicker" aria-hidden="true">local-first / 22 anomalies</div>
+    <div class="brand"><strong>SOLARIUM</strong><span>021 / DRIFT</span></div>
+    <div class="atrium-kicker" aria-hidden="true">local-first / 23 anomalies</div>
     <div class="atrium-motto" aria-hidden="true">enter nothing<br />leave different</div>
     <p class="atrium-copy" aria-hidden="true">${atriumRoom.copy}</p>
     <section class="room-meta" aria-live="polite">
