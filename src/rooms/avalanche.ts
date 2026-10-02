@@ -1,5 +1,4 @@
 import type { RoomModule } from "../core/room";
-import { clamp } from "../core/stage";
 
 const COLS = 54;
 const ROWS = 36;
