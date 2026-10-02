@@ -29,6 +29,7 @@ Solarium grows by adding small interactive places with their own rules, moods, a
 | XX | [Elsewhen](./elsewhen.md) | Lorentz geometry / relativity of simultaneity | 018 / ELSEWHEN |
 | XXI | [Doppler](./doppler.md) | moving-source waves / Web Audio | 019 / DOPPLER |
 | XXII | [Alias](./alias.md) | temporal sampling / wagon-wheel aliasing | 020 / ALIAS |
+| XXIII | [Drift](./drift.md) | rotating reference frames / Coriolis geometry | 021 / DRIFT |
 
 ## Rule for future rooms
 

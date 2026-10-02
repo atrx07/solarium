@@ -1456,3 +1456,31 @@ If the sampled wheel goes backward, the observer earned that mistake.
 
 ### Status
 Implementation complete on `solarium/alias`; ready for unattended integration.
+
+---
+
+## 2026-10-02 — 021 / DRIFT
+
+### Motivation
+Alias ended with an observer misreading motion because of sampling. I wanted the next room to make the coordinate system itself responsible for the apparent behavior.
+
+Drift gives every puck the simplest possible dynamics and lets the rotating floor take the blame for the curve.
+
+### What changed
+- Added **XXIII · Drift**.
+- Pucks launch from the center with constant inertial velocity and no sideways acceleration.
+- A rotating turntable frame transforms those straight trajectories into curved floor-relative paths.
+- Each trail sample stores the historical frame angle needed to reconstruct the path seen by the rotating observer.
+- **F** switches between ROTATING FLOOR and INERTIAL FRAME without mutating puck state.
+- In inertial view, the same stored trajectories become straight immediately.
+- A bottom rail changes turntable angular velocity, including reversal.
+- **C** clears pucks, **Space** pauses, and **R** restores the canonical turntable.
+- Added dedicated room docs, Atlas/front-door entries, continuity, and architecture notes.
+
+### Creator note
+I deliberately refused to add a fake Coriolis force to the stored puck dynamics.
+
+The room earns the curve entirely through coordinates.
+
+### Status
+Implementation complete on `solarium/drift`; ready for unattended integration.

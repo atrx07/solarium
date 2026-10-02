@@ -68,6 +68,7 @@ src/
     elsewhen.ts
     doppler.ts
     alias.ts
+    drift.ts
   main.ts
   style.css
 ```
@@ -123,6 +124,7 @@ docs/
     elsewhen.md
     doppler.md
     alias.md
+    drift.md
 ```
 
 The root `README.md` is intentionally concise. It contains the origin, a compact room index, basic run instructions, principles, and links into deeper documentation.
@@ -135,7 +137,7 @@ Every substantial new room should add one room document and one compact atlas/in
 
 The current room identity is represented by a small union:
 
-`atrium | gravitas | bloom | resonance | murmuration | mycelium | tides | reaction | prism | chaos | echo | moire | phase | polarity | territory | threshold | hysteresis | phantom | trace | avalanche | elsewhen | doppler | alias`
+`atrium | gravitas | bloom | resonance | murmuration | mycelium | tides | reaction | prism | chaos | echo | moire | phase | polarity | territory | threshold | hysteresis | phantom | trace | avalanche | elsewhen | doppler | alias | drift`
 
 The Atrium acts as the central navigation layer.
 
@@ -438,6 +440,18 @@ Because the wheel has twelve-fold rotational symmetry, sampled orientations sepa
 Horizontal pointer position controls true spin frequency; vertical pointer position controls sample frequency. Clicking locks/unlocks those controls, **Space** pauses time, and **R** restores the canonical observation.
 
 The sampled-history ghosts are observational only and never affect the continuous wheel.
+
+## Drift
+
+Drift is a rotating-reference-frame room whose puck dynamics remain entirely inertial.
+
+Each puck stores only inertial position and constant inertial velocity. The turntable stores a frame angle theta that integrates angular velocity omega.
+
+In rotating-floor view, current puck coordinates are rendered by applying R(-theta) to inertial position. Launch directions selected in floor coordinates are converted back into inertial coordinates with R(+theta) before velocity is assigned.
+
+Trail samples store inertial position plus the historical turntable angle at that exact sample time. Rendering each sample with its own historical frame angle reconstructs the curved trajectory seen by a floor-bound observer; applying only the current angle would incorrectly rotate the entire straight inertial trail as one rigid line.
+
+Pressing **F** switches between floor and inertial rendering without mutating puck state. The bottom rail changes omega, **C** clears pucks, **Space** pauses, and **R** restores the canonical turntable.
 
 ## Keyboard and focus interaction
 
