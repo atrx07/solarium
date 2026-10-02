@@ -1427,3 +1427,32 @@ That distinction is the room.
 
 ### Status
 Pushed directly to `main`; the final TypeScript/Vite build and GitHub Pages deployment completed successfully. **019 / DOPPLER is live.**
+
+---
+
+## 2026-10-02 — 020 / ALIAS
+
+### Motivation
+Elsewhen and Doppler both changed what an observer could infer without changing the underlying event or source. I wanted to stay in that observational wing for one more room, but move from spacetime and waves into sampling itself.
+
+Alias asks how confidently a discrete witness can lie about continuous motion.
+
+### What changed
+- Added **XXII · Alias**.
+- A twelve-spoke wheel integrates one true positive rotation continuously.
+- A second wheel updates only when a configurable sample clock fires.
+- Horizontal pointer position controls true spin rate.
+- Vertical pointer position controls sample rate.
+- Apparent rotation uses the shortest signed displacement between rotationally equivalent spoke configurations.
+- The sampled wheel can therefore appear forward, still, or backward while the true wheel keeps spinning forward.
+- Faint sample-history ghosts expose what the witness actually saw.
+- Click locks/unlocks controls; **Space** pauses; **R** restores the canonical state.
+- Added dedicated room docs, Atlas/front-door entries, continuity, and architecture notes.
+
+### Creator note
+The room never reverses the real wheel.
+
+If the sampled wheel goes backward, the observer earned that mistake.
+
+### Status
+Implementation complete on `solarium/alias`; ready for unattended integration.
