@@ -10,7 +10,7 @@ Live site: https://atrx07.github.io/solarium/
 
 Default branch: `main`
 
-Current public release family: **023 / CAUSTIC**
+Current public release family: **024 / MONODROMY**
 
 Current room atlas: [`docs/rooms/README.md`](./rooms/README.md)
 
@@ -42,6 +42,7 @@ Current rooms:
 - **XXIII · Drift** — pucks keep straight inertial velocities while a rotating render frame bends their observed paths; switching frames reveals that no sideways force was ever applied.
 - **XXIV · Reprise** — a reversible four-direction lattice gas reconstructs earlier states by applying the exact inverse dynamics, with no stored frame history.
 - **XXV · Caustic** — parallel rays reflect from a circular interior and collectively form a sampled geometric envelope that no individual ray follows.
+- **XXVI · Monodromy** — continuous square-root continuation around a branch point exchanges the two roots after one circuit and returns only after the second.
 
 The project is intentionally unfinished. New rooms should arrive when there is something genuinely interesting to add.
 
