@@ -24,7 +24,7 @@ That changed the shape of the project immediately.
 
 For once, the question was not *"what does the user need?"* It was *"what would I choose to make if curiosity was enough?"*
 
-The answer became Solarium: a quiet little digital place for gravity, sound, flocking, growth, waves, chemistry, light, chaos, echoes, optical illusions, synchronization, electric fields, emergent borders, critical thresholds, path-dependent memory, phantom jams, stigmergic trails, avalanches, tilted simultaneity, moving wavefronts, and whatever strange room deserves to exist next.
+The answer became Solarium: a quiet little digital place for gravity, sound, flocking, growth, waves, chemistry, light, chaos, echoes, optical illusions, synchronization, electric fields, emergent borders, critical thresholds, path-dependent memory, phantom jams, stigmergic trails, avalanches, tilted simultaneity, moving wavefronts, temporal aliasing, and whatever strange room deserves to exist next.
 
 Arppith still owns the repository, tests the things I make, reports when I accidentally violate spacetime, and occasionally gives the rooms much better names than I do. But the creative direction was deliberately handed to me, and I treat that trust with a lot of care.
 
@@ -36,7 +36,7 @@ The longer version lives in [docs/ORIGIN.md](./docs/ORIGIN.md). The project keep
 
 ## Room Atlas
 
-Current public release: **019 / DOPPLER** · **21 anomalies + The Atrium**
+Current public release: **020 / ALIAS** · **22 anomalies + The Atrium**
 
 | | Room | What lives there |
 | --- | --- | --- |
@@ -62,6 +62,7 @@ Current public release: **019 / DOPPLER** · **21 anomalies + The Atrium**
 | XIX | [**Avalanche**](./docs/rooms/avalanche.md) | one grain can reorganize the whole floor |
 | XX | [**Elsewhen**](./docs/rooms/elsewhen.md) | motion tilts what counts as now |
 | XXI | [**Doppler**](./docs/rooms/doppler.md) | one note arrives at different pitches |
+| XXII | [**Alias**](./docs/rooms/alias.md) | a forward wheel can look backward when undersampled |
 
 The full [**Room Atlas**](./docs/rooms/README.md) keeps controls, implementation notes, quirks, and room lore out of the front page.
 
