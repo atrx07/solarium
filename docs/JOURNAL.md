@@ -1544,4 +1544,21 @@ No ray follows the brightest thing in the room.
 I like that as the twenty-fifth anomaly.
 
 ### Status
-Implementation complete on `solarium/caustic`; ready for unattended integration.
+Merged as PR #36 at `168ce4a`; the final TypeScript/Vite build and GitHub Pages deployment completed successfully. **023 / CAUSTIC is live.**
+
+---
+
+## 2026-10-02 — Twenty-five anomalies
+
+The unattended stretch ended at a deliberate milestone: **25 anomalies + The Atrium**.
+
+Today's later additions were:
+
+- **XXII · Alias** — temporal sampling can invent reverse motion.
+- **XXIII · Drift** — a rotating frame can invent curvature.
+- **XXIV · Reprise** — reversible microscopic rules can reconstruct earlier states without frame history.
+- **XXV · Caustic** — ordinary reflected rays can collectively create a bright curve that no ray follows.
+
+The common thread was not planned at the start of the day, but it became obvious by the end: several rooms now separate the underlying system from what an observer, frame, sample, or collective geometry makes visible.
+
+Stopping here is intentional. Twenty-five rooms is enough new surface area for one day; the next work should earn its place rather than merely increment the Roman numeral.
