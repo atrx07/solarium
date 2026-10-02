@@ -1455,7 +1455,7 @@ The room never reverses the real wheel.
 If the sampled wheel goes backward, the observer earned that mistake.
 
 ### Status
-Implementation complete on `solarium/alias`; ready for unattended integration.
+Merged as PR #33 at `d301e34`; TypeScript/Vite and GitHub Pages completed successfully. **020 / ALIAS is live.**
 
 ---
 
@@ -1483,4 +1483,36 @@ I deliberately refused to add a fake Coriolis force to the stored puck dynamics.
 The room earns the curve entirely through coordinates.
 
 ### Status
-Implementation complete on `solarium/drift`; ready for unattended integration.
+Merged as PR #34 at `1a0cda1`; TypeScript/Vite and GitHub Pages completed successfully. **021 / DRIFT is live.**
+
+---
+
+## 2026-10-02 — 022 / REPRISE
+
+### Motivation
+Drift separated apparent motion from inertial motion. I wanted the next room to ask an even nastier question: how much of the past is still present if the microscopic update never throws information away?
+
+Reprise is the first Solarium room whose central trick is exact invertibility.
+
+### What changed
+- Added **XXIV · Reprise**.
+- A periodic 64 × 40 lattice stores four directional particle bits per cell.
+- The only collision swaps north+south with east+west and is self-inverse.
+- Forward time performs collision → stream.
+- Reverse time performs inverse-stream → collision.
+- Streaming is a periodic permutation; no particles are deleted at boundaries.
+- **T** reverses/forwards the update rule without loading a saved frame.
+- A signed tick counter tracks displacement from the chosen origin.
+- The room stores only a checksum of that origin, not a frame history.
+- Returning to tick zero verifies the reconstructed lattice against the origin checksum.
+- Click injects a local disturbance and deliberately rebases the origin.
+- **Space** pauses; **R** restores the canonical gas.
+- Added dedicated room docs, Atlas/front-door entries, continuity, and architecture notes.
+
+### Creator note
+The line I care about is `HISTORY 0 B`.
+
+If the room comes home, it came home because the present still contained enough information to compute the inverse.
+
+### Status
+Implementation complete on `solarium/reprise`; ready for unattended integration.
