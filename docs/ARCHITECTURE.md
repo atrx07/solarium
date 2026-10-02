@@ -485,11 +485,11 @@ Pointer position controls incoming light direction unless locked by click. **Spa
 
 ## Monodromy
 
-Monodromy is a browser-local complex-analysis room centered on continuous square-root continuation around the branch point at (z=0).
+Monodromy is a browser-local complex-analysis room centered on continuous square-root continuation around the branch point at `z = 0`.
 
-The base value is represented in polar form as (z = r e^{i\theta}). Pointer movement contributes the shortest signed angular delta to an **unwrapped** argument rather than repeatedly recomputing a principal angle. The followed root is then evaluated as (w = \sqrt{r}e^{i\theta/2}).
+The base value is represented in polar form as `z = r · exp(iθ)`. Pointer movement contributes the shortest signed angular delta to an **unwrapped** argument rather than repeatedly recomputing a principal angle. The followed root is then evaluated as `w = √r · exp(iθ/2)`.
 
-Because the root angle advances at half the unwrapped base angle, one complete circuit of (z) around the origin sends the followed value to (-w); a second circuit returns it. The alternate root is always rendered as the exact opposite point and is observational only.
+Because the root angle advances at half the unwrapped base angle, one complete circuit of `z` around the origin sends the followed value to `-w`; a second circuit returns it. The alternate root is always rendered as the exact opposite point and is observational only.
 
 The dashed negative real axis is a visual branch cut. Sheet labels are derived from branch-cut interval crossings of the unwrapped angle; they do not affect the continuation itself.
 
