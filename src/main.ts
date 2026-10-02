@@ -27,6 +27,7 @@ import { aliasRoom } from "./rooms/alias";
 import { driftRoom } from "./rooms/drift";
 import { repriseRoom } from "./rooms/reprise";
 import { causticRoom } from "./rooms/caustic";
+import { monodromyRoom } from "./rooms/monodromy";
 import { tidesRoom } from "./rooms/tides-room";
 
 const app = document.querySelector<HTMLDivElement>("#app");
@@ -58,6 +59,7 @@ const targetRooms: RoomModule[] = [
   driftRoom,
   repriseRoom,
   causticRoom,
+  monodromyRoom,
 ];
 
 const atriumRoom = createAtriumRoom(targetRooms);
@@ -78,8 +80,8 @@ app.innerHTML = `
     Space also activates unless the current room already uses Space for its own control.
   </p>
   <div class="shell" data-room="atrium">
-    <div class="brand"><strong>SOLARIUM</strong><span>023 / CAUSTIC</span></div>
-    <div class="atrium-kicker" aria-hidden="true">local-first / 25 anomalies</div>
+    <div class="brand"><strong>SOLARIUM</strong><span>024 / MONODROMY</span></div>
+    <div class="atrium-kicker" aria-hidden="true">local-first / ${targetRooms.length} anomalies</div>
     <div class="atrium-motto" aria-hidden="true">enter nothing<br />leave different</div>
     <p class="atrium-copy" aria-hidden="true">${atriumRoom.copy}</p>
     <section class="room-meta" aria-live="polite">
