@@ -189,7 +189,9 @@ Vertical position affects decay.
 
 Audio is generated locally and is not recorded or uploaded.
 
-Browser autoplay rules mean the room must be awakened by explicit user interaction.
+Browser autoplay rules mean the room must be awakened by explicit user interaction. Audio creation/resume failures degrade to visual-only behavior instead of breaking the room.
+
+Resonance owns its `AudioContext` for the duration of the visit and closes it through the room exit hook. Leaving the room or backgrounding Solarium therefore releases the audio graph rather than keeping an idle context alive.
 
 ## Murmuration
 
@@ -513,7 +515,7 @@ A visible reticle is drawn only while keyboard control is active and the canvas 
 
 Pointer input automatically returns control to pointer mode.
 
-The Atrium only advertises single-digit shortcuts `1–9` for the first nine rooms. Every present or future room can still be selected through its orbiting node with pointer or keyboard cursor + Enter/Space. Navigation geometry grows through adaptive orbital shells: wide layouts cap a shell at eight anomalies, narrow layouts at six, then rebalance targets across however many concentric ellipses are needed. Adjacent shells counter-rotate with slightly different angular speeds, and room-node radius stays bounded instead of growing with global room index. When hit areas overlap, the nearest orb is the hovered/activated target rather than the first match in registration order.
+The Atrium only advertises single-digit shortcuts `1–9` for the first nine rooms. Every present or future room can still be selected through its orbiting node with pointer or keyboard cursor + Enter/Space. Navigation geometry grows through adaptive orbital shells: desktop layouts cap a shell at six anomalies, narrow layouts at five, then rebalance targets across however many concentric ellipses are needed. Adjacent shells counter-rotate with slightly different angular speeds, and room-node radius stays bounded instead of growing with global room index. When hit areas overlap, the nearest orb is the hovered/activated target rather than the first match in registration order.
 
 ## Reduced motion
 
