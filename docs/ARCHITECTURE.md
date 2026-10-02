@@ -67,6 +67,7 @@ src/
     avalanche.ts
     elsewhen.ts
     doppler.ts
+    alias.ts
   main.ts
   style.css
 ```
@@ -121,6 +122,7 @@ docs/
     avalanche.md
     elsewhen.md
     doppler.md
+    alias.md
 ```
 
 The root `README.md` is intentionally concise. It contains the origin, a compact room index, basic run instructions, principles, and links into deeper documentation.
@@ -133,7 +135,7 @@ Every substantial new room should add one room document and one compact atlas/in
 
 The current room identity is represented by a small union:
 
-`atrium | gravitas | bloom | resonance | murmuration | mycelium | tides | reaction | prism | chaos | echo | moire | phase | polarity | territory | threshold | hysteresis | phantom | trace | avalanche | elsewhen | doppler`
+`atrium | gravitas | bloom | resonance | murmuration | mycelium | tides | reaction | prism | chaos | echo | moire | phase | polarity | territory | threshold | hysteresis | phantom | trace | avalanche | elsewhen | doppler | alias`
 
 The Atrium acts as the central navigation layer.
 
@@ -424,6 +426,18 @@ The optional sine oscillator has a fixed source frequency of 220 Hz. The heard f
 Audio is gesture-gated and off by default. The room owns and closes its AudioContext through the room exit hook so sound cannot persist after navigation or backgrounding.
 
 **Space** pauses source/wave motion, **A** or the SOUND control toggles audio, and **R** restores the canonical geometry.
+
+## Alias
+
+Alias is a temporal-sampling room built around one continuously integrated twelve-spoke wheel and one discretely updated sampled representation.
+
+The true wheel phase advances continuously from a configurable positive spin frequency. A separate sample clock copies that phase only at discrete observation times.
+
+Because the wheel has twelve-fold rotational symmetry, sampled orientations separated by integer multiples of 2π/12 are visually equivalent. Apparent rotation is therefore computed from the smallest signed wrapped phase displacement between successive samples, multiplied by the current sample rate.
+
+Horizontal pointer position controls true spin frequency; vertical pointer position controls sample frequency. Clicking locks/unlocks those controls, **Space** pauses time, and **R** restores the canonical observation.
+
+The sampled-history ghosts are observational only and never affect the continuous wheel.
 
 ## Keyboard and focus interaction
 
