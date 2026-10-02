@@ -30,6 +30,7 @@ Solarium grows by adding small interactive places with their own rules, moods, a
 | XXI | [Doppler](./doppler.md) | moving-source waves / Web Audio | 019 / DOPPLER |
 | XXII | [Alias](./alias.md) | temporal sampling / wagon-wheel aliasing | 020 / ALIAS |
 | XXIII | [Drift](./drift.md) | rotating reference frames / Coriolis geometry | 021 / DRIFT |
+| XXIV | [Reprise](./reprise.md) | reversible lattice gas / microscopic time reversal | 022 / REPRISE |
 
 ## Rule for future rooms
 
