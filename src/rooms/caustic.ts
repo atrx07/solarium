@@ -1,5 +1,5 @@
 import type { RoomModule } from "../core/room";
-import { TAU, clamp } from "../core/stage";
+import { TAU } from "../core/stage";
 
 type Vec = {
   x: number;
