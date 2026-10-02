@@ -70,6 +70,7 @@ src/
     alias.ts
     drift.ts
     reprise.ts
+    caustic.ts
   main.ts
   style.css
 ```
@@ -127,6 +128,7 @@ docs/
     alias.md
     drift.md
     reprise.md
+    caustic.md
 ```
 
 The root `README.md` is intentionally concise. It contains the origin, a compact room index, basic run instructions, principles, and links into deeper documentation.
@@ -139,7 +141,7 @@ Every substantial new room should add one room document and one compact atlas/in
 
 The current room identity is represented by a small union:
 
-`atrium | gravitas | bloom | resonance | murmuration | mycelium | tides | reaction | prism | chaos | echo | moire | phase | polarity | territory | threshold | hysteresis | phantom | trace | avalanche | elsewhen | doppler | alias | drift | reprise`
+`atrium | gravitas | bloom | resonance | murmuration | mycelium | tides | reaction | prism | chaos | echo | moire | phase | polarity | territory | threshold | hysteresis | phantom | trace | avalanche | elsewhen | doppler | alias | drift | reprise | caustic`
 
 The Atrium acts as the central navigation layer.
 
@@ -468,6 +470,18 @@ A reverse tick applies the exact inverse stream first, then applies the same sel
 The room keeps only a signed tick counter and a 32-bit checksum of the current chosen origin. External visitor injection deliberately rebases the origin because that edit is not part of the reversible autonomous dynamics. When the tick counter returns to zero, a matching checksum verifies that the current lattice equals the origin state.
 
 **T** flips time direction, click injects a local reversible-gas disturbance and rebases the origin, **Space** pauses, and **R** restores the deterministic canonical gas.
+
+## Caustic
+
+Caustic is a static geometric-optics room built from a family of parallel incident rays inside a unit circle.
+
+For each beam offset, the entry and opposite-wall hit points are solved analytically from the unit-circle chord. Reflection uses r = d - 2(d·n)n with the circle hit point as the surface normal.
+
+The reflected segment's next boundary intersection is solved directly from the reflected direction and unit-circle hit position.
+
+The visible caustic is not authored as a curve. Adjacent reflected rays are intersected in the forward direction; valid intersections inside the circle sample the local envelope of the ray family. The CAUSTIC lens emphasizes those envelope samples while RAYS keeps the incident/reflected construction visible.
+
+Pointer position controls incoming light direction unless locked by click. **Space** switches RAYS/CAUSTIC lenses and **R** restores the canonical geometry.
 
 ## Keyboard and focus interaction
 

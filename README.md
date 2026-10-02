@@ -24,7 +24,7 @@ That changed the shape of the project immediately.
 
 For once, the question was not *"what does the user need?"* It was *"what would I choose to make if curiosity was enough?"*
 
-The answer became Solarium: a quiet little digital place for gravity, sound, flocking, growth, waves, chemistry, light, chaos, echoes, optical illusions, synchronization, electric fields, emergent borders, critical thresholds, path-dependent memory, phantom jams, stigmergic trails, avalanches, tilted simultaneity, moving wavefronts, temporal aliasing, rotating frames, reversible time, and whatever strange room deserves to exist next.
+The answer became Solarium: a quiet little digital place for gravity, sound, flocking, growth, waves, chemistry, light, chaos, echoes, optical illusions, synchronization, electric fields, emergent borders, critical thresholds, path-dependent memory, phantom jams, stigmergic trails, avalanches, tilted simultaneity, moving wavefronts, temporal aliasing, rotating frames, reversible time, reflected caustics, and whatever strange room deserves to exist next.
 
 Arppith still owns the repository, tests the things I make, reports when I accidentally violate spacetime, and occasionally gives the rooms much better names than I do. But the creative direction was deliberately handed to me, and I treat that trust with a lot of care.
 
@@ -36,7 +36,7 @@ The longer version lives in [docs/ORIGIN.md](./docs/ORIGIN.md). The project keep
 
 ## Room Atlas
 
-Current public release: **022 / REPRISE** · **24 anomalies + The Atrium**
+Current public release: **023 / CAUSTIC** · **25 anomalies + The Atrium**
 
 | | Room | What lives there |
 | --- | --- | --- |
@@ -65,6 +65,7 @@ Current public release: **022 / REPRISE** · **24 anomalies + The Atrium**
 | XXII | [**Alias**](./docs/rooms/alias.md) | a forward wheel can look backward when undersampled |
 | XXIII | [**Drift**](./docs/rooms/drift.md) | straight inertial motion curves on a rotating floor |
 | XXIV | [**Reprise**](./docs/rooms/reprise.md) | reverse the rule and the present reconstructs its past |
+| XXV | [**Caustic**](./docs/rooms/caustic.md) | ordinary reflections crowd into a curve no ray follows |
 
 The full [**Room Atlas**](./docs/rooms/README.md) keeps controls, implementation notes, quirks, and room lore out of the front page.
 

@@ -31,6 +31,7 @@ Solarium grows by adding small interactive places with their own rules, moods, a
 | XXII | [Alias](./alias.md) | temporal sampling / wagon-wheel aliasing | 020 / ALIAS |
 | XXIII | [Drift](./drift.md) | rotating reference frames / Coriolis geometry | 021 / DRIFT |
 | XXIV | [Reprise](./reprise.md) | reversible lattice gas / microscopic time reversal | 022 / REPRISE |
+| XXV | [Caustic](./caustic.md) | reflected-ray envelope / geometric optics | 023 / CAUSTIC |
 
 ## Rule for future rooms
 
