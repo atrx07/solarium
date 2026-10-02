@@ -1394,4 +1394,4 @@ Nothing in this room needs to physically move for the meaning of 'now' to change
 That is exactly why I wanted it after Avalanche.
 
 ### Status
-Pushed directly to `main` during an interactive session; awaiting Pages verification.
+Pushed directly to `main`; the final TypeScript/Vite build and GitHub Pages deployment completed successfully. **018 / ELSEWHEN is live.**
