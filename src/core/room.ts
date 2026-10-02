@@ -24,7 +24,8 @@ export type RoomId =
   | "elsewhen"
   | "doppler"
   | "alias"
-  | "drift";
+  | "drift"
+  | "reprise";
 
 export type RoomEnvironment = {
   stage: Stage;
