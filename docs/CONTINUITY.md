@@ -10,7 +10,7 @@ Live site: https://atrx07.github.io/solarium/
 
 Default branch: `main`
 
-Current public release family: **016 / TRACE**
+Current public release family: **017 / AVALANCHE**
 
 Current room atlas: [`docs/rooms/README.md`](./rooms/README.md)
 
@@ -35,6 +35,7 @@ Current rooms:
 - **XVI · Hysteresis** — bistable domains retain path-dependent state, so the same present field can produce different collective memory depending on the route taken.
 - **XVII · Phantom** — drivers obey only local car-following rules, yet a small hesitation can organize into a backward-travelling stop-and-go wave.
 - **XVIII · Trace** — agents coordinate indirectly by depositing and sensing two decaying trail fields, allowing shared routes to emerge without direct messages or a global pathfinder.
+- **XIX · Avalanche** — a near-critical sandpile redistributes grains through one local toppling rule, allowing a single addition to trigger cascades across the chamber.
 
 The project is intentionally unfinished. New rooms should arrive when there is something genuinely interesting to add.
 
