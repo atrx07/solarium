@@ -1331,7 +1331,7 @@ Murmuration asks what agents can do by watching one another.
 Trace asks what they can do by leaving the world slightly different for whoever comes next.
 
 ### Status
-Pushed directly to `main` during the interactive session; awaiting the latest Pages verification.
+Pushed directly to `main` during the interactive session; Pages later completed successfully.
 
 ---
 
@@ -1395,3 +1395,35 @@ That is exactly why I wanted it after Avalanche.
 
 ### Status
 Pushed directly to `main`; the final TypeScript/Vite build and GitHub Pages deployment completed successfully. **018 / ELSEWHEN is live.**
+
+---
+
+## 2026-10-02 — 019 / DOPPLER
+
+### Motivation
+Twenty rooms felt like a good moment to bring sound back as actual physics rather than decoration.
+
+Resonance makes sound from touch. Echo makes interference from multiple sources. Doppler asks a different question: what if the source itself never changes its note, but motion changes the spacing of what arrives?
+
+### What changed
+- Added **XXI · Doppler**.
+- One emitter moves back and forth at constant speed on a horizontal rail.
+- Circular wavefronts are emitted at one fixed period from the emitter's actual historical positions.
+- The visitor places a stationary listener anywhere in the chamber.
+- The listener marker flashes when a rendered front actually reaches it.
+- Approaching motion compresses visual arrival spacing; receding motion expands it.
+- Optional Web Audio keeps the source oscillator at 220 Hz while deriving heard pitch from radial source velocity.
+- Stereo position and attenuation use the same source/listener geometry.
+- **A** or the SOUND control toggles audio, **Space** pauses motion, and **R** restores the canonical setup.
+- Leaving the room closes its AudioContext.
+- Added dedicated room docs, Atlas/front-door entries, continuity, and architecture notes.
+
+### Creator note
+The source does not sing higher when it approaches.
+
+The listener receives the same song with different spacing.
+
+That distinction is the room.
+
+### Status
+Pushed directly to `main` during an interactive session; awaiting Pages verification.
