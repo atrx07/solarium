@@ -69,6 +69,7 @@ src/
     doppler.ts
     alias.ts
     drift.ts
+    reprise.ts
   main.ts
   style.css
 ```
@@ -125,6 +126,7 @@ docs/
     doppler.md
     alias.md
     drift.md
+    reprise.md
 ```
 
 The root `README.md` is intentionally concise. It contains the origin, a compact room index, basic run instructions, principles, and links into deeper documentation.
@@ -137,7 +139,7 @@ Every substantial new room should add one room document and one compact atlas/in
 
 The current room identity is represented by a small union:
 
-`atrium | gravitas | bloom | resonance | murmuration | mycelium | tides | reaction | prism | chaos | echo | moire | phase | polarity | territory | threshold | hysteresis | phantom | trace | avalanche | elsewhen | doppler | alias | drift`
+`atrium | gravitas | bloom | resonance | murmuration | mycelium | tides | reaction | prism | chaos | echo | moire | phase | polarity | territory | threshold | hysteresis | phantom | trace | avalanche | elsewhen | doppler | alias | drift | reprise`
 
 The Atrium acts as the central navigation layer.
 
@@ -452,6 +454,20 @@ In rotating-floor view, current puck coordinates are rendered by applying R(-the
 Trail samples store inertial position plus the historical turntable angle at that exact sample time. Rendering each sample with its own historical frame angle reconstructs the curved trajectory seen by a floor-bound observer; applying only the current angle would incorrectly rotate the entire straight inertial trail as one rigid line.
 
 Pressing **F** switches between floor and inertial rendering without mutating puck state. The bottom rail changes omega, **C** clears pucks, **Space** pauses, and **R** restores the canonical turntable.
+
+## Reprise
+
+Reprise is a reversible four-direction lattice gas on a periodic 64 × 40 grid.
+
+Each cell stores a four-bit particle mask for north/east/south/west motion. The only non-trivial collision swaps an exactly opposed north+south pair with east+west; every other mask is unchanged. This collision map is self-inverse.
+
+A forward tick applies collision, then streams each directional bit one cell in its own direction with periodic wrapping. The streaming step is therefore a permutation of particle bits.
+
+A reverse tick applies the exact inverse stream first, then applies the same self-inverse collision map. No historical lattice states are stored.
+
+The room keeps only a signed tick counter and a 32-bit checksum of the current chosen origin. External visitor injection deliberately rebases the origin because that edit is not part of the reversible autonomous dynamics. When the tick counter returns to zero, a matching checksum verifies that the current lattice equals the origin state.
+
+**T** flips time direction, click injects a local reversible-gas disturbance and rebases the origin, **Space** pauses, and **R** restores the deterministic canonical gas.
 
 ## Keyboard and focus interaction
 
