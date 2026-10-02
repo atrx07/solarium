@@ -4,11 +4,11 @@
 
 Monodromy is a complex-analysis room built around the two-valued square root.
 
-The left chamber is the **base plane** for a complex number (z). The right chamber shows the two values of (w) satisfying:
+The left chamber is the **base plane** for a complex number `z`. The right chamber shows the two values of `w` satisfying:
 
-[
-w^2 = z
-]
+```text
+w² = z
+```
 
 The warm point is not recomputed from the principal square-root branch each frame. Solarium follows it by **continuous analytic continuation**.
 
@@ -16,41 +16,33 @@ That distinction is the whole room.
 
 ## What happens
 
-Write
+Write `z = r · exp(iθ)`.
 
-[
-z = r e^{i	heta}.
-]
+A continuously followed square root is `w = √r · exp(iθ/2)`.
 
-A continuously followed square root is
+If the visitor moves `z` once around the origin, `θ` changes by `2π`. The root angle changes by only `π`, so:
 
-[
-w = sqrt{r},e^{i	heta/2}.
-]
-
-If the visitor moves (z) once around the origin, (	heta) changes by (2pi). The root therefore changes by only (pi):
-
-[
-w ightarrow -w.
-]
+```text
+w → -w
+```
 
 The base-plane point has returned to the same location, but the followed root has exchanged places with the other solution.
 
-A second complete circuit adds another (pi) to the root angle and brings the followed value home.
+A second complete circuit adds another `π` to the root angle and brings the followed value home.
 
-Nothing is randomly switched and no state is secretly replayed. The room keeps an **unwrapped argument** for (z), so moving continuously around the branch point carries the root continuously between the two sheets.
+Nothing is randomly switched and no state is secretly replayed. The room keeps an **unwrapped argument** for `z`, so moving continuously around the branch point carries the root continuously between the two sheets.
 
 ## The branch point
 
 The glowing point at the origin is special.
 
-At (z=0), the two square roots meet, so the local distinction between the two sheets disappears. The room deliberately refuses pointer continuation through a tiny neighborhood around zero rather than pretending the branch point behaves like an ordinary coordinate.
+At `z = 0`, the two square roots meet, so the local distinction between the two sheets disappears. The room deliberately refuses pointer continuation through a tiny neighborhood around zero rather than pretending the branch point behaves like an ordinary coordinate.
 
 The dashed negative real axis is a visual branch cut. Crossing it changes which conventional sheet label the continuous value occupies; the cut is bookkeeping, not a physical wall.
 
 ## Controls
 
-- **Move inside the left plane** — move (z) while continuously following one root.
+- **Move inside the left plane** — move `z` while continuously following one root.
 - **Click** — choose the current base-plane point directly.
 - **Space** — trace one guided counterclockwise circuit at the current radius.
 - **Shift + Space** — trace one guided clockwise circuit.
@@ -65,15 +57,9 @@ The cool point in the root plane is the other square root. It is always exactly 
 
 The room stores only a bounded trail plus the current radius and an **unwrapped** complex argument.
 
-Pointer angles arrive in the usual principal interval around ([-pi,pi]). Each movement contributes the shortest signed angular delta to the unwrapped argument. That lets the state accumulate (2pi), (4pi), or negative winding without an artificial jump at the branch cut.
+Pointer angles arrive in the usual principal interval around `[-π, π]`. Each movement contributes the shortest signed angular delta to the unwrapped argument. That lets the state accumulate `2π`, `4π`, or negative winding without an artificial jump at the branch cut.
 
-The displayed base value uses the ordinary periodic coordinates
-
-[
-z = r(cos	heta + isin	heta),
-]
-
-while the followed root uses half of the unwrapped angle.
+The displayed base value uses the ordinary periodic coordinates `z = r(cos θ + i sin θ)`, while the followed root uses half of the unwrapped angle.
 
 The branch-sheet label is derived from how many branch-cut intervals the unwrapped angle has crossed. It does not alter the mathematics; it only names the currently followed sheet.
 
