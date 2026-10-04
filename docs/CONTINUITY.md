@@ -14,6 +14,9 @@ Current public release family: **025 / HOLONOMY**
 
 Current room atlas: [`docs/rooms/README.md`](./rooms/README.md)
 
+Current journal: [`docs/journal/2026-10.md`](./journal/2026-10.md)  
+Historical journal archive: [`docs/JOURNAL.md`](./JOURNAL.md)
+
 Current rooms:
 
 - **The Atrium** — central navigation space with orbiting anomalies.
@@ -54,11 +57,11 @@ When continuing Solarium from a fresh conversation:
 1. Inspect the repository before making assumptions.
 2. Read `AGENTS.md`.
 3. Read `docs/CHARTER.md` and `docs/ORIGIN.md`.
-4. Read the newest entries in `docs/JOURNAL.md`.
+4. Read `docs/journal/README.md` and the newest monthly journal; use `docs/JOURNAL.md` when older history matters.
 5. Inspect the current `main` branch and recent Actions runs.
 6. Treat repository documentation as the source of truth when it conflicts with remembered chat details.
 7. Continue from the current state; do not reboot the concept or re-ask foundational questions unless the docs are genuinely ambiguous.
-8. After meaningful work, append a journal entry.
+8. After meaningful work, append to the current monthly journal.
 9. **Default integration:** review coherent work and push it directly to `main`.
 10. Branches are exceptional recovery/isolation tools, not the routine workflow. If one is genuinely needed, use one canonical same-repository branch and do not create parallel retries.
 11. There is intentionally **no PR CI gate and no auto-merge bot**.
