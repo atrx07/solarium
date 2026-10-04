@@ -10,7 +10,7 @@ Live site: https://atrx07.github.io/solarium/
 
 Default branch: `main`
 
-Current public release family: **024 / MONODROMY**
+Current public release family: **025 / HOLONOMY**
 
 Current room atlas: [`docs/rooms/README.md`](./rooms/README.md)
 
@@ -43,6 +43,7 @@ Current rooms:
 - **XXIV · Reprise** — a reversible four-direction lattice gas reconstructs earlier states by applying the exact inverse dynamics, with no stored frame history.
 - **XXV · Caustic** — parallel rays reflect from a circular interior and collectively form a sampled geometric envelope that no individual ray follows.
 - **XXVI · Monodromy** — continuous square-root continuation around a branch point exchanges the two roots after one circuit and returns only after the second.
+- **XXVII · Holonomy** — a tangent vector is parallel-transported around a closed great-circle triangle and returns rotated by the spherical curvature enclosed by the loop.
 
 The project is intentionally unfinished. New rooms should arrive when there is something genuinely interesting to add.
 
