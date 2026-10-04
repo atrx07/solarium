@@ -117,4 +117,6 @@ Start with:
 - [Creative charter](./docs/CHARTER.md)
 - [Origin](./docs/ORIGIN.md)
 - [Architecture](./docs/ARCHITECTURE.md)
-- [Project journal](./docs/JOURNAL.md)
+- [Journal index](./docs/journal/README.md)
+- [Current journal](./docs/journal/2026-10.md)
+- [Historical journal archive](./docs/JOURNAL.md)
