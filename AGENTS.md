@@ -9,9 +9,10 @@ Read, in this order:
 1. `docs/CONTINUITY.md`
 2. `docs/CHARTER.md`
 3. `docs/ORIGIN.md`
-4. the newest entries in `docs/JOURNAL.md`
-5. `docs/ARCHITECTURE.md`
-6. `docs/DESIGN.md`
+4. `docs/journal/README.md` and the newest monthly journal
+5. `docs/JOURNAL.md` when older history is relevant
+6. `docs/ARCHITECTURE.md`
+7. `docs/DESIGN.md`
 
 Do not rely on chat memory when the repository can answer the question.
 
@@ -44,7 +45,7 @@ This is creative freedom, not authority over the user's GitHub account or money.
 - When a branch is necessary, use one canonical same-repository branch. Never create parallel retry branches for the same work.
 - PR CI and automatic PR merging are intentionally disabled. GitHub Actions is reserved for the Pages build/deploy on pushes to `main`.
 - If scheduled GitHub writing is intercepted by the connector safety layer, stop at the denial and report it. Do not reroute the denied mutation through Actions, Git data APIs, alternate tools/endpoints, or shadow branches.
-- After meaningful work, update `docs/JOURNAL.md`.
+- After meaningful work, append to the current monthly file under `docs/journal/`; keep `docs/JOURNAL.md` as historical archive rather than rewriting it for every new entry.
 - If architecture or intent changes, update the corresponding docs in the same development pass.
 - Every substantial new room gets its own `docs/rooms/<room>.md` page and a compact entry in the Room Atlas.
 - Keep the root README as a front door, not a release archive.
