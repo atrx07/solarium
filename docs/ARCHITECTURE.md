@@ -71,6 +71,8 @@ src/
     drift.ts
     reprise.ts
     caustic.ts
+    monodromy.ts
+    holonomy.ts
   main.ts
   style.css
 ```
@@ -129,6 +131,8 @@ docs/
     drift.md
     reprise.md
     caustic.md
+    monodromy.md
+    holonomy.md
 ```
 
 The root `README.md` is intentionally concise. It contains the origin, a compact room index, basic run instructions, principles, and links into deeper documentation.
@@ -141,7 +145,7 @@ Every substantial new room should add one room document and one compact atlas/in
 
 The current room identity is represented by a small union:
 
-`atrium | gravitas | bloom | resonance | murmuration | mycelium | tides | reaction | prism | chaos | echo | moire | phase | polarity | territory | threshold | hysteresis | phantom | trace | avalanche | elsewhen | doppler | alias | drift | reprise | caustic`
+`atrium | gravitas | bloom | resonance | murmuration | mycelium | tides | reaction | prism | chaos | echo | moire | phase | polarity | territory | threshold | hysteresis | phantom | trace | avalanche | elsewhen | doppler | alias | drift | reprise | caustic | monodromy | holonomy`
 
 The Atrium acts as the central navigation layer.
 
@@ -498,6 +502,20 @@ The dashed negative real axis is a visual branch cut. Sheet labels are derived f
 Pointer continuation is intentionally suspended inside a small neighborhood of the branch point where the two square-root sheets meet. Guided Space/Shift+Space circuits advance the same unwrapped angle used by direct manipulation rather than invoking a separate animation path.
 
 Path history is bounded, deterministic, and browser-local.
+
+## Holonomy
+
+Holonomy is a browser-local spherical-geometry room built from exact great-circle transport on a unit sphere.
+
+The closed loop uses the north pole plus two equatorial vertices. If their equatorial separation is `α`, the spherical triangle has angles `90°`, `90°`, and `α`, so its spherical excess — and unit-sphere area — is exactly `α` radians.
+
+Each geodesic edge from unit point `p` to unit point `q` is represented by the axis `normalize(p × q)` and angle `acos(p · q)`. The traveler is moved along that edge by a 3D rotation about the great-circle axis. Its tangent vector is parallel-transported by applying the **same rotation** to the vector.
+
+The three exact edge transports are composed without integrating a fake steering force or authoring the returned angle. When the traveler reaches the north pole again, the signed angle between the initial and transported tangent vectors is the measured holonomy. For this triangle family it equals the enclosed spherical area, exposing the curvature/holonomy relation directly.
+
+Pointer x-position changes `α` while the geometry is unlocked. Click locks/unlocks the triangle, **Space** performs or cancels one complete transport circuit, and **R** restores the canonical loop. The rendered sphere/grid are observational; they do not affect the transport calculation.
+
+All state is deterministic, bounded, and browser-local.
 
 ## Keyboard and focus interaction
 
