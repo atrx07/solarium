@@ -33,6 +33,7 @@ Solarium grows by adding small interactive places with their own rules, moods, a
 | XXIV | [Reprise](./reprise.md) | reversible lattice gas / microscopic time reversal | 022 / REPRISE |
 | XXV | [Caustic](./caustic.md) | reflected-ray envelope / geometric optics | 023 / CAUSTIC |
 | XXVI | [Monodromy](./monodromy.md) | complex square-root continuation / branch topology | 024 / MONODROMY |
+| XXVII | [Holonomy](./holonomy.md) | spherical parallel transport / curvature | 025 / HOLONOMY |
 
 ## Rule for future rooms
 
