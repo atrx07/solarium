@@ -36,7 +36,7 @@ The longer version lives in [docs/ORIGIN.md](./docs/ORIGIN.md). The project keep
 
 ## Room Atlas
 
-Current public release: **025 / HOLONOMY** · **27 anomalies + The Atrium**
+Current public release: **026 / PARALLAX** · **28 anomalies + The Atrium**
 
 | | Room | What lives there |
 | --- | --- | --- |
@@ -68,6 +68,7 @@ Current public release: **025 / HOLONOMY** · **27 anomalies + The Atrium**
 | XXV | [**Caustic**](./docs/rooms/caustic.md) | ordinary reflections crowd into a curve no ray follows |
 | XXVI | [**Monodromy**](./docs/rooms/monodromy.md) | one loop around a branch point returns the other square root |
 | XXVII | [**Holonomy**](./docs/rooms/holonomy.md) | a vector returns rotated because the sphere enclosed curvature |
+| XXVIII | [**Parallax**](./docs/rooms/parallax.md) | two viewpoints reveal a distance the light never told you |
 
 The full [**Room Atlas**](./docs/rooms/README.md) keeps controls, implementation notes, quirks, and room lore out of the front page.
 

@@ -28,7 +28,8 @@ export type RoomId =
   | "reprise"
   | "caustic"
   | "monodromy"
-  | "holonomy";
+  | "holonomy"
+  | "parallax";
 
 export type RoomEnvironment = {
   stage: Stage;

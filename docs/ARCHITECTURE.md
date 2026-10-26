@@ -73,6 +73,7 @@ src/
     caustic.ts
     monodromy.ts
     holonomy.ts
+    parallax.ts
   main.ts
   style.css
 ```
@@ -133,6 +134,7 @@ docs/
     caustic.md
     monodromy.md
     holonomy.md
+    parallax.md
 ```
 
 The root `README.md` is intentionally concise. It contains the origin, a compact room index, basic run instructions, principles, and links into deeper documentation.
